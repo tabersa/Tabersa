@@ -2,6 +2,8 @@
 
 <html lang="en">
 @include('dashboard.layout.headhtml')
+@include('sweetalert::alert')
+
 
 <body>
 

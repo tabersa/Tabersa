@@ -22,7 +22,7 @@
                     <div class="card-header pt-7">
                         <!--begin::Title-->
                         <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label fs-1 fw-bold text-gray-800 mb-4"><br>Dashboard</span>
+                            <span class="card-label fs-1 fw-bold text-gray-800 mb-4"><br>DASHBOARD</span>
                             <span class="text-gray-400 fw-semibold fs-6"> Welcome User</span>
                         </h3>
                         <!--end::Title-->

@@ -1,6 +1,7 @@
 <?php
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,12 +13,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Auth::routes();
 Route::get('/', function () {
     return view('login');
-}
-);
+});
 
+// Route::get('/keluar', [LoginController::class, 'logout'])->name('keluar');
+// 
 Route::get('/dashboard', function () {
     return view('page.dashboard');}
 );
@@ -59,3 +61,7 @@ Route::get('/sinkron', function () {
 Route::get('/setting', function () {
     return view('page.setting.setting');}
 );
+
+
+// Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

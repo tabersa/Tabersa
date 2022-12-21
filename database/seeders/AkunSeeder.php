@@ -1,0 +1,39 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\User;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class AkunSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $user = [
+            [
+                'tenant' => 'Admin',
+                'name' => 'Admin',
+                'email' => 'admin@itsolutionstuff.com',
+                'is_admin' => '1',
+                'password' => bcrypt('123456'),
+            ],
+            [
+                'tenant' => 'User',
+                'name' => 'User',
+                'email' => 'user@itsolutionstuff.com',
+                'is_admin' => '0',
+                'password' => bcrypt('123456'),
+            ],
+        ];
+
+        foreach ($user as $key => $value) {
+            User::create($value);
+        }
+    }
+}
