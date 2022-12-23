@@ -1,7 +1,14 @@
 <?php
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\CIFController;
+use App\Http\Controllers\SavingController;
+use App\Http\Controllers\SinkronController;
+use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\SettingController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,24 +25,17 @@ Route::get('/', function () {
     return view('login');
 });
 
-// Route::get('/keluar', [LoginController::class, 'logout'])->name('keluar');
+Route::get('/keluar', [LoginController::class, 'keluar'])->name('keluar');
 // 
-Route::get('/dashboard', function () {
-    return view('page.dashboard');}
-);
+Route::get('/dashboard', [DashboardController::class, 'Profile'])->name('dashboard');
 
-Route::get('/cif', function () {
-    return view('page.cif.cif');}
-);
-
-Route::get('/infocif', function () {
-    return view('page.cif.infocif');}
-);
+Route::get('/cif', [CIFController::class, 'index'])->name('cif');
+Route::get('/infocif/{id}/show', [CIFController::class, 'show'])->name('cif.show');
 
 
-Route::get('/tabungan', function () {
-    return view('page.tabungan.tabungan');}
-);
+
+
+Route::get('/tabungan', [SavingController::class, 'index'])->name('tabungan');
 
 Route::get('/infotabungan', function () {
     return view('page.tabungan.infotabungan');}
@@ -44,23 +44,16 @@ Route::get('/infotabungan', function () {
 Route::get('/tes', function () {
     return view('page.tabungan.tes');}
 );
+Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi');
 
-Route::get('/transaksi', function () {
-    return view('page.transaksi.transaksi');}
-);
 
 Route::get('/infotransaksi', function () {
     return view('page.transaksi.infotransaksi');}
 );
 
+Route::get('/sinkron', [SinkronController::class, 'index'])->name('sinkron');
 
-Route::get('/sinkron', function () {
-    return view('page.sinkron.sinkronisasi');}
-);
-
-Route::get('/setting', function () {
-    return view('page.setting.setting');}
-);
+Route::get('/setting', [SettingController::class, 'index'])->name('setting');
 
 
 // Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');

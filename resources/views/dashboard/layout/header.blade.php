@@ -65,7 +65,7 @@
 
                 <!--begin::User menu-->
                 <div class="app-navbar-item ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
-                    <p class="h4 mx-4">Hello, <b>Anna Josepin</b></p>
+                    <p class="h4 mx-4">Hello, <b>{{ $profile->data->userName }}</b></p>
                     <!--begin::Menu wrapper-->
                     <div class="cursor-pointer symbol symbol-35px symbol-md-40px" data-kt-menu-trigger="click"
                         data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">

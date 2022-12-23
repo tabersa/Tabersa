@@ -31,7 +31,6 @@
                         <thead>
                             <!--begin::Table row-->
                             <tr class="text-start fw-bold fs-7 text-uppercase gs-0">
-
                                 <th class="min-w-120px ">NASABAH</th>
                                 <th class="min-w-140px">TANGGAL TRANSAKSI</th>
                                 <th class="min-w-125px">TIPE</th>
@@ -44,294 +43,91 @@
                         <!--end::Table head-->
                         <!--begin::Table body-->
                         <tbody>
+                            @forelse($transaksi->data as $datatransaksi)
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="symbol symbol-50px me-3">
+                                            <img src="{{ asset('assets/media/stock/600x600/img-44.jpg') }}"
+                                                class="" alt="" />
+                                        </div>
+                                        <div class="d-flex justify-content-start flex-column">
+                                            <a href="{{ url('/infotransaksi') }}" class="fw-bold text-hover-primary fs-6">
+                                                Donny Asgar
+                                            </a>
+                                            <span class="d-block fs-7">
+                                                {{$datatransaksi->cifId }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-start">
+                                    <span class=" fs-6">{{ date('d F Y', strtotime(substr($datatransaksi->transactionDate, 0, 10))) }}</span>
+                                </td>
+                                <td class="text-start">
+                                    <span class=" fs-6">{{$datatransaksi->invoiceNumber }}</span>
+                                </td>
+                                <td class="text-start">
+                                    <span class=" fs-6">{{$datatransaksi->description }}</span>
+
+                                </td>
+                                <td class="text-start">
+                                    {{-- <div id="kt_table_widget_14_chart_1" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div> --}}
+                                    <span class=" fs-6">Rp.{{number_format($datatransaksi->totalAmount,2,',','.')}}</span>
+                                </td>
+                                <td class="text-start">
+
+                                    @if ($datatransaksi->status === 0)
+                                    <a href="#" class="btn btn-sm btn-block btn-active-color-light"
+                                    style="background-color: #D1D8D3">
+                                    <span class="text-hover-info fw-bold" style="color: #808A82">
+                                        Pending
+                                    </span>
+                                </a>
+                                    @elseif ($datatransaksi->status === 1)
+                                    <a href="#" class="btn btn-sm btn-block btn-active-color-light"
+                                        style="background-color: #ECFAFF">
+                                        <span class="text-hover-info fw-bold" style="color: ##27BFEF">
+                                            Approved
+                                        </span>
+                                    </a>
+                                    @elseif ($datatransaksi->status === 2)
+                                    <a href="#" class="btn btn-sm btn-block btn-active-color-light"
+                                    style="background-color: #FFEBEB">
+                                    <span class="text-hover-info fw-bold" style="color: #DC3F3F">
+                                        Rejected
+                                    </span>
+                                </a>
+                                    @elseif ($datatransaksi->status === 3)
+                                    <a href="#" class="btn btn-sm btn-block btn-active-color-light"
+                                    style="background-color: #eeff8f">
+                                    <span class="text-hover-info fw-bold" style="color: #a9bc01">
+                                        Canceled
+                                    </span>
+                                </a>
+                                    @elseif ($datatransaksi->status === 4)
+                                    <a href="#" class="btn btn-sm btn-block btn-active-color-light"
+                                    style="background-color: #eeff8f">
+                                    <span class="text-hover-info fw-bold" style="color: #a9bc01">
+                                        Canceled
+                                    </span>
+                                </a>
+                                    @else
+                                    <a href="#" class="btn btn-sm btn-block btn-active-color-light"
+                                    style="background-color: #FFEBEB">
+                                    <span class="text-hover-info fw-bold" style="color: #DC3F3F">
+                                        Failed
+                                    </span>
+                                </a>
+                                    @endif
+
+                                    
+                                </td>
+                            </tr>
+                            @empty
+                                <span>Data Kosong</span>
+                            @endforelse
                             
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="symbol symbol-50px me-3">
-                                            <img src="{{ asset('assets/media/stock/600x600/img-44.jpg') }}"
-                                                class="" alt="" />
-                                        </div>
-                                        <div class="d-flex justify-content-start flex-column">
-                                            <a href="{{ url('/infotransaksi') }}" class="fw-bold text-hover-primary fs-6">
-                                                Donny Asgar
-                                            </a>
-                                            <span class="d-block fs-7">
-                                                112131313
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">16 Jan 2022</span>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">JF12849AZXY</span>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">Transfer &emsp;</span>
-                                    <span class=" fs-6">Pembayaran Listrik Rumah</span>
-
-                                </td>
-                                <td class="text-start">
-                                    {{-- <div id="kt_table_widget_14_chart_1" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div> --}}
-                                    <span class=" fs-6">Rp. 1.000.000</span>
-                                </td>
-                                <td class="text-start">
-                                    <a href="#" class="btn btn-sm btn-block btn-active-color-light"
-                                        style="background-color: #fdd4d4">
-                                        <span class="text-hover-info fw-bold" style="color: #DC3F3F">
-                                            Rejected
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="symbol symbol-50px me-3">
-                                            <img src="{{ asset('assets/media/stock/600x600/img-44.jpg') }}"
-                                                class="" alt="" />
-                                        </div>
-                                        <div class="d-flex justify-content-start flex-column">
-                                            <a href="{{ url('/infotransaksi') }}" class="fw-bold text-hover-primary fs-6">
-                                                Halim Supratna
-                                            </a>
-                                            <span class="d-block fs-7">
-                                                112131313
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">16 Jan 2022</span>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">JF12849AZXY</span>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">Transfer &emsp;</span>
-                                    <span class=" fs-6">Pembayaran Listrik Rumah</span>
-
-                                </td>
-                                <td class="text-start">
-                                    {{-- <div id="kt_table_widget_14_chart_1" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div> --}}
-                                    <span class=" fs-6">Rp. 1.000.000</span>
-                                </td>
-                                <td class="text-start">
-                                    <a href="#"
-                                        class="btn btn-sm btn-block btn-bg-secondary btn-active-color-primary">
-                                        <span class=" text-gray-500 text-hover-primary">
-                                            Pending
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="symbol symbol-50px me-3">
-                                            <img src="{{ asset('assets/media/stock/600x600/img-44.jpg') }}"
-                                                class="" alt="" />
-                                        </div>
-                                        <div class="d-flex justify-content-start flex-column">
-                                            <a href="{{ url('/infotransaksi') }}" class="fw-bold text-hover-primary fs-6">
-                                                Jerome Polin
-                                            </a>
-                                            <span class="d-block fs-7">
-                                                112131313
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">16 Jan 2022</span>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">JF12849AZXY</span>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">Transfer &emsp;</span>
-                                    <span class=" fs-6">Pembayaran Listrik Rumah</span>
-
-                                </td>
-                                <td class="text-start">
-                                    {{-- <div id="kt_table_widget_14_chart_1" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div> --}}
-                                    <span class=" fs-6">Rp. 1.000.000</span>
-                                </td>
-                                <td class="text-start">
-                                    <a href="#" class="btn btn-sm btn-block btn-active-color-light"
-                                        style="background-color: #d4f1fd">
-                                        <span class="text-hover-info fw-bold" style="color: #27BFEF">
-                                            Approved
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="symbol symbol-50px me-3">
-                                            <img src="{{ asset('assets/media/stock/600x600/img-44.jpg') }}"
-                                                class="" alt="" />
-                                        </div>
-                                        <div class="d-flex justify-content-start flex-column">
-                                            <a href="{{ url('/infotransaksi') }}" class="fw-bold text-hover-primary fs-6">
-                                                Donny Asgar
-                                            </a>
-                                            <span class="d-block fs-7">
-                                                112131313
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">16 Jan 2022</span>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">JF12849AZXY</span>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">Transfer &emsp;</span>
-                                    <span class=" fs-6">Pembayaran Listrik Rumah</span>
-
-                                </td>
-                                <td class="text-start">
-                                    {{-- <div id="kt_table_widget_14_chart_1" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div> --}}
-                                    <span class=" fs-6">Rp. 1.000.000</span>
-                                </td>
-                                <td class="text-start">
-                                    <a href="#" class="btn btn-sm btn-block btn-active-color-light"
-                                        style="background-color: #fdd4d4">
-                                        <span class="text-hover-info fw-bold" style="color: #DC3F3F">
-                                            Rejected
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="symbol symbol-50px me-3">
-                                            <img src="{{ asset('assets/media/stock/600x600/img-44.jpg') }}"
-                                                class="" alt="" />
-                                        </div>
-                                        <div class="d-flex justify-content-start flex-column">
-                                            <a href="{{ url('/infotransaksi') }}" class="fw-bold text-hover-primary fs-6">
-                                                Halim Supratna
-                                            </a>
-                                            <span class="d-block fs-7">
-                                                112131313
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">16 Jan 2022</span>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">JF12849AZXY</span>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">Transfer &emsp;</span>
-                                    <span class=" fs-6">Pembayaran Listrik Rumah</span>
-
-                                </td>
-                                <td class="text-start">
-                                    {{-- <div id="kt_table_widget_14_chart_1" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div> --}}
-                                    <span class=" fs-6">Rp. 1.000.000</span>
-                                </td>
-                                <td class="text-start">
-                                    <a href="#"
-                                        class="btn btn-sm btn-block btn-bg-secondary btn-active-color-primary">
-                                        <span class=" text-gray-500 text-hover-primary">
-                                            Pending
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="symbol symbol-50px me-3">
-                                            <img src="{{ asset('assets/media/stock/600x600/img-44.jpg') }}"
-                                                class="" alt="" />
-                                        </div>
-                                        <div class="d-flex justify-content-start flex-column">
-                                            <a href="{{ url('/infotransaksi') }}" class="fw-bold text-hover-primary fs-6">
-                                                Jerome Polin
-                                            </a>
-                                            <span class="d-block fs-7">
-                                                112131313
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">16 Jan 2022</span>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">JF12849AZXY</span>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">Transfer &emsp;</span>
-                                    <span class=" fs-6">Pembayaran Listrik Rumah</span>
-
-                                </td>
-                                <td class="text-start">
-                                    {{-- <div id="kt_table_widget_14_chart_1" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div> --}}
-                                    <span class=" fs-6">Rp. 1.000.000</span>
-                                </td>
-                                <td class="text-start">
-                                    <a href="#" class="btn btn-sm btn-block btn-active-color-light"
-                                        style="background-color: #d4f1fd">
-                                        <span class="text-hover-info fw-bold" style="color: #27BFEF">
-                                            Approved
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="symbol symbol-50px me-3">
-                                            <img src="{{ asset('assets/media/stock/600x600/img-44.jpg') }}"
-                                                class="" alt="" />
-                                        </div>
-                                        <div class="d-flex justify-content-start flex-column">
-                                            <a href="{{ url('/infotransaksi') }}" class="fw-bold text-hover-primary fs-6">
-                                                Donny Asgar
-                                            </a>
-                                            <span class="d-block fs-7">
-                                                112131313
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">16 Jan 2022</span>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">JF12849AZXY</span>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">Transfer &emsp;</span>
-                                    <span class=" fs-6">Pembayaran Listrik Rumah</span>
-
-                                </td>
-                                <td class="text-start">
-                                    {{-- <div id="kt_table_widget_14_chart_1" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div> --}}
-                                    <span class=" fs-6">Rp. 1.000.000</span>
-                                </td>
-                                <td class="text-start">
-                                    <a href="#" class="btn btn-sm btn-block btn-active-color-light"
-                                        style="background-color: #fdd4d4">
-                                        <span class="text-hover-info fw-bold" style="color: #DC3F3F">
-                                            Rejected
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
                         </tbody>
                         <!--end::Table body-->
                     </table>

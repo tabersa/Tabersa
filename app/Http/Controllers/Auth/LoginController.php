@@ -18,16 +18,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
 
     use AuthenticatesUsers;
 
@@ -36,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -50,7 +40,6 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-
         $this->validate($request, [
             'username' => 'required',
             'password' => 'required',
@@ -84,22 +73,25 @@ class LoginController extends Controller
         // dd($responseData);
         if ($httpcode == 200) {
             $token = $data->data->token;
-            dd(Session::put('token', $token));
-            if (Session::get('token') != null) {
-                Alert::success('Success Title', 'Success Message');
-                return redirect()->route('/dashboard');
+            $request->session()->put('token',$token);
+            // dd($token);
+            // dd(Session::put('token', $token));
+            if ($request->session()->has('token')) {
+                // dd($request->session());
+                Alert::success('Selamat', 'Anda Berhasil Login');
+                return redirect()->route('dashboard');
             } else {
-                Alert::error('Error Title', 'Error Message')->width('1000px');
+                Alert::error('Error', 'Username atau Kata Sandi Anda Salah');
                 return redirect()->route('/');
             }
         } else {
-            Alert::error('Error Title', 'Error Message')->width('1000px');
+            Alert::error('Error', 'Error')->width('1000px');
             return redirect()->route('/');
         }
     }
 
-    public function logout(Request $request)
-    {
+    public function out(Request $request)
+    {   $request->session()->forget('token');
         $request->session()->flush();
         return view('login');
     }

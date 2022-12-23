@@ -30,7 +30,7 @@
                         <!--end::Header-->
                         <!--begin::Body-->
                         <div class="card-body pt-6">
-
+                        
                             <form>
                                 <div class="row">
                                     <div class="col mx-4">
@@ -44,7 +44,7 @@
                                         <!-- nama -->
                                         <div class="form-outline mb-4">
                                             <label class="form-label fw-bold" for="form6Example1">No. CIF</label>
-                                            <input type="text" id="form6Example1" class="form-control" />
+                                            <input type="text" id="form6Example1" class="form-control" value="{{ $datainfo->cifNumber }}" />
                                         </div>
 
                                         <!-- Text input -->

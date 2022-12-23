@@ -48,141 +48,87 @@
                         <!--end::Table head-->
                         <!--begin::Table body-->
                         <tbody class="">
-                            <!--begin::Table row-->
-                            <tr>
-                                <!--begin::Checkbox-->
-                                <td></td>
-                                <!--end::Checkbox-->
-                                <!--begin::User=-->
-                                <td class="d-flex align-items-center">
-                                    <!--begin:: Avatar -->
-                                    <div class="symbol symbol-50px me-3">
-                                        <img src="{{ asset('assets/media/stock/600x600/img-43.jpg') }}" class=""
-                                            alt="" />
-                                    </div>
-                                    <!--end::Avatar-->
-                                    <!--begin::User details-->
-                                    <div class="d-flex justify-content-start flex-column">
-                                        <a class="fw-bold text-dark text-hover-primary d-block fs-5"
-                                            href="{{ url('/infotabungan') }}">
-                                            1289321085095
-                                        </a>
-                                    </div>
-                                    <!--begin::User details-->
-                                </td>
-                                <!--end::User=-->
-                                <!--begin::tgl regist=-->
-                                <td>
-                                    <div class="d-flex justify-content-start flex-column">
-                                        <span class=" fw-semibold d-block fs-7">
-                                            Tabersa
-                                        </span>
-                                        <span class=" fw-semibold d-block fs-7">
-                                            Tabungan BPR
-                                        </span>
-                                    </div>
-                                </td>
-                                <!--end::tgl regist=-->
-                                <!--begin::identitas=-->
-                                <td>
-                                    <div class="d-flex justify-content-start flex-column">
-                                        <span class="fw-bold mb-1 fs-6">
-                                            Donny Sidarta
-                                        </span>
-                                        <span class="fw-semibold d-block fs-8">
-                                            1213213123123124124
-                                        </span>
-                                    </div>
-                                </td>
-                                <!--end::identitas=-->
-                                <!--begin::no.seluler=-->
-                                <td> <span class="fw-bold mb-1 fs-6">
-                                        16 Jan 2022
-                                    </span></td>
-                                <!--end::no.seluler=-->
-                                <!--begin::email-->
-                                <td class="text-center"> <a href="#" class="btn btn-sm btn-active-color-primary"
-                                        style="background-color: #ECFAFF;">
-                                        <span class="fw-bold text-hover-dark" style="color: #27BFEF">
-                                            Active
-                                        </span>
-                                    </a>
-                                </td>
-                                <!--begin::email-->
-                                <!--begin::Action=-->
-                                <td></td>
-                                <!--end::Action=-->
-                            </tr>
-                            <!--end::Table row-->
-                            <!--begin::Table row-->
-                            <tr>
-                                <!--begin::Checkbox-->
-                                <td></td>
-                                <!--end::Checkbox-->
-                                <!--begin::User=-->
-                                <td class="d-flex align-items-center">
-                                    <!--begin:: Avatar -->
-                                    <div class="d-flex align-items-center">
+                            @forelse ($saving->data as $datasaving)
+                                <!--begin::Table row-->
+                                <tr>
+                                    <!--begin::Checkbox-->
+                                    <td></td>
+                                    <!--end::Checkbox-->
+                                    <!--begin::User=-->
+                                    <td class="d-flex align-items-center">
+                                        <!--begin:: Avatar -->
                                         <div class="symbol symbol-50px me-3">
-                                            <img src="{{ asset('assets/media/stock/600x600/img-42.jpg') }}" class=""
+                                            <img src="{{ asset('assets/media/stock/600x600/img-43.jpg') }}" class=""
                                                 alt="" />
                                         </div>
+                                        <!--end::Avatar-->
+                                        <!--begin::User details-->
                                         <div class="d-flex justify-content-start flex-column">
-                                            <a class="fw-bold d-block fs-5 text-dark text-hover-primary"
+                                            <a class="fw-bold text-dark text-hover-primary d-block fs-5"
                                                 href="{{ url('/infotabungan') }}">
-                                                85771313
+                                                {{ $datasaving->savingProduct->id }}
                                             </a>
                                         </div>
-                                    </div>
-                                    <!--begin::User details-->
-                                </td>
-                                <!--end::User=-->
-                                <!--begin::tgl regist=-->
-                                <td>
-                                    <div class="d-flex justify-content-start flex-column">
-                                        <span class=" fw-semibold d-block fs-7">
-                                            BCA
-                                        </span>
-                                        <span class=" fw-semibold d-block fs-7">
-                                            Tabungan VA
-                                        </span>
-                                    </div>
-                                </td>
-                                <!--end::tgl regist=-->
-                                <!--begin::identitas=-->
-                                <td>
-                                    <div class="d-flex justify-content-start flex-column">
-                                        <span class="fw-bold mb-1 fs-6">
-                                            Anna Josepin
-                                        </span>
-                                        <span class="fw-semibold d-block fs-8">
-                                            131313141414
-                                        </span>
-                                    </div>
-                                </td>
-                                <!--end::identitas=-->
-                                <!--begin::no.seluler=-->
-                                <td>
-                                    <span class="fw-bold mb-1 fs-6">
-                                        19 Jan 2022
-                                    </span>
-                                </td>
-                                <!--end::no.seluler=-->
-                                <!--begin::email-->
-                                <td class="text-center">
-                                    <a href="#" class="btn btn-sm btn-active-color-primary"
-                                        style="background-color: #DCF9DD">
-                                        <span class="fw-bold text-hover-dark" style="color: #54CC58">
-                                            Verified
-                                        </span>
-                                    </a>
-                                </td>
-                                <!--begin::email-->
-                                <!--begin::Action=-->
-                                <td></td>
-                                <!--end::Action=-->
-                            </tr>
-                            <!--end::Table row-->
+                                        <!--begin::User details-->
+                                    </td>
+                                    <!--end::User=-->
+                                    <!--begin::tgl regist=-->
+                                    <td>
+                                        <div class="d-flex justify-content-start flex-column">
+                                            <span class=" fw-semibold d-block fs-7">
+                                                {{ $datasaving->savingProduct->productName }}
+                                            </span>
+                                            <span class=" fw-semibold d-block fs-7">
+                                                Tabungan BPR
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <!--end::tgl regist=-->
+                                    <!--begin::identitas=-->
+                                    <td>
+                                        <div class="d-flex justify-content-start flex-column">
+                                            <span class="fw-bold mb-1 fs-6">
+                                                {{ $datasaving->cif->fullName }}
+                                            </span>
+                                            <span class="fw-semibold d-block fs-8">
+                                                {{ $datasaving->cif->id }}
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <!--end::identitas=-->
+                                    <!--begin::no.seluler=-->
+                                    <td> <span class="mb-1 fs-6">
+                                            {{ date('d F Y', strtotime(substr($datasaving->openDate, 0, 10))) }}
+                                        </span></td>
+                                    <!--end::no.seluler=-->
+                                    <!--begin::email-->
+                                    <td class="text-center">
+                                        @if ($datasaving->status === 1)
+                                            <a href="#" class="btn btn-sm btn-active-color-primary"
+                                                style="background-color: #ECFAFF;">
+                                                <span class="fw-bold text-hover-dark" style="color: #27BFEF">
+                                                    Active
+                                                </span>
+                                            </a>
+                                        @else
+                                            <a href="#" class="btn btn-sm btn-active-color-primary"
+                                                style="background-color: #DCF9DD">
+                                                <span class="fw-bold text-hover-dark" style="color: #54CC58">
+                                                    Verified
+                                                </span>
+                                            </a>
+                                        @endif
+
+                                    </td>
+                                    <!--begin::email-->
+                                    <!--begin::Action=-->
+                                    <td></td>
+                                    <!--end::Action=-->
+                                </tr>
+                                <!--end::Table row-->
+                            @empty
+                                <span>Data Kosong</span>
+                            @endforelse
 
                         </tbody>
                         <!--end::Table body-->

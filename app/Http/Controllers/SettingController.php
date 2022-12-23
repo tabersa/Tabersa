@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class DashboardController extends Controller
+class SettingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,12 +13,7 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index()
-    {
-    }
-
-
-    public function Profile(Request $request)
+    public function index( Request $request)
     {
         if ($request->session()->exists('token')) {
             $token = $request->session()->get('token');
@@ -43,12 +38,14 @@ class DashboardController extends Controller
             $profile = json_decode($response);
             // dd($profile);
             
-            return view('page.dashboard', compact('profile'));
+            return view('page.setting.setting', compact('profile'));
         } else {
             Alert::error('Error Title', 'Error Message')->width('1000px');
             return redirect()->route('/');
         }
     }
+
+
 
 
     /**

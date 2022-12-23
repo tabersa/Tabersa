@@ -16,6 +16,8 @@ class Dashboard
      */
     public function handle(Request $request, Closure $next)
     {
-        
+        if ($request->session()->exists('token')) {
+            $token = $request->session()->get('token');
+        }
     }
 }

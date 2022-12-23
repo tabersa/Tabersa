@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class DashboardController extends Controller
+class SavingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,41 +13,62 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index()
-    {
-    }
-
-
-    public function Profile(Request $request)
+    public function index(Request $request)
     {
         if ($request->session()->exists('token')) {
             $token = $request->session()->get('token');
-            $curl = curl_init();
 
+            // dapetin username header
+            $curl = curl_init();
             curl_setopt_array($curl, array(
-                CURLOPT_URL => 'http://147.139.130.151:8060/api/identity/profile',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'GET',
-                CURLOPT_HTTPHEADER => array(
-                    'Authorization: Bearer '.$token
+            CURLOPT_URL => 'http://147.139.130.151:8060/api/identity/profile',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                    'Authorization: Bearer ' . $token
                 ),
-            ));
+            )
+            );
             $response = curl_exec($curl);
-            // $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-            curl_close($curl);
             $profile = json_decode($response);
-            // dd($profile);
-            
-            return view('page.dashboard', compact('profile'));
+
+            // dapetin data cif
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+            CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/saving/bycif/e1be0000-3e01-0016-06a0-08da9c94e0de',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                    'Authorization: Bearer ' . $token
+                ),
+            )
+            );
+
+            $datasaving = curl_exec($curl);
+            curl_close($curl);
+            $saving = json_decode($datasaving);
+
+            // dd($cif->data);
+            return view('page.tabungan.tabungan', compact('profile', 'saving'));
         } else {
             Alert::error('Error Title', 'Error Message')->width('1000px');
             return redirect()->route('/');
         }
+    }
+
+
+    public function Profile()
+    {
     }
 
 
