@@ -4,7 +4,12 @@
 @extends('dashboard.layout.headhtml')
 
 @section('title', 'Tabersa | Customer Information Page')
-@section('toolbartitle', 'Customer Information Page')
+@section('toolbartitle')
+    <span>
+        <a href="{{ url('/cif') }}" style="color: #54CC58">Customer Information Page</a>
+        &emsp;/&emsp;Customer Information
+    </span>
+@endsection
 @section('content')
 
     <!--begin::Content wrapper-->
@@ -21,7 +26,8 @@
                         <div class="card-header pt-7">
                             <!--begin::Title-->
                             <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label fs-1 fw-bold text-gray-800 mb-4"><br>Customer Information Page</span>
+                                <span class="card-label fs-1 fw-bold text-gray-800 mb-4"><br>Customer Information
+                                    Page</span>
                                 <span class="text-gray-400 fw-semibold fs-6">Periksa Informasi Customer Anda Disini</span>
                             </h3>
                             <!--end::Title-->
@@ -30,7 +36,7 @@
                         <!--end::Header-->
                         <!--begin::Body-->
                         <div class="card-body pt-6">
-                        
+
                             <form>
                                 <div class="row">
                                     <div class="col mx-4">
@@ -44,13 +50,15 @@
                                         <!-- nama -->
                                         <div class="form-outline mb-4">
                                             <label class="form-label fw-bold" for="form6Example1">No. CIF</label>
-                                            <input type="text" id="form6Example1" class="form-control" value="{{ $datainfo->cifNumber }}" />
+                                            <input type="text" id="form6Example1" class="form-control"
+                                                value="{{ $datainfo->cifNumber }}" />
                                         </div>
 
                                         <!-- Text input -->
                                         <div class="form-outline mb-4">
                                             <label class="form-label fw-bold" for="form6Example3">Nama Lengkap</label>
-                                            <input type="text" id="form6Example3" class="form-control" />
+                                            <input type="text" id="form6Example3" class="form-control"
+                                                value="{{ $datainfo->fullName }}" />
                                         </div>
 
                                         <!-- Text input -->
@@ -58,13 +66,37 @@
                                             <div class="col">
                                                 <div class="form-outline">
                                                     <label class="form-label" for="form6Example1">NIK</label>
-                                                    <input type="text" id="form6Example1" class="form-control" />
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <select class="form-select" aria-label="Default select example">
+                                                                <option value="1" <?php if ($datainfo->identityType == '1') {
+                                                                    echo 'selected="selected"';
+                                                                } ?>>KTP</option>
+                                                                <option value="2" <?php if ($datainfo->identityType == '2') {
+                                                                    echo 'selected="selected"';
+                                                                } ?>>Passpor</option>
+                                                                <option value="3" <?php if ($datainfo->identityType == '3') {
+                                                                    echo 'selected="selected"';
+                                                                } ?>>NPWP</option>
+                                                                <option value="3" <?php if ($datainfo->identityType == '4') {
+                                                                    echo 'selected="selected"';
+                                                                } ?>>SIM</option>
+                                                                <option value="3" <?php if ($datainfo->identityType == '9') {
+                                                                    echo 'selected="selected"';
+                                                                } ?>>Lainnya</option>
+                                                            </select>
+                                                        </div>
+                                                        <input type="text" id="form6Example1" class="form-control"
+                                                            value="{{ $datainfo->identityNumber }}" />
+                                                    </div>
+
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
                                                     <label class="form-label" for="form6Example2">Tanggal Kadaluarsa</label>
-                                                    <input type="date" id="form6Example2" class="form-control" />
+                                                    <input type="date" id="form6Example2" class="form-control"
+                                                        value="{{ date('Y-m-d', strtotime(substr($datainfo->identityExpiredDate, 0, 10))) }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -72,10 +104,13 @@
                                         <!-- Radio input -->
                                         <div class="row mb-8">
                                             <label class="form-label mb-4" for="form6Example1">Jenis Kelamin <br></label>
+
                                             <div class="col">
                                                 <div class="form-outline">
                                                     <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                        id="flexRadioDefault1" checked>
+                                                        id="flexRadioDefault1" <?php if ($datainfo->gender == '1') {
+                                                            echo 'checked="checked"';
+                                                        } ?>>
                                                     <label class="form-check-label" for="flexRadioDefault1">
                                                         Laki-Laki
                                                     </label>
@@ -85,7 +120,10 @@
                                                 <div class="form-outline">
                                                     <input class="form-check-input" type="radio" name="flexRadioDefault"
                                                         id="flexRadioDefault1">
-                                                    <label class="form-check-label" for="flexRadioDefault1">
+                                                    <label class="form-check-label" for="flexRadioDefault1"
+                                                        <?php if ($datainfo->gender == '2') {
+                                                            echo 'checked="checked"';
+                                                        } ?>>
                                                         Perempuan
                                                     </label>
                                                 </div>
@@ -97,13 +135,15 @@
                                             <div class="col">
                                                 <div class="form-outline">
                                                     <label class="form-label" for="form6Example1">Tempat Lahir</label>
-                                                    <input type="text" id="form6Example1" class="form-control" />
+                                                    <input type="text" id="form6Example1" class="form-control"
+                                                        value="{{ $datainfo->placeOfBirth }}" />
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
                                                     <label class="form-label" for="form6Example2">Tanggal Lahir</label>
-                                                    <input type="date" id="form6Example2" class="form-control" />
+                                                    <input type="date" id="form6Example2" class="form-control"
+                                                        value="{{ date('Y-m-d', strtotime(substr($datainfo->dateOfBirth, 0, 10))) }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -111,7 +151,8 @@
                                         <!-- nama -->
                                         <div class="form-outline mb-4">
                                             <label class="form-label fw-bold" for="form6Example1">Nama Ibu kandung</label>
-                                            <input type="text" id="form6Example1" class="form-control" />
+                                            <input type="text" id="form6Example1" class="form-control"
+                                                value="{{ $datainfo->motherMaidenName }}" />
                                         </div>
 
 
@@ -139,7 +180,7 @@
                                         <!-- Message input -->
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="form6Example7">Alamat Lengkap</label>
-                                            <textarea class="form-control" id="form6Example7" rows="4"></textarea>
+                                            <textarea class="form-control" id="form6Example7" rows="4">{{ $dataaddress->identityAddress }}</textarea>
                                         </div>
 
                                         <!-- Text input -->
@@ -147,13 +188,15 @@
                                             <div class="col">
                                                 <div class="form-outline">
                                                     <label class="form-label" for="form6Example1">Desa / Kelurahan</label>
-                                                    <input type="text" id="form6Example1" class="form-control" />
+                                                    <input type="text" id="form6Example1" class="form-control"
+                                                        value="{{ $dataaddress->identitySubDistrict }}" />
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
                                                     <label class="form-label" for="form6Example2">Kecamatan</label>
-                                                    <input type="text" id="form6Example2" class="form-control" />
+                                                    <input type="text" id="form6Example2" class="form-control"
+                                                        value="{{ $dataaddress->identityDistrict }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -164,23 +207,26 @@
                                                 <div class="form-outline">
                                                     <label class="form-label" for="form6Example1">Kabupaten / Kota</label>
                                                     <select class="form-select" aria-label="Default select example">
-                                                        <option selected disabled>Piih</option>
-                                                        <option value="1">Wilayah Kota Jakarta Utara</option>
-                                                        <option value="2">Wilayah Kota Jakarta Barat</option>
-                                                        <option value="3">Wilayah Kota Jakarta Selatan</option>
-                                                        <option value="4">Wilayah Kota Jakarta Pusat</option>
-                                                        <option value="5">Wilayah Kota Jakarta Timur</option>
+                                                        @foreach ($city as $list)
+                                                            <option value="{{ $list->value }}" <?php if ($dataaddress->identityCity == $list->value) {
+                                                                echo 'selected="selected"';
+                                                            } ?>>
+                                                                {{ $list->label }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
                                                     <label class="form-label" for="form6Example1">Provinsi</label>
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option selected disabled>Pilih</option>
-                                                        <option value="1">Jakarta</option>
-                                                        <option value="2">Banten</option>
-                                                        <option value="3">Jawa Barat</option>
+                                                    <select class="form-control m-bootstrap-select m_selectpicker"
+                                                        name="regional_code" required="">
+                                                        @foreach ($province as $list)
+                                                            <option value="{{ $list->value }}" <?php if ($dataaddress->identityProvince == $list->value) {
+                                                                echo 'selected="selected"';
+                                                            } ?>>
+                                                                {{ $list->label }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -189,7 +235,8 @@
                                         <!-- nama -->
                                         <div class="form-outline mb-4">
                                             <label class="form-label fw-bold" for="form6Example1">Kode Pos</label>
-                                            <input type="text" id="form6Example1" class="form-control" />
+                                            <input type="text" id="form6Example1" class="form-control"
+                                                value="{{ $dataaddress->identityZipCode }}" />
                                         </div>
 
                                         {{-- DETAIL KERJAAN --}}
@@ -206,10 +253,12 @@
                                                 <div class="form-outline">
                                                     <label class="form-label" for="form6Example1">Pekerjaan</label>
                                                     <select class="form-select" aria-label="Default select example">
-                                                        <option selected disabled>Pilih</option>
-                                                        <option value="1">Guru</option>
-                                                        <option value="2">Pengangguran</option>
-                                                        <option value="3">Lain Lain</option>
+                                                        @foreach ($job as $list)
+                                                            <option value="{{ $list->value }}" <?php if ($dataoccupation->occupation == $list->value) {
+                                                                echo 'selected="selected"';
+                                                            } ?>>
+                                                                {{ $list->label }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -217,10 +266,12 @@
                                                 <div class="form-outline">
                                                     <label class="form-label" for="form6Example1">Bidang Usaha</label>
                                                     <select class="form-select" aria-label="Default select example">
-                                                        <option selected disabled>Pilih </option>
-                                                        <option value="1">Swasta</option>
-                                                        <option value="2">Negeri</option>
-                                                        <option value="3">Belum Jelas</option>
+                                                        @foreach ($sector as $list)
+                                                            <option value="{{ $list->value }}" <?php if ($dataoccupation->sectorOfIndustry == $list->value) {
+                                                                echo 'selected="selected"';
+                                                            } ?>>
+                                                                {{ $list->label }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -233,10 +284,12 @@
                                                     <label class="form-label" for="form6Example1">Penghasilan
                                                         Perbulan</label>
                                                     <select class="form-select" aria-label="Default select example">
-                                                        <option selected disabled>Pilih</option>
-                                                        <option value="1">0 - 5 Juta</option>
-                                                        <option value="2">5 - 10 Juta</option>
-                                                        <option value="3">10 - 15 Juta</option>
+                                                        @foreach ($gaji as $list)
+                                                            <option value="{{ $list->value }}" <?php if ($dataoccupation->monthlyIncome == $list->value) {
+                                                                echo 'selected="selected"';
+                                                            } ?>>
+                                                                {{ $list->label }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -245,10 +298,12 @@
                                                     <label class="form-label" for="form6Example1">Pengeluaran
                                                         Perbulan</label>
                                                     <select class="form-select" aria-label="Default select example">
-                                                        <option selected disabled>Pilih</option>
-                                                        <option value="1">0 - 5 Juta</option>
-                                                        <option value="2">5 - 10 Juta</option>
-                                                        <option value="3">10 - 15 Juta</option>
+                                                        @foreach ($pengeluaran as $list)
+                                                            <option value="{{ $list->value }}" <?php if ($dataoccupation->monthlySpending == $list->value) {
+                                                                echo 'selected="selected"';
+                                                            } ?>>
+                                                                {{ $list->label }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -258,29 +313,38 @@
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="form6Example1">Sumber Dana</label>
                                             <select class="form-select" aria-label="Default select example">
-                                                <option selected disabled>Pilih</option>
-                                                <option value="1">Penghasilan</option>
-                                                <option value="2">Orang Tua</option>
-                                                <option value="3">Tabungan</option>
+                                                @foreach ($dari as $list)
+                                                    <option value="{{ $list->value }}" <?php if ($dataoccupation->sourceOfFund == $list->value) {
+                                                        echo 'selected="selected"';
+                                                    } ?>>
+                                                        {{ $list->label }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
 
                                         <!-- nama -->
                                         <div class="form-outline mb-4">
                                             <label class="form-label fw-bold" for="form6Example1">Nama Kantor</label>
-                                            <input type="text" id="form6Example1" class="form-control" />
+                                            <input type="text" id="form6Example1" class="form-control"
+                                                value="{{ $dataoccupation->companyName }}" />
                                         </div>
 
                                         <!-- nama -->
                                         <div class="form-outline mb-4">
                                             <label class="form-label fw-bold" for="form6Example1">Jabatan</label>
-                                            <input type="text" id="form6Example1" class="form-control" />
+                                            <input type="text" id="form6Example1" class="form-control"
+                                                @foreach ($jabatan as $list)
+                                            <?php
+                                            if ($list->value === $dataoccupation->jobPosition);
+                                            ?> 
+                                            value="{{ $list->label }}" @endforeach />
                                         </div>
 
                                         <!-- nama -->
                                         <div class="form-outline mb-4">
                                             <label class="form-label fw-bold" for="form6Example1">Telepon Kantor</label>
-                                            <input type="text" id="form6Example1" class="form-control" />
+                                            <input type="text" id="form6Example1" class="form-control"
+                                                value="{{ $dataoccupation->companyPhoneNumber }}" />
                                         </div>
 
                                         {{-- alamat kantor --}}
@@ -298,7 +362,7 @@
                                         <!-- Message input -->
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="form6Example7">Alamat Lengkap</label>
-                                            <textarea class="form-control" id="form6Example7" rows="4"></textarea>
+                                            <textarea class="form-control" id="form6Example7" rows="4">{{ $dataoccupation->companyAddress }}</textarea>
                                         </div>
 
                                         <!-- Text input -->
@@ -306,13 +370,15 @@
                                             <div class="col">
                                                 <div class="form-outline">
                                                     <label class="form-label" for="form6Example1">Desa / Kelurahan</label>
-                                                    <input type="text" id="form6Example1" class="form-control" />
+                                                    <input type="text" id="form6Example1" class="form-control"
+                                                        value="{{ $dataoccupation->companySubDistrict }}" />
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
                                                     <label class="form-label" for="form6Example2">Kecamatan</label>
-                                                    <input type="text" id="form6Example2" class="form-control" />
+                                                    <input type="text" id="form6Example2" class="form-control"
+                                                        value="{{ $dataoccupation->companyDistrict }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -323,23 +389,26 @@
                                                 <div class="form-outline">
                                                     <label class="form-label" for="form6Example1">Kabupaten / Kota</label>
                                                     <select class="form-select" aria-label="Default select example">
-                                                        <option selected disabled>Piih</option>
-                                                        <option value="1">Wilayah Kota Jakarta Utara</option>
-                                                        <option value="2">Wilayah Kota Jakarta Barat</option>
-                                                        <option value="3">Wilayah Kota Jakarta Selatan</option>
-                                                        <option value="4">Wilayah Kota Jakarta Pusat</option>
-                                                        <option value="5">Wilayah Kota Jakarta Timur</option>
+                                                        @foreach ($city as $list)
+                                                            <option value="{{ $list->value }}" <?php if ($dataaddress->identityCity == $list->value) {
+                                                                echo 'selected="selected"';
+                                                            } ?>>
+                                                                {{ $list->label }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
                                                     <label class="form-label" for="form6Example1">Provinsi</label>
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option selected disabled>Pilih</option>
-                                                        <option value="1">Jakarta</option>
-                                                        <option value="2">Banten</option>
-                                                        <option value="3">Jawa Barat</option>
+                                                    <select class="form-control m-bootstrap-select m_selectpicker"
+                                                        name="regional_code" required="">
+                                                        @foreach ($province as $list)
+                                                            <option value="{{ $list->value }}" <?php if ($dataaddress->identityProvince == $list->value) {
+                                                                echo 'selected="selected"';
+                                                            } ?>>
+                                                                {{ $list->label }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -348,8 +417,11 @@
                                         <!-- nama -->
                                         <div class="form-outline mb-4">
                                             <label class="form-label fw-bold" for="form6Example1">Kode Pos</label>
-                                            <input type="text" id="form6Example1" class="form-control" />
+                                            <input type="text" id="form6Example1" class="form-control"
+                                                value="{{ $dataoccupation->companyZipCode }}" />
                                         </div>
+
+                                        {{-- ////////////////////// --}}
 
                                     </div>
                                     <div class="col mx-4">
@@ -358,12 +430,12 @@
                                             <div class="form-outline">
                                                 <label class="form-label" for="form6Example1">Pendidikan Terakhir</label>
                                                 <select class="form-select" aria-label="Default select example">
-                                                    <option selected disabled>Piih</option>
-                                                    <option value="1"> SD / SMP / SMA </option>
-                                                    <option value="2">D3</option>
-                                                    <option value="3">S1</option>
-                                                    <option value="4">S2</option>
-                                                    <option value="5">S3</option>
+                                                    @foreach ($edu as $list)
+                                                        <option value="{{ $list->value }}" <?php if ($dataoccupation->latestEducation == $list->value) {
+                                                            echo 'selected="selected"';
+                                                        } ?>>
+                                                            {{ $list->label }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -373,58 +445,149 @@
                                             <div class="col">
                                                 <div class="form-outline">
                                                     <label class="form-label" for="form6Example1">Telepon</label>
-                                                    <input type="text" id="form6Example1" class="form-control" />
+                                                    <input type="text" id="form6Example1" class="form-control"
+                                                        value="{{ $datainfo->phoneNumber }}" />
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
                                                     <label class="form-label" for="form6Example2">Handphone</label>
-                                                    <input type="text" id="form6Example2" class="form-control" />
+                                                    <input type="text" id="form6Example2" class="form-control"
+                                                        value="{{ $datainfo->mobileNumber }}" />
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="form-outline mb-4">
                                             <label class="form-label fw-bold" for="form6Example1">Email</label>
-                                            <input type="text" id="form6Example1" class="form-control" />
+                                            <input type="text" id="form6Example1" class="form-control"
+                                                value="{{ $datainfo->emailAddress }}" />
                                         </div>
 
                                         <div class="form-outline mb-4">
                                             <label class="form-label fw-bold" for="form6Example1">NPWP</label>
-                                            <input type="text" id="form6Example1" class="form-control" />
+                                            <input type="text" id="form6Example1" class="form-control"
+                                                value="{{ $datainfo->taxNumber }}" />
                                         </div>
+
+                                        <div class="form-outline mb-20">
+                                            <label class="form-label fw-bold" for="form6Example1">Negara</label>
+                                            <select class="form-select" aria-label="Default select example"
+                                                id="negara">
+                                                @foreach ($national as $list)
+                                                    <option value="{{ $list->value }}" <?php if ($dataaddress->nationality == $list->value) {
+                                                        echo 'selected="selected"';
+                                                    } ?>>
+                                                        {{ $list->label }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+
+                                        {{-- alamat domisili --}}
 
                                         <div class="form-outline mb-4">
-                                            <label class="form-label fw-bold" for="form6Example1">Negara</label>
-                                            <input type="text" id="form6Example1" class="form-control" />
-                                        </div>
 
-
-                                        {{-- ALAMAT IDENTITAS --}}
-
-                                        <div class="form-outline mb-4 mt-20 pt-8">
-
-                                            <h4 class="card-title align-items-start flex-column">
-                                                <span class="fs-2 fw-bold text-gray-800 mb-10"><br>Alamat Identitas</span>
+                                            <h4 class="card-title align-items-start flex-column pt-10 mb-20">
+                                                <span class="fs-2 fw-bold text-gray-800 mb-10"><br>Alamat Domisili</span>
                                                 <hr>
                                             </h4>
 
                                         </div>
 
-                                        <div class="form-outline mb-4 pt-20 mt-3">
+
+                                        <!-- Message input -->
+                                        <div class="form-outline mb-4 pt-5">
+                                            <label class="form-label" for="form6Example7">Alamat Lengkap</label>
+                                            <textarea class="form-control" id="form6Example7" rows="4">{{ $dataaddress->identityAddress }}</textarea>
+                                        </div>
+
+                                        <!-- Text input -->
+                                        <div class="row mb-4">
+                                            <div class="col">
+                                                <div class="form-outline">
+                                                    <label class="form-label" for="form6Example1">Desa / Kelurahan</label>
+                                                    <input type="text" id="form6Example1" class="form-control"
+                                                        value="{{ $dataaddress->identitySubDistrict }}" />
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-outline">
+                                                    <label class="form-label" for="form6Example2">Kecamatan</label>
+                                                    <input type="text" id="form6Example2" class="form-control"
+                                                        value="{{ $dataaddress->identityDistrict }}" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Text input -->
+                                        <div class="row mb-4">
+                                            <div class="col">
+                                                <div class="form-outline">
+                                                    <label class="form-label" for="form6Example1">Kabupaten / Kota</label>
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        @foreach ($city as $list)
+                                                            <option value="{{ $list->value }}" <?php if ($dataaddress->identityCity == $list->value) {
+                                                                echo 'selected="selected"';
+                                                            } ?>>
+                                                                {{ $list->label }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-outline">
+                                                    <label class="form-label" for="form6Example1">Provinsi</label>
+                                                    <select class="form-control m-bootstrap-select m_selectpicker"
+                                                        name="regional_code" required="">
+                                                        @foreach ($province as $list)
+                                                            <option value="{{ $list->value }}" <?php if ($dataaddress->identityProvince == $list->value) {
+                                                                echo 'selected="selected"';
+                                                            } ?>>
+                                                                {{ $list->label }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- nama -->
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label fw-bold" for="form6Example1">Kode Pos</label>
+                                            <input type="text" id="form6Example1" class="form-control"
+                                                value="{{ $dataaddress->identityZipCode }}" />
+                                        </div>
+
+                                        {{-- PASANGAN --}}
+
+                                        <div class="form-outline mb-4">
+
+                                            <h4 class="card-title align-items-start flex-column">
+                                                <span class="fs-2 fw-bold text-gray-800 mb-4"><br>Pasangan</span>
+                                                <hr>
+                                            </h4>
+
+                                        </div>
+
+                                        <div class="form-outline mb-4">
                                             <div class="form-outline">
                                                 <label class="form-label" for="form6Example1">Status Perkawinan</label>
                                                 <select class="form-select" aria-label="Default select example">
                                                     <option selected disabled>Piih</option>
-                                                    <option value="1"> Belum Kawin </option>
-                                                    <option value="2"> Kawin </option>
+                                                    @foreach ($kawin as $list)
+                                                            <option value="{{ $list->value }}" <?php if ($datainfo->maritalStatus == $list->value) {
+                                                                echo 'selected="selected"';
+                                                            } ?>>
+                                                                {{ $list->label }}</option>
+                                                        @endforeach
                                                 </select>
                                             </div>
                                         </div>
 
                                         <div class="form-outline mb-4">
                                             <label class="form-label fw-bold" for="form6Example1">Nama</label>
-                                            <input type="text" id="form6Example1" class="form-control" />
+                                            <input type="text" id="form6Example1" class="form-control"
+                                                value="{{ $dataspouse->spouseName }}" />
                                         </div>
 
                                         <div class="form-outline mb-4">
@@ -434,7 +597,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="basic-addon1">Rp.</span>
                                                 </div>
-                                                <input type="text" class="form-control" placeholder="">
+                                                <input type="text" class="form-control" placeholder="" value="{{ $dataspouse->numberOfDependant }}">
                                             </div>
                                         </div>
 
@@ -454,8 +617,10 @@
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <label class="form-label fw-bold" for="form6Example1">Nama</label>
-                                                    <input type="text" id="form6Example1" class="form-control" />
+                                                    <label class="form-label fw-bold"
+                                                        for="form6Example1">Identitas</label>
+                                                    <input type="text" id="form6Example1" class="form-control"
+                                                        value="{{ $dataspouse->spouseIdentityNumber }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -463,7 +628,8 @@
                                         <div class="form-outline mb-4">
                                             <label class="form-label fw-bold" for="form6Example1">Tanggal
                                                 Kadaluarsa</label>
-                                            <input type="date" id="form6Example1" class="form-control" />
+                                            <input type="date" id="form6Example1" class="form-control"
+                                                value="{{ date('Y-m-d', strtotime(substr($dataspouse->spouseIdentityExpiredDate, 0, 10))) }}" />
                                         </div>
 
                                         <!-- Text input -->
@@ -471,13 +637,15 @@
                                             <div class="col">
                                                 <div class="form-outline">
                                                     <label class="form-label" for="form6Example1">Tempat Lahir</label>
-                                                    <input type="text" id="form6Example1" class="form-control" />
+                                                    <input type="text" id="form6Example1" class="form-control"
+                                                        value="{{ $dataspouse->spousePlaceOfBirth }}" />
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
                                                     <label class="form-label" for="form6Example2">Tanggal Lahir</label>
-                                                    <input type="date" id="form6Example2" class="form-control" />
+                                                    <input type="date" id="form6Example2" class="form-control"
+                                                        value="{{ date('Y-m-d', strtotime(substr($dataspouse->spouseDateOfBirth, 0, 10))) }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -487,13 +655,14 @@
                                         {{-- ///////////////// --}}
                                     </div>
                                 </div>
-                            <div class="d-flex flex-row-reverse mt-10">
-                                <!-- Submit button -->
-                                <hr>
-                                <button type="submit" class="btn btn-success text-light mb-2 p-5 mx-2">Verified</button>
-                                <button type="submit" class="btn btn-danger text-light mb-2 p-5 mx-2">Reject</button>
-                                <button type="submit" class="btn btn-secondary mb-2 p-5 mx-2 ">Kembali</button>
-                            </div>
+                                <div class="d-flex flex-row-reverse mt-10">
+                                    <!-- Submit button -->
+                                    <hr>
+                                    <button type="submit"
+                                        class="btn btn-success text-light mb-2 p-5 mx-2">Verified</button>
+                                    <button type="submit" class="btn btn-danger text-light mb-2 p-5 mx-2">Reject</button>
+                                    <button type="submit" class="btn btn-secondary mb-2 p-5 mx-2 ">Kembali</button>
+                                </div>
                             </form>
 
                         </div>

@@ -26,7 +26,7 @@
                 <!--begin::Card body-->
                 <div class="card-body py-4">
                     <!--begin::Table-->
-                    <table class="table align-middle table-row-dashed fs-6 gy-5 table-cif">
+                    <table class="table align-middle table-hover table-row-dashed fs-6 gy-5 table-transaksi">
                         <!--begin::Table head-->
                         <thead>
                             <!--begin::Table row-->
@@ -44,90 +44,84 @@
                         <!--begin::Table body-->
                         <tbody>
                             @forelse($transaksi->data as $datatransaksi)
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="symbol symbol-50px me-3">
-                                            <img src="{{ asset('assets/media/stock/600x600/img-44.jpg') }}"
-                                                class="" alt="" />
-                                        </div>
-                                        <div class="d-flex justify-content-start flex-column">
-                                            <a href="{{ url('/infotransaksi') }}" class="fw-bold text-hover-primary fs-6">
-                                                Donny Asgar
-                                            </a>
-                                            <span class="d-block fs-7">
-                                                {{$datatransaksi->cifId }}
+                                <tr class="table-row" data-href="infotransaksi/{{ $datatransaksi->id }}/show">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="symbol symbol-50px me-3">
+                                                <img src="{{ asset('assets/media/stock/600x600/img-44.jpg') }}"
+                                                    class="" alt="" />
+                                            </div>
+                                            <span class="fw-bold fs-6">
+                                                {{ $datacif->fullName }}
                                             </span>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">{{ date('d F Y', strtotime(substr($datatransaksi->transactionDate, 0, 10))) }}</span>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">{{$datatransaksi->invoiceNumber }}</span>
-                                </td>
-                                <td class="text-start">
-                                    <span class=" fs-6">{{$datatransaksi->description }}</span>
+                                    </td>
+                                    <td class="text-start">
+                                        <span
+                                            class=" fs-6">{{ date('d F Y', strtotime(substr($datatransaksi->transactionDate, 0, 10))) }}</span>
+                                    </td>
+                                    <td class="text-start">
+                                        <span class=" fs-6">{{ $datatransaksi->invoiceNumber }}</span>
+                                    </td>
+                                    <td class="text-start">
+                                        <span class=" fs-6">{{ $datatransaksi->description }}</span>
+                                    </td>
+                                    <td class="text-start">
+                                        {{-- <div id="kt_table_widget_14_chart_1" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div> --}}
+                                        <span
+                                            class=" fs-6">Rp.{{ number_format($datatransaksi->totalAmount, 2, ',', '.') }}</span>
+                                    </td>
+                                    <td class="text-start">
 
-                                </td>
-                                <td class="text-start">
-                                    {{-- <div id="kt_table_widget_14_chart_1" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div> --}}
-                                    <span class=" fs-6">Rp.{{number_format($datatransaksi->totalAmount,2,',','.')}}</span>
-                                </td>
-                                <td class="text-start">
-
-                                    @if ($datatransaksi->status === 0)
-                                    <a href="#" class="btn btn-sm btn-block btn-active-color-light"
-                                    style="background-color: #D1D8D3">
-                                    <span class="text-hover-info fw-bold" style="color: #808A82">
-                                        Pending
-                                    </span>
-                                </a>
-                                    @elseif ($datatransaksi->status === 1)
-                                    <a href="#" class="btn btn-sm btn-block btn-active-color-light"
-                                        style="background-color: #ECFAFF">
-                                        <span class="text-hover-info fw-bold" style="color: ##27BFEF">
-                                            Approved
-                                        </span>
-                                    </a>
-                                    @elseif ($datatransaksi->status === 2)
-                                    <a href="#" class="btn btn-sm btn-block btn-active-color-light"
-                                    style="background-color: #FFEBEB">
-                                    <span class="text-hover-info fw-bold" style="color: #DC3F3F">
-                                        Rejected
-                                    </span>
-                                </a>
-                                    @elseif ($datatransaksi->status === 3)
-                                    <a href="#" class="btn btn-sm btn-block btn-active-color-light"
-                                    style="background-color: #eeff8f">
-                                    <span class="text-hover-info fw-bold" style="color: #a9bc01">
-                                        Canceled
-                                    </span>
-                                </a>
-                                    @elseif ($datatransaksi->status === 4)
-                                    <a href="#" class="btn btn-sm btn-block btn-active-color-light"
-                                    style="background-color: #eeff8f">
-                                    <span class="text-hover-info fw-bold" style="color: #a9bc01">
-                                        Canceled
-                                    </span>
-                                </a>
-                                    @else
-                                    <a href="#" class="btn btn-sm btn-block btn-active-color-light"
-                                    style="background-color: #FFEBEB">
-                                    <span class="text-hover-info fw-bold" style="color: #DC3F3F">
-                                        Failed
-                                    </span>
-                                </a>
-                                    @endif
-
-                                    
-                                </td>
-                            </tr>
+                                        @if ($datatransaksi->status === 0)
+                                            <a href="#" class="btn btn-sm btn-block btn-active-color-light"
+                                                style="background-color: #D1D8D3">
+                                                <span class="text-hover-info fw-bold" style="color: #808A82">
+                                                    Pending
+                                                </span>
+                                            </a>
+                                        @elseif ($datatransaksi->status === 1)
+                                            <a href="#" class="btn btn-sm btn-block btn-active-color-light"
+                                                style="background-color: #ECFAFF">
+                                                <span class="text-hover-info fw-bold" style="color: ##27BFEF">
+                                                    Approved
+                                                </span>
+                                            </a>
+                                        @elseif ($datatransaksi->status === 2)
+                                            <a href="#" class="btn btn-sm btn-block btn-active-color-light"
+                                                style="background-color: #FFEBEB">
+                                                <span class="text-hover-info fw-bold" style="color: #DC3F3F">
+                                                    Rejected
+                                                </span>
+                                            </a>
+                                        @elseif ($datatransaksi->status === 3)
+                                            <a href="#" class="btn btn-sm btn-block btn-active-color-light"
+                                                style="background-color: #eeff8f">
+                                                <span class="text-hover-info fw-bold" style="color: white">
+                                                    Canceled
+                                                </span>
+                                            </a>
+                                        @elseif ($datatransaksi->status === 4)
+                                            <a href="#" class="btn btn-sm btn-block btn-active-color-light"
+                                                style="background-color: #eeff8f">
+                                                <span class="text-hover-info fw-bold" style="color: white">
+                                                    Canceled
+                                                </span>
+                                            </a>
+                                        @else
+                                            <a href="#" class="btn btn-sm btn-block btn-active-color-light"
+                                                style="background-color: #FFEBEB">
+                                                <span class="text-hover-info fw-bold" style="color: #DC3F3F">
+                                                    Failed
+                                                </span>
+                                            </a>
+                                        @endif
+                                    </td>
+                                </tr>
                             @empty
                                 <span>Data Kosong</span>
                             @endforelse
-                            
+
                         </tbody>
                         <!--end::Table body-->
                     </table>
@@ -139,24 +133,29 @@
         </div>
         <!--end::Content container-->
     </div>
-    <!--end::Content-->
 
 @endsection
 
 @section('script')
+
+<script>
+    $(document).ready(function($) {
+        $(".table-row").click(function() {
+            window.document.location = $(this).data("href");
+        });
+    });
+</script>
+
     <script>
         $(document).ready(function() {
-            $('.table-cif').DataTable({
+            $('.table-transaksi').DataTable({
                 "dom": "< <'pull-left'f><t><' row'<'col col-lg-2 py-3'i><'col-md-auto'l><'col'p>> >"
             });
         });
     </script>
 
-
-
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-    <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet"
-        type="text/css" />
+    <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
     <!--begin::Javascript-->
     <script>
         var hostUrl = "assets/";

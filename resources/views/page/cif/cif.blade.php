@@ -27,9 +27,9 @@
                 <!--begin::Card body-->
                 <div class="card-body py-4">
                     <!--begin::Table-->
-                    <table class="table align-middle table-row-dashed fs-6 gy-5 table-cif">
+                    <table class="table align-middle table-hover table-row-dashed fs-6 gy-5 table-cif">
                         <!--begin::Table head-->
-                        
+
                         <thead>
                             <!--begin::Table row-->
                             <tr class="text-start fw-bold fs-7 text-uppercase gs-0">
@@ -47,68 +47,69 @@
                         <!--begin::Table body-->
                         <tbody class="fw-semibold">
                             <!--begin::Table row-->
-                        @forelse ($cif->data as $datacif)
-                            <tr>
-                                {{-- <td class="d-flex align-items-center">{{1}}</td> --}}
-                                <!--begin::User=-->
-                                <td class="d-flex align-items-center">
-                                    <!--begin:: Avatar -->
-                                    <div class="d-flex align-items-center">
-                                        <div class="symbol symbol-50px me-5">
-                                            <span class="symbol-label bg-light">
-                                                <img src="assets/media/svg/avatars/001-boy.svg"
-                                                    class="h-75 align-self-end" alt="" />
-                                            </span>
+                            @forelse ($cif->data as $datacif)
+                                <tr class="table-row"data-href="infocif/{{ $datacif->id }}/show">
+                                    {{-- <td class="d-flex align-items-center">{{1}}</td> --}}
+                                    <!--begin::User=-->
+                                    <td class="d-flex align-items-center">
+                                        <!--begin:: Avatar -->
+                                        <div class="d-flex align-items-center">
+                                            <div class="symbol symbol-50px me-5">
+                                                <span class="symbol-label bg-light">
+                                                    <img src="assets/media/svg/avatars/001-boy.svg"
+                                                        class="h-75 align-self-end" alt="" />
+                                                </span>
+                                            </div>
+
                                         </div>
+                                        <!--end::Avatar-->
+                                        <!--begin::User details-->
+                                        <div class="d-flex justify-content-start flex-column">
+                                            <span class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{ $datacif->fullName }}</span>
+                                            <span class="text-dark fw-semibold d-block fs-7">CIF
+                                                {{ $datacif->cifNumber }}</span>
 
-                                    </div>
-                                    <!--end::Avatar-->
-                                    <!--begin::User details-->
-                                    <div class="d-flex justify-content-start flex-column">
-                                        <a href="infocif/{{ $datacif->id }}/show"
-                                            class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{ $datacif->fullName }}</a>
-                                        <span class="text-dark fw-semibold d-block fs-7">CIF {{ $datacif->cifNumber }}</span>
+                                        </div>
+                                    </td>
+                                    <!--end::User=-->
+                                    <!--begin::tgl regist=-->
 
-                                    </div>
-                                    <!--begin::User details-->
-                                </td>
-                                <!--end::User=-->
-                                <!--begin::tgl regist=-->
-                                <td>{{ date('d F Y', strtotime(substr($datacif->createdOn, 0, 10))) }}</td>
-                                <!--end::tgl regist=-->
-                                <!--begin::identitas=-->
-                                <td>
-                                    <a href="{{ url('infocif') }}"
-                                        class="text-dark fw-bold text-hover-primary d-block mb-1 fs-4">KTP</a>
-                                    <span class="d-block fs-7">{{ $datacif->identityNumber }}</span>
-                                </td>
-                                <!--end::identitas=-->
-                                <!--begin::no.seluler=-->
-                                <td>{{ $datacif->mobileNumber }}</td>
-                                <!--end::no.seluler=-->
-                                <!--begin::email-->
-                                <td>{{ $datacif->emailAddress }}</td>
-                                <!--begin::email-->
-                                <!--begin::Action=-->
-                                <td class="text-center">
-                                    @if ( $datacif->status === 1 )
-                                    <span class="badge badge-light-success fs-7 fw-bold py-3 px-8"
-                                    style="color: #54CC58">Verified</span>
-                                    @else
-                                    <span class="badge badge-light-secondary fs-7 fw-bold py-3 px-8"
-                                    style="color: #808A82">Unverified</span>
-                                    @endif
-                                    
-                                </td>
-                                <!--end::Action=-->
-                            </tr>
-                            <!--end::Table row-->
+                                    <td>
+                                        {{ date('d F Y', strtotime(substr($datacif->createdOn, 0, 10))) }}
+                                    </td>
+                                    <!--end::tgl regist=-->
+                                    <!--begin::identitas=-->
+                                    <td>
+                                        <span class="text-dark fw-bold text-hover-primary d-block mb-1 fs-4">KTP</span>
+                                        <span class="d-block fs-7">{{ $datacif->identityNumber }}</span>
+                                    </td>
+                                    <!--end::identitas=-->
+                                    <!--begin::no.seluler=-->
+                                    <td>{{ $datacif->mobileNumber }}</td>
+                                    <!--end::no.seluler=-->
+                                    <!--begin::email-->
+                                    <td>{{ $datacif->emailAddress }}</td>
+                                    <!--begin::email-->
+                                    <!--begin::Action=-->
+                                    <td class="text-center">
+                                        @if ($datacif->status === 1)
+                                            <span class="badge badge-light-success fs-7 fw-bold py-3 px-8"
+                                                style="color: #54CC58">Verified</span>
+                                        @else
+                                            <span class="badge badge-light-secondary fs-7 fw-bold py-3 px-8"
+                                                style="color: #808A82">Unverified</span>
+                                        @endif
+
+                                    </td>
+                                    <!--end::Action=-->
+                                </tr>
+                                <!--end::Table row-->
                         </tbody>
                         <!--end::Table body-->
-                        @empty
-                            <span>Data Kosong</span>
+                    @empty
+                        <span>Data Kosong</span>
                         @endforelse
-                        
+
                     </table>
                     <!--end::Table-->
                 </div>
@@ -131,11 +132,16 @@
         });
     </script>
 
-
+    <script>
+        $(document).ready(function($) {
+            $(".table-row").click(function() {
+                window.document.location = $(this).data("href");
+            });
+        });
+    </script>
 
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-    <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet"
-        type="text/css" />
+    <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
     <!--begin::Javascript-->
     <script>
         var hostUrl = "assets/";

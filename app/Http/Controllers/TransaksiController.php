@@ -22,15 +22,15 @@ class TransaksiController extends Controller
             curl_setopt_array(
                 $curl,
                 array(
-                CURLOPT_URL => 'http://147.139.130.151:8060/api/identity/profile',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'GET',
-                CURLOPT_HTTPHEADER => array(
+                    CURLOPT_URL => 'http://147.139.130.151:8060/api/identity/profile',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'GET',
+                    CURLOPT_HTTPHEADER => array(
                         'Authorization: Bearer ' . $token
                     ),
                 )
@@ -44,15 +44,15 @@ class TransaksiController extends Controller
             curl_setopt_array(
                 $curl,
                 array(
-                CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/transaction/search',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => '{
+                    CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/transaction/search',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => '{
               "advancedSearch": {
                 "fields": [
                 ],
@@ -69,9 +69,9 @@ class TransaksiController extends Controller
               "transactionDateTo": "2022-12-31",
               "status": 1000
             }',
-                CURLOPT_HTTPHEADER => array(
+                    CURLOPT_HTTPHEADER => array(
                         'Content-Type: application/json',
-                        'Authorization: Bearer '. $token 
+                        'Authorization: Bearer ' . $token
                     ),
                 )
             );
@@ -79,10 +79,31 @@ class TransaksiController extends Controller
             $tran = curl_exec($curl);
             curl_close($curl);
             $transaksi = json_decode($tran);
+            // $jum = count($transaksi->data);
+            foreach ($transaksi->data as $key) {
+                $curl = curl_init();
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/cif/' . $key->cifId,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'GET',
+                    CURLOPT_HTTPHEADER => array(
+                        'Authorization: Bearer ' . $token
+                    ),
+                )
+                );
+                $response = curl_exec($curl);
+                $transaksicif = json_decode($response);
+                $datacif = $transaksicif->data->cif;
+                // dd($datacif);
+                curl_close($curl);
+            }
 
-            // dd($profile);
-
-            return view('page.transaksi.transaksi', compact('profile','transaksi'));
+            return view('page.transaksi.transaksi', compact('profile', 'transaksi','datacif'));
         } else {
             Alert::error('Error Title', 'Error Message')->width('1000px');
             return redirect()->route('/');

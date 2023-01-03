@@ -1,3 +1,5 @@
+<?php 
+    if (Session::has('token')) { ?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -42,9 +44,14 @@
     </div>
 
     @yield('script')
-    
+
     @include('dashboard.layout.script')
 </body>
 <!--end::Body-->
 
 </html>
+<?php } else {
+        Alert::error('Error', 'Username atau Kata Sandi Anda Salah');
+        return redirect()->route('/');
+    }
+?>

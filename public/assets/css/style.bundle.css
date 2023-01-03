@@ -51889,3 +51889,7 @@ html:not([data-theme="dark"]) {
     right: 0; 
     top:0;
 }
+
+.table-row{
+cursor:pointer;
+}

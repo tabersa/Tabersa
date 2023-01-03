@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CIFController extends Controller
@@ -15,40 +16,44 @@ class CIFController extends Controller
 
     public function index(Request $request)
     {
-        if ($request->session()->exists('token')) {
+        if (Session::has('token')) {
             $token = $request->session()->get('token');
 
             // dapetin username header
             $curl = curl_init();
-            curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://147.139.130.151:8060/api/identity/profile',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_HTTPHEADER => array(
-                    'Authorization: Bearer ' . $token
-                ),
-            )
+            curl_setopt_array(
+                $curl,
+                array(
+                CURLOPT_URL => 'http://147.139.130.151:8060/api/identity/profile',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+                CURLOPT_HTTPHEADER => array(
+                        'Authorization: Bearer ' . $token
+                    ),
+                )
             );
             $response = curl_exec($curl);
             $profile = json_decode($response);
 
             // dapetin data cif
             $curl = curl_init();
-            curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/cif/search',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => '{
+            curl_setopt_array(
+                $curl,
+                array(
+                CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/cif/search',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
   "advancedSearch": {
     "fields": [
     ],
@@ -65,12 +70,12 @@ class CIFController extends Controller
   "transactionDateTo": "2022-10-27",
   "status": 1000
 }',
-            CURLOPT_HTTPHEADER => array(
-                    'tenant: 601687',
-                    'Authorization: Bearer ' . $token,
-                    'Content-Type: application/json'
-                ),
-            )
+                CURLOPT_HTTPHEADER => array(
+                        'tenant: 601687',
+                        'Authorization: Bearer ' . $token,
+                        'Content-Type: application/json'
+                    ),
+                )
             );
 
             $datacif = curl_exec($curl);
@@ -79,7 +84,8 @@ class CIFController extends Controller
 
             // dd($cif->data);
             return view('page.cif.cif', compact('profile', 'cif'));
-        } else {
+        } 
+        else {
             Alert::error('Error Title', 'Error Message')->width('1000px');
             return redirect()->route('/');
         }
@@ -124,19 +130,21 @@ class CIFController extends Controller
         $token = $request->session()->get('token');
         $curl = curl_init();
 
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/cif/e1be0000-3e01-0016-7d38-08dac21dec99',
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'GET',
-        CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer '. $token
-            ),
-        )
+        curl_setopt_array(
+            $curl,
+            array(
+            CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/cif/e1be0000-3e01-0016-7d38-08dac21dec99',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                    'Authorization: Bearer ' . $token
+                ),
+            )
         );
 
         $datainfo = curl_exec($curl);

@@ -19,7 +19,7 @@
         <div id="kt_app_content_container" class="app-container container-xxl">
             <!--begin::Card-->
             <div class="card">
-                
+
                 <!--begin::Card body-->
                 <div class="card-body py-4">
                     <div class="d-flex justify-content-between shadow-sm">
@@ -41,8 +41,9 @@
                                 <div class="col">
                                     <div class="d-flex justify-content-start flex-column">
                                         <a href="{{ url('infocif') }}"
-                                            class="text-dark fw-bold text-hover-primary mb-1 fs-6">Donny Geraldine</a>
-                                        <span class="text-dark fw-semibold d-block fs-7">CIF ID 00091</span>
+                                            class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{ $datacif->fullName }}</a>
+                                        <span class="text-dark fw-semibold d-block fs-7">CIF ID
+                                            {{ $datacif->cifNumber }}</span>
                                     </div>
                                 </div>
                                 <!--begin::User details-->
@@ -51,20 +52,26 @@
                         <div class="p-6">
                             <div class="d-flex justify-content-start flex-column">
                                 <a href="{{ url('infocif') }}"
-                                    class="text-dark fw-bold text-hover-primary mb-1 fs-6">BCA</a>
-                                <span class="text-dark fw-semibold d-block fs-7">Tabungan VA</span>
+                                    class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{ $dataproduct->productName }}</a>
+                                @foreach ($dataakun->data as $akun)
+                                    @if ($datainfo->savingAccountType == $akun->value)
+                                    <span class="text-dark fw-semibold d-block fs-7">{{ $akun->label }}</span>
+                                    @endif
+                                @endforeach
+                                
                             </div>
                         </div>
                         <div class="p-6">
                             <div class="d-flex justify-content-start flex-column">
                                 <a href="{{ url('infocif') }}" class="text-dark fw-bold text-hover-primary mb-1 fs-6">Saldo
                                     Akhir</a>
-                                <span class="text-dark fw-semibold d-block fs-7">Rp. 5.000.000</span>
+                                <span class="text-dark fw-semibold d-block fs-7">Rp. {{ $datainfo->endBalance }}</span>
                             </div>
                         </div>
                         <div class="p-6">
-							<input type="date" class="form-control" id="inputDateEvent" name='dateevent' placeholder="Enter the event start date..." required>
-                            
+                            <input type="date" class="form-control" id="inputDateEvent" name='dateevent'
+                                placeholder="Enter the event start date..." required>
+
                         </div>
 
                     </div>
@@ -85,94 +92,37 @@
                         <!--begin::Table body-->
                         <tbody class="fs-6 fw-semibold text-gray-600">
                             <!--begin::Table row-->
-                            <tr>
-                                <!--begin::order=-->
-                                <td>
-                                    12 Nov 2022
-                                </td>
-                                <!--end::order=-->
-                                <!--begin::Status=-->
-                                <td>
-                                    JF12849AZXY
-                                </td>
-                                <!--end::Status=-->
-                                <!--begin::Amount=-->
-                                <td>
-                                    Pembayaran Listrik Rumah
+                            @forelse ($trs as $data)
+                                <tr>
+                                    <!--begin::order=-->
+                                    <td>
+                                        12 Nov 2022
+                                    </td>
+                                    <!--end::order=-->
+                                    <!--begin::Status=-->
+                                    <td>
+                                        {{ $data->billerCode }}
+                                    </td>
+                                    <!--end::Status=-->
+                                    <!--begin::Amount=-->
+                                    <td>
+                                        {{ $data->description }}
 
-                                </td>
-                                <!--end::Amount=-->
-                                <!--begin::Amount=-->
-                                <td class="text-danger">-Rp1.000.000</td>
-                                <!--end::Amount=-->
-                            </tr>
-                            <!--end::Table row-->
-                            <!--begin::Table row-->
-                            <tr>
-                                <!--begin::order=-->
-                                <td>
-                                    12 Nov 2022
-                                </td>
-                                <!--end::order=-->
-                                <!--begin::Status=-->
-                                <td>
-                                    JF12849AZXY
-                                </td>
-                                <!--end::Status=-->
-                                <!--begin::Amount=-->
-                                <td>
-                                    Cicilan Rumah
-                                </td>
-                                <!--end::Amount=-->
-                                <!--begin::Amount=-->
-                                <td class="text-danger">-Rp1.500.000</td>
-                                <!--end::Amount=-->
-                            </tr>
-                            <!--end::Table row-->
-                            <!--begin::Table row-->
-                            <tr>
-                                <!--begin::order=-->
-                                <td>
-                                    12 Nov 2022
-                                </td>
-                                <!--end::order=-->
-                                <!--begin::Status=-->
-                                <td>
-                                    JF12849AZXY
-                                </td>
-                                <!--end::Status=-->
-                                <!--begin::Amount=-->
-                                <td>
-                                    Cicilan Motor
-                                </td>
-                                <!--end::Amount=-->
-                                <!--begin::Amount=-->
-                                <td class="text-danger">-Rp500.000</td>
-                                <!--end::Amount=-->
-                            </tr>
-                            <!--end::Table row-->
-                            <!--begin::Table row-->
-                            <tr>
-                                <!--begin::order=-->
-                                <td>
-                                    12 Nov 2022
-                                </td>
-                                <!--end::order=-->
-                                <!--begin::Status=-->
-                                <td>
-                                    JF12849AZXY
-                                </td>
-                                <!--end::Status=-->
-                                <!--begin::Amount=-->
-                                <td>
-                                    Deposito
-                                </td>
-                                <!--end::Amount=-->
-                                <!--begin::Amount=-->
-                                <td style="color: #27BFEF">+Rp8.000.000</td>
-                                <!--end::Amount=-->
-                            </tr>
-                            <!--end::Table row-->
+                                    </td>
+                                    <!--end::Amount=-->
+                                    <!--begin::Amount=-->
+                                    @if ($data->dc == 'D')
+                                        <td class="text-danger"> - Rp.{{ $data->amount }}</td>
+                                    @else
+                                        <td class="text-success">+ Rp.{{ $data->amount }}</td>
+                                    @endif
+
+                                    <!--end::Amount=-->
+                                </tr>
+                            @empty
+                                <span>Tidak Ada Transaksi</span>
+                            @endforelse
+
                         </tbody>
                         <!--end::Table body-->
                     </table>
@@ -191,13 +141,13 @@
 
 @section('script')
 
-<script>
-	$(document).ready(function() {
-		$('.table-mutasi').DataTable({
-			"dom": "< <'pull-left'f><t><' row'<'col col-lg-2 py-3'i><'col-md-auto'l><'col'p>> >"
-		});
-	});
-</script>
+    <script>
+        $(document).ready(function() {
+            $('.table-mutasi').DataTable({
+                "dom": "< <'pull-left'f><t><' row'<'col col-lg-2 py-3'i><'col-md-auto'l><'col'p>> >"
+            });
+        });
+    </script>
 
     <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
     <script>

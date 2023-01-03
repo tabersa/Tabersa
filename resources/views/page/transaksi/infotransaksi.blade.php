@@ -51,7 +51,7 @@
                         <div class="p-6">
                             <div class="d-flex justify-content-start flex-column">
                                 <span class="text-dark fw-bold text-hover-primary mb-1 fs-6">Nomor Tiket</span>
-                                <span class="text-dark fw-semibold d-block fs-7">JF12849AZXY</span>
+                                <span class="text-dark fw-semibold d-block fs-7">{{ $datainfo->invoiceNumber }}</span>
                             </div>
                         </div>
                         <div class="p-6">
@@ -62,7 +62,7 @@
                         </div>
                         <div class="p-6">
                             <span class="text-dark fw-bold text-hover-primary mb-1 fs-6">Tgl Transaksi</span>
-                            <span class="text-dark fw-semibold d-block fs-7">12 Nov 2022</span>
+                            <span class="text-dark fw-semibold d-block fs-7">{{ date('d F Y', strtotime(substr($datainfo->transactionDate, 0, 10))) }}</span>
                         </div>
 
                     </div>
@@ -84,115 +84,31 @@
                         <!--begin::Table body-->
                         <tbody class="fs-6">
                             <!--begin::Table row-->
+                            @forelse ($datadetail as $detail)
                             <tr>
                                 <!--begin::order=-->
                                 <td>
-                                    1319319301258
+                                    {{ $detail->account }}
                                 </td>
                                 <!--end::order=-->
                                 <!--begin::Status=-->
                                 <td>
-                                    Bayar Minyak Goreng
+                                    {{ $detail->description }}
                                 </td>
                                 <!--end::Status=-->
                                 <!--begin::Amount=-->
                                 <td>
-                                    Rp80.000
+                                    Rp. {{ $detail->amount }}
                                 </td>
                                 <!--end::Amount=-->
                                 <!--begin::Amount=-->
-                                <td>Rp80.000</td>
+                                <td>Rp. {{ $datainfo->totalAmount }}</td>
                                 <!--end::Amount=-->
-                            </tr>
-                            <!--end::Table row-->
-                            <!--begin::Table row-->
-                            <tr>
-                                <!--begin::order=-->
-                                <td>
-                                    1319319301258
-                                </td>
-                                <!--end::order=-->
-                                <!--begin::Status=-->
-                                <td>
-                                    Bayar Minyak Goreng
-                                </td>
-                                <!--end::Status=-->
-                                <!--begin::Amount=-->
-                                <td>
-                                    Rp80.000
-                                </td>
-                                <!--end::Amount=-->
-                                <!--begin::Amount=-->
-                                <td>Rp80.000</td>
-                                <!--end::Amount=-->
-                            </tr>
-                            <!--end::Table row-->
-                            <!--begin::Table row-->
-                            <tr>
-                                <!--begin::order=-->
-                                <td>
-                                    1319319301258
-                                </td>
-                                <!--end::order=-->
-                                <!--begin::Status=-->
-                                <td>
-                                    Bayar Minyak Goreng
-                                </td>
-                                <!--end::Status=-->
-                                <!--begin::Amount=-->
-                                <td>
-                                    Rp80.000
-                                </td>
-                                <!--end::Amount=-->
-                                <!--begin::Amount=-->
-                                <td>Rp80.000</td>
-                                <!--end::Amount=-->
-                            </tr>
-                            <!--end::Table row-->
-                            <!--begin::Table row-->
-                            <tr>
-                                <!--begin::order=-->
-                                <td>
-                                    1319319301258
-                                </td>
-                                <!--end::order=-->
-                                <!--begin::Status=-->
-                                <td>
-                                    Bayar Minyak Goreng
-                                </td>
-                                <!--end::Status=-->
-                                <!--begin::Amount=-->
-                                <td>
-                                    Rp80.000
-                                </td>
-                                <!--end::Amount=-->
-                                <!--begin::Amount=-->
-                                <td>Rp80.000</td>
-                                <!--end::Amount=-->
-                            </tr>
-                            <!--end::Table row-->
-                            <!--begin::Table row-->
-                            <tr>
-                                <!--begin::order=-->
-                                <td>
-                                    1319319301258
-                                </td>
-                                <!--end::order=-->
-                                <!--begin::Status=-->
-                                <td>
-                                    Bayar Minyak Goreng
-                                </td>
-                                <!--end::Status=-->
-                                <!--begin::Amount=-->
-                                <td>
-                                    Rp80.000
-                                </td>
-                                <!--end::Amount=-->
-                                <!--begin::Amount=-->
-                                <td>Rp80.000</td>
-                                <!--end::Amount=-->
-                            </tr>
-                            <!--end::Table row-->
+                            </tr>    
+                            @empty
+                                <span>Tidak Ada Transaksi</span>
+                            @endforelse
+                            
                         </tbody>
                         <!--end::Table body-->
                     </table>

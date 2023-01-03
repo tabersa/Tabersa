@@ -20,46 +20,73 @@ class SavingController extends Controller
 
             // dapetin username header
             $curl = curl_init();
-            curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://147.139.130.151:8060/api/identity/profile',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_HTTPHEADER => array(
-                    'Authorization: Bearer ' . $token
-                ),
-            )
+            curl_setopt_array(
+                $curl,
+                array(
+                    CURLOPT_URL => 'http://147.139.130.151:8060/api/identity/profile',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'GET',
+                    CURLOPT_HTTPHEADER => array(
+                        'Authorization: Bearer ' . $token
+                    ),
+                )
             );
             $response = curl_exec($curl);
             $profile = json_decode($response);
 
             // dapetin data cif
             $curl = curl_init();
-            curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/saving/bycif/e1be0000-3e01-0016-06a0-08da9c94e0de',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_HTTPHEADER => array(
-                    'Authorization: Bearer ' . $token
-                ),
-            )
+
+            curl_setopt_array(
+                $curl,
+                array(
+                    CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/saving/search',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => '{
+  "advancedSearch": {
+    "fields": [
+    ],
+    "keyword": ""
+  },
+  "keyword": "",
+  "pageNumber": 0,
+  "pageSize": 100,
+  "orderBy": [
+    "CreatedOn DESC"
+  ],
+  "branchId": "001",
+  "accountNumber": "",
+  "savingAccountType": "",
+  "savingProductId": "8cbf60d6-ea1c-4fbc-bde5-0449d183bf02"
+}',
+                    CURLOPT_HTTPHEADER => array(
+                        'Content-Type: application/json',
+                        'Authorization: Bearer ' . $token
+                    ),
+                )
             );
 
-            $datasaving = curl_exec($curl);
+            $response = curl_exec($curl);
+            $hsl = json_decode($response);
+            $datainfo = $hsl->data;
+            // $datacif = $hsl->data->cif;
+            // $dataproduct = $hsl->data->savingProduct;
             curl_close($curl);
-            $saving = json_decode($datasaving);
+
 
             // dd($cif->data);
-            return view('page.tabungan.tabungan', compact('profile', 'saving'));
+            return view('page.tabungan.tabungan', compact('profile', 'datainfo'));
         } else {
             Alert::error('Error Title', 'Error Message')->width('1000px');
             return redirect()->route('/');

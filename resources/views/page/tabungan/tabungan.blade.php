@@ -29,7 +29,7 @@
                 <!--begin::Card body-->
                 <div class="card-body py-4">
                     <!--begin::Table-->
-                    <table class="table align-middle table-row-dashed fs-6 gy-5 table-tabungan">
+                    <table class="table table-hover align-middle table-row-dashed fs-6 gy-5 table-tabungan">
                         <!--begin::Table head-->
                         <thead>
                             <!--begin::Table row-->
@@ -47,10 +47,10 @@
                         </thead>
                         <!--end::Table head-->
                         <!--begin::Table body-->
-                        <tbody class="">
-                            @forelse ($saving->data as $datasaving)
+                        <tbody>
+                            @forelse ($datainfo as $datasaving)
                                 <!--begin::Table row-->
-                                <tr>
+                                <tr class="table-row" data-href="infotabungan/{{ $datasaving->id }}/show">
                                     <!--begin::Checkbox-->
                                     <td></td>
                                     <!--end::Checkbox-->
@@ -65,8 +65,8 @@
                                         <!--begin::User details-->
                                         <div class="d-flex justify-content-start flex-column">
                                             <a class="fw-bold text-dark text-hover-primary d-block fs-5"
-                                                href="{{ url('/infotabungan') }}">
-                                                {{ $datasaving->savingProduct->id }}
+                                                href="infotabungan/{{ $datasaving->id }}/show">
+                                                {{ $datasaving->cifNumber }}
                                             </a>
                                         </div>
                                         <!--begin::User details-->
@@ -91,7 +91,7 @@
                                                 {{ $datasaving->cif->fullName }}
                                             </span>
                                             <span class="fw-semibold d-block fs-8">
-                                                {{ $datasaving->cif->id }}
+                                                {{ $datasaving->cif->cifNumber }}
                                             </span>
                                         </div>
                                     </td>
@@ -146,6 +146,14 @@
 @endsection
 
 @section('script')
+
+    <script>
+        $(document).ready(function($) {
+            $(".table-row").click(function() {
+                window.document.location = $(this).data("href");
+            });
+        });
+    </script>
 
     <script>
         $(document).ready(function() {
