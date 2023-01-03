@@ -79,7 +79,8 @@ class TransaksiController extends Controller
             $tran = curl_exec($curl);
             curl_close($curl);
             $transaksi = json_decode($tran);
-            // $jum = count($transaksi->data);
+
+            
             foreach ($transaksi->data as $key) {
                 $curl = curl_init();
                 curl_setopt_array($curl, array(

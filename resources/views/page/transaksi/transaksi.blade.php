@@ -48,8 +48,8 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="symbol symbol-50px me-3">
-                                                <img src="{{ asset('assets/media/stock/600x600/img-44.jpg') }}"
-                                                    class="" alt="" />
+                                                <img class="h-100 " src="{{ Avatar::create($datacif->fullName)->setTheme('pastel')->setShape('square')->setBorder(2, '#FFF', 90) }}" />
+                                                
                                             </div>
                                             <span class="fw-bold fs-6">
                                                 {{ $datacif->fullName }}

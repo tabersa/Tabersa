@@ -30,8 +30,8 @@
                                     <div class="d-flex align-items-center">
                                         <div class="symbol symbol-50px me-5">
                                             <span class="symbol-label bg-light">
-                                                <img src="assets/media/svg/avatars/001-boy.svg" class="h-75 align-self-end"
-                                                    alt="" />
+                                                    <img class="h-100 " src="{{ Avatar::create($datacif->fullName)->setTheme('pastel')->setShape('square')->setBorder(2, '#FFF', 90) }}" />
+                                                
                                             </span>
                                         </div>
                                     </div>
@@ -41,8 +41,8 @@
                                 <div class="col">
                                     <div class="d-flex justify-content-start flex-column">
                                         <a href="{{ url('infocif') }}"
-                                            class="text-dark fw-bold text-hover-primary mb-1 fs-6">Donny Geraldine</a>
-                                        <span class="text-dark fw-semibold d-block fs-7">CIF ID 00091</span>
+                                            class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{ $datacif->fullName }}</a>
+                                        <span class="text-dark fw-semibold d-block fs-7">CIF ID {{ $datacif->cifNumber }}</span>
                                     </div>
                                 </div>
                                 <!--begin::User details-->
@@ -97,12 +97,24 @@
                                 </td>
                                 <!--end::Status=-->
                                 <!--begin::Amount=-->
+                                @if ($detail->dc == 'C')
                                 <td>
                                     Rp. {{ $detail->amount }}
                                 </td>
                                 <!--end::Amount=-->
                                 <!--begin::Amount=-->
-                                <td>Rp. {{ $datainfo->totalAmount }}</td>
+                                <td> - </td>
+                                @else
+                                <td>
+                                    -
+                                </td>
+                                <!--end::Amount=-->
+                                <!--begin::Amount=-->
+                                <td>
+                                    Rp. {{ $detail->amount }}
+                                </td>
+                                @endif
+                                
                                 <!--end::Amount=-->
                             </tr>    
                             @empty

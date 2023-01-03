@@ -58,8 +58,7 @@
                                     <td class="d-flex align-items-center">
                                         <!--begin:: Avatar -->
                                         <div class="symbol symbol-50px me-3">
-                                            <img src="{{ asset('assets/media/stock/600x600/img-43.jpg') }}" class=""
-                                                alt="" />
+                                            <img class="h-100 " src="{{ Avatar::create($datasaving->cifNumber)->setTheme('pastel')->setShape('square')->setBorder(2, '#FFF', 90) }}" />
                                         </div>
                                         <!--end::Avatar-->
                                         <!--begin::User details-->

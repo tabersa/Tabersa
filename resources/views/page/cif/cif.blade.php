@@ -56,8 +56,7 @@
                                         <div class="d-flex align-items-center">
                                             <div class="symbol symbol-50px me-5">
                                                 <span class="symbol-label bg-light">
-                                                    <img src="assets/media/svg/avatars/001-boy.svg"
-                                                        class="h-75 align-self-end" alt="" />
+                                                    <img class="h-100 " src="{{ Avatar::create($datacif->fullName)->setTheme('pastel')->setShape('square')->setBorder(2, '#FFF', 90)->toBase64() }}" />
                                                 </span>
                                             </div>
 
