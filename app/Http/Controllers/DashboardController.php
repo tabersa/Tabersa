@@ -34,19 +34,22 @@ class DashboardController extends Controller
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'GET',
                 CURLOPT_HTTPHEADER => array(
-                    'Authorization: Bearer '.$token
+                    'Authorization: Bearer ' . $token
                 ),
-            ));
+            )
+            );
             $response = curl_exec($curl);
             // $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
             curl_close($curl);
             $profile = json_decode($response);
             // dd($profile);
-            
+
             return view('page.dashboard', compact('profile'));
         } else {
             Alert::error('Error Title', 'Error Message')->width('1000px');
-            return redirect()->route('/');
+            $request->session()->forget('token');
+            $request->session()->flush();
+            return view('login');
         }
     }
 

@@ -112,7 +112,7 @@
                                             <div class="col-md-9">
                                                 <!--begin::Input-->
                                                 <input type="text" class="form-control form-control-solid"
-                                                    name="meta_title" value="" />
+                                                    name="meta_title" value="{{ $profile->data->userName }}" />
                                                 <!--end::Input-->
                                             </div>
                                         </div>
@@ -129,7 +129,7 @@
                                             <div class="col-md-9">
                                                 <!--begin::Input-->
                                                 <input type="email" class="form-control form-control-solid"
-                                                    name="meta_title" value="" />
+                                                    name="meta_title" value="{{ $profile->data->email }}" />
                                                 <!--end::Input-->
                                             </div>
                                         </div>

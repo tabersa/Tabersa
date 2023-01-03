@@ -57,7 +57,17 @@
                         <div class="p-6">
                             <div class="d-flex justify-content-start flex-column">
                                 <span class="text-dark fw-bold text-hover-primary mb-1 fs-6">Tipe</span>
+                                @if ($datainfo->transactionGroup == 10)
                                 <span class="text-dark fw-semibold d-block fs-7">Transfer</span>
+                                @elseif ($datainfo->transactionGroup == 20)
+                                <span class="text-dark fw-semibold d-block fs-7">Pay</span>
+                                @elseif ($datainfo->transactionGroup == 30)
+                                <span class="text-dark fw-semibold d-block fs-7">Buy</span>
+                                @elseif ($datainfo->transactionGroup == 40)
+                                <span class="text-dark fw-semibold d-block fs-7">E-Wallet</span>
+
+                                @endif
+                            
                             </div>
                         </div>
                         <div class="p-6">
