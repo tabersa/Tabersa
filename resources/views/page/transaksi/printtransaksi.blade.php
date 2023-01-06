@@ -106,10 +106,10 @@
                     <td>
                         :
                     </td>
-                    <td  class="text-start">
+                    <td  class="text-start " style="padding-right: 200px">
                         {{ $datacif->cifNumber }} - {{ $datacif->fullName }}
                     </td>
-                    <td class="text-start">
+                    <td class="text-start" >
                         Tanggal
                     </td>
                     <td>
@@ -121,16 +121,7 @@
                 </tr>
                 <tr>
                     <td class="text-start">
-                        Nomor
-                    </td>
-                    <td>
-                        :
-                    </td>
-                    <td  class="text-start">
-                        {{ $datainfo->id }}
-                    </td>
-                    <td class="text-start">
-                        Dok
+                        No. Invoice
                     </td>
                     <td>
                         :
@@ -181,6 +172,7 @@
         <thead class="thead">
             <!--begin::Table row-->
             <tr class="text-start fw-bold text-uppercase gs-0">
+                <th class="min-w-10px">#</th>
                 <th class="min-w-200px">Account</th>
                 <th class="min-w-200px">Debit</th>
                 <th class="min-w-200px">Kredit</th>
@@ -193,9 +185,17 @@
         <!--begin::Table body-->
         <tbody class="fs-6">
             <!--begin::Table row-->
+            @php
+                $i = 0;
+            @endphp
             @forelse ($datadetail as $detail)
                 <tr>
-
+                    <td>
+                        @php
+                            $i++;
+                        @endphp
+                        {{ $i }}
+                    </td>
                     <!--begin::order=-->
                     <td>
                         {{ $detail->account }}
