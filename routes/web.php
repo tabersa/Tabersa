@@ -2,7 +2,8 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\LoginController;
+// use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CIFController;
 use App\Http\Controllers\infoCIFController;
 use App\Http\Controllers\SavingController;
@@ -28,18 +29,24 @@ Route::get('/', function () {
     return view('login');
 });
 
+Route::get('/landing', [LoginController::class, 'index'])->name('landing');
+Route::get('/back', [LoginController::class, 'back'])->name('back');
 Route::get('/keluar', [LoginController::class, 'keluar'])->name('keluar');
 // 
 Route::get('/dashboard', [DashboardController::class, 'Profile'])->name('dashboard');
 
 Route::get('/cif', [CIFController::class, 'index'])->name('cif');
-Route::get('/infocif/{id}/show', [infoCIFController::class, 'index'])->name('cif.show');
+Route::get('/infocif/show/{id}', [infoCIFController::class, 'index'])->name('cif.show');
+Route::put('/infocif/autorisasi/{id}', [infoCIFController::class, 'autorisasi'])->name('autorisasi');
 
 Route::get('/tabungan', [SavingController::class, 'index'])->name('tabungan');
-Route::get('/infotabungan/{id}/show', [infoSavingController::class, 'index'])->name('tabungan.show');
+Route::get('/infotabungan/show/{id}', [infoSavingController::class, 'index'])->name('tabungan.show');
+Route::put('/infotabungan/autorisasi/{id}', [infoSavingController::class, 'autorisasi'])->name('autorisasi');
 
 Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi');
-Route::get('/infotransaksi/{id}/show', [infoTransaksiController::class, 'index'])->name('transaksi.show');
+Route::get('/infotransaksi/show/{id}', [infoTransaksiController::class, 'index'])->name('transaksi.show');
+Route::put('/infotransaksi/autorisasi/{id}', [infoTransaksiController::class, 'autorisasi'])->name('autorisasi');
+Route::get('/cetakmutasi/{id}', [infoTransaksiController::class, 'cetak'])->name('cetakmutasi');
 
 Route::get('/sinkron', [SinkronController::class, 'index'])->name('sinkron');
 

@@ -30,8 +30,9 @@
                                     <div class="d-flex align-items-center">
                                         <div class="symbol symbol-50px me-5">
                                             <span class="symbol-label bg-light">
-                                                    <img class="h-100 " src="{{ Avatar::create($datacif->fullName)->setTheme('pastel')->setShape('square')->setBorder(2, '#FFF', 90) }}" />
-                                                
+                                                <img class="h-100 "
+                                                    src="{{ Avatar::create($datacif->fullName)->setTheme('pastel')->setShape('square')->setBorder(2, '#FFF', 90) }}" />
+
                                             </span>
                                         </div>
                                     </div>
@@ -42,7 +43,8 @@
                                     <div class="d-flex justify-content-start flex-column">
                                         <a href="{{ url('infocif') }}"
                                             class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{ $datacif->fullName }}</a>
-                                        <span class="text-dark fw-semibold d-block fs-7">CIF ID {{ $datacif->cifNumber }}</span>
+                                        <span class="text-dark fw-semibold d-block fs-7">CIF ID
+                                            {{ $datacif->cifNumber }}</span>
                                     </div>
                                 </div>
                                 <!--begin::User details-->
@@ -58,21 +60,21 @@
                             <div class="d-flex justify-content-start flex-column">
                                 <span class="text-dark fw-bold text-hover-primary mb-1 fs-6">Tipe</span>
                                 @if ($datainfo->transactionGroup == 10)
-                                <span class="text-dark fw-semibold d-block fs-7">Transfer</span>
+                                    <span class="text-dark fw-semibold d-block fs-7">Transfer</span>
                                 @elseif ($datainfo->transactionGroup == 20)
-                                <span class="text-dark fw-semibold d-block fs-7">Pay</span>
+                                    <span class="text-dark fw-semibold d-block fs-7">Pay</span>
                                 @elseif ($datainfo->transactionGroup == 30)
-                                <span class="text-dark fw-semibold d-block fs-7">Buy</span>
+                                    <span class="text-dark fw-semibold d-block fs-7">Buy</span>
                                 @elseif ($datainfo->transactionGroup == 40)
-                                <span class="text-dark fw-semibold d-block fs-7">E-Wallet</span>
-
+                                    <span class="text-dark fw-semibold d-block fs-7">E-Wallet</span>
                                 @endif
-                            
+
                             </div>
                         </div>
                         <div class="p-6">
                             <span class="text-dark fw-bold text-hover-primary mb-1 fs-6">Tgl Transaksi</span>
-                            <span class="text-dark fw-semibold d-block fs-7">{{ date('d F Y', strtotime(substr($datainfo->transactionDate, 0, 10))) }}</span>
+                            <span
+                                class="text-dark fw-semibold d-block fs-7">{{ date('d F Y', strtotime(substr($datainfo->transactionDate, 0, 10))) }}</span>
                         </div>
 
                     </div>
@@ -81,12 +83,12 @@
                         <!--begin::Table head-->
                         <thead class="border-bottom border-gray-200 fs-7 fw-bold">
                             <!--begin::Table row-->
-                            <tr class="text-start fw-bold text-uppercase gs-0">
-                                <th class="min-w-150px">Account</th>
-                                <th class="min-w-400px">Keterangan</th>
-                                <th class="min-w-150px">Debit</th>
-                                <th class="min-w-100px">Kredit</th>
-                                
+                            <tr class="fw-bold text-uppercase gs-0">
+                                <th class="min-w-200px text-center">Account</th>
+                                <th class="min-w-300px text-center">Keterangan</th>
+                                <th class="min-w-200px text-center">Debit</th>
+                                <th class="min-w-200px text-center">Kredit</th>
+
                             </tr>
                             <!--end::Table row-->
                         </thead>
@@ -95,46 +97,69 @@
                         <tbody class="fs-6">
                             <!--begin::Table row-->
                             @forelse ($datadetail as $detail)
-                            <tr>
-                                <!--begin::order=-->
-                                <td>
-                                    {{ $detail->account }}
-                                </td>
-                                <!--end::order=-->
-                                <!--begin::Status=-->
-                                <td>
-                                    {{ $detail->description }}
-                                </td>
-                                <!--end::Status=-->
-                                <!--begin::Amount=-->
-                                @if ($detail->dc == 'C')
-                                <td>
-                                    Rp. {{ $detail->amount }}
-                                </td>
-                                <!--end::Amount=-->
-                                <!--begin::Amount=-->
-                                <td> - </td>
-                                @else
-                                <td>
-                                    -
-                                </td>
-                                <!--end::Amount=-->
-                                <!--begin::Amount=-->
-                                <td>
-                                    Rp. {{ $detail->amount }}
-                                </td>
-                                @endif
-                                
-                                <!--end::Amount=-->
-                            </tr>    
+                                <tr>
+                                    <!--begin::order=-->
+                                    <td>
+                                        {{ $detail->account }}
+                                    </td>
+                                    <!--end::order=-->
+                                    <!--begin::Status=-->
+                                    <td>
+                                        {{ $detail->description }}
+                                    </td>
+                                    <!--end::Status=-->
+                                    <!--begin::Amount=-->
+                                    @if ($detail->dc == 'C')
+                                        <td>
+                                            Rp . {{ number_format($detail->amount, 0, ',', '.') }}
+                                        </td>
+                                        <!--end::Amount=-->
+                                        <!--begin::Amount=-->
+                                        <td> - </td>
+                                    @else
+                                        <td>
+                                            -
+                                        </td>
+                                        <!--end::Amount=-->
+                                        <!--begin::Amount=-->
+                                        <td>
+                                            Rp . {{ number_format($detail->amount, 0, ',', '.') }}
+                                        </td>
+                                    @endif
+
+                                    <!--end::Amount=-->
+                                </tr>
                             @empty
                                 <span>Tidak Ada Transaksi</span>
                             @endforelse
-                            
                         </tbody>
                         <!--end::Table body-->
                     </table>
                     <!--end::Table-->
+                    @if ($datainfo->status != 1 && $datainfo->status != 2 && $datainfo->status != 3 && $datainfo->status != 4)
+                            <form method="POST" action="/infotransaksi/autorisasi/{{ $datainfo->id }}">
+                                {{ csrf_field() }}
+                                {{ method_field('put') }}
+                                <div class="d-flex flex-row-reverse mt-10">
+                                    <!-- Submit button -->
+                                    <hr>
+                                    <input name="verif" type="submit" class="btn btn-success text-light mb-2 p-5 mx-2"
+                                        value="Verified">
+                                    <input name="reject "type="submit" class="btn btn-danger text-light mb-2 p-5 mx-2"
+                                        value="Reject">
+                                    <input type="button" class="btn btn-secondary mb-2 p-5 mx-2 " value="Kembali"
+                                        onclick="history.back();">
+                                </div>
+                            </form>
+                        @else
+                            <div class="d-flex flex-row-reverse mt-10">
+                                <!-- Submit button -->
+                                <hr>
+                                <a href="/cetakmutasi/{{ $datainfo->id }}" target="_blank" class="btn btn-success mb-2 p-5 mx-2 ">Cetak Mutasi</a>
+                                <input type="button" onclick="history.back();" class="btn btn-secondary mb-2 p-5 mx-2 "
+                                    value="Kembali">
+                            </div>
+                    @endif
                 </div>
                 <!--end::Card body-->
             </div>
@@ -152,26 +177,8 @@
     <script>
         $(document).ready(function() {
             $('.table-mutasi').DataTable({
-                "dom": "< row'<'col pull-left'f><'col pt-4 pull-right'B> ><t><' row'<'col col-lg-2 py-3'i><'col-md-auto'l><'col'p>> ",
-                'buttons': [{
-                    "text":'<span class="text-light fw-bold">Cetak Mutasi</span>',
-                    "className": 'btn btn-success btn-lg',
-                    'extend': 'print',
-                    'filename': 'Report',
-                    'title': 'Laporan Transaksi',
-                    'messageTop': 'Laporan Ini Dibuat Untuk Pengguna',
-                    customize: function(win) {
-                        $(win.document.body)
-                            .css('font-size', '14pt')
-                            .prepend(
-                                '<img src="{{ asset('assets/media/tabersa/logodaun.png') }}" style="position:absolute; display: block;top:300;left:130; opacity:0.3;" />'
-                            );
-
-                        $(win.document.body).find('table')
-                            .addClass('compact')
-                            .css('font-size', 'arial','10pt');
-                    }
-                }]
+                "dom": "< row'<'col pull-left'f>><t><' row'<'col col-lg-2 py-3'i><'col-md-auto'l><'col'p>> ",
+                
             });
         });
     </script>

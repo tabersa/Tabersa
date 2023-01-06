@@ -48,7 +48,7 @@
                         <tbody class="fw-semibold">
                             <!--begin::Table row-->
                             @forelse ($cif->data as $datacif)
-                                <tr class="table-row"data-href="infocif/{{ $datacif->id }}/show">
+                                <tr class="table-row"data-href="infocif/show/{{ $datacif->id }}">
                                     {{-- <td class="d-flex align-items-center">{{1}}</td> --}}
                                     <!--begin::User=-->
                                     <td class="d-flex align-items-center">
@@ -92,11 +92,11 @@
                                     <!--begin::Action=-->
                                     <td class="text-center">
                                         @if ($datacif->status === 1)
-                                            <span class="badge badge-light-success fs-7 fw-bold py-3 px-8"
-                                                style="color: #54CC58">Verified</span>
+                                            <span class="badge badge-success fs-7 fw-bold py-3 px-8">Verified</span>
+                                        @elseif ($datacif->status === 2)
+                                            <span class="badge badge-danger fs-7 fw-bold py-3 px-8">Reject</span>
                                         @else
-                                            <span class="badge badge-light-secondary fs-7 fw-bold py-3 px-8"
-                                                style="color: #808A82">Unverified</span>
+                                            <span class="badge badge-secondary fs-7 fw-bold py-3 px-8">Unverified</span>
                                         @endif
 
                                     </td>

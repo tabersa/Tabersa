@@ -23,15 +23,15 @@ class infoCIFController extends Controller
             curl_setopt_array(
                 $curl,
                 array(
-                CURLOPT_URL => 'http://147.139.130.151:8060/api/identity/profile',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'GET',
-                CURLOPT_HTTPHEADER => array(
+                    CURLOPT_URL => 'http://147.139.130.151:8060/api/identity/profile',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'GET',
+                    CURLOPT_HTTPHEADER => array(
                         'Authorization: Bearer ' . $token
                     ),
                 )
@@ -39,20 +39,62 @@ class infoCIFController extends Controller
             $response = curl_exec($curl);
             $profile = json_decode($response);
 
+            $curl = curl_init();
+            curl_setopt_array(
+                $curl,
+                array(
+                    CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/cif/search',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => '{
+  "advancedSearch": {
+    "fields": [
+    ],
+    "keyword": ""
+  },
+  "keyword":  "' . $id . '",
+  "pageNumber": 0,
+  "pageSize": 100,
+  "orderBy": [
+    "CreatedOn DESC"
+  ],
+  "cifId": null,
+  "transactionDateFrom": "",
+  "transactionDateTo": "",
+  "status": 1000
+}',
+                    CURLOPT_HTTPHEADER => array(
+                        'Authorization: Bearer ' . $token,
+                        'Content-Type: application/json'
+                    ),
+                )
+            );
+
+            $response = curl_exec($curl);
+            $new = json_decode($response);
+            $newdata = $new->data[0];
+            curl_close($curl);
+
+
             // dapetin data cif
             $curl = curl_init();
             curl_setopt_array(
                 $curl,
                 array(
-                CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/cif/' . $id,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'GET',
-                CURLOPT_HTTPHEADER => array(
+                    CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/cif/' . $id,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'GET',
+                    CURLOPT_HTTPHEADER => array(
                         'Authorization: Bearer ' . $token,
                     ),
                 )
@@ -74,19 +116,19 @@ class infoCIFController extends Controller
             curl_setopt_array(
                 $curl,
                 array(
-                CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => '{
+                    CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => '{
                     "referenceTable": "RefCity",
                     "referenceCode": ""
                         }',
-                CURLOPT_HTTPHEADER => array(
+                    CURLOPT_HTTPHEADER => array(
                         'Content-Type: application/json',
                         'Authorization: Bearer ' . $token,
                     ),
@@ -102,19 +144,19 @@ class infoCIFController extends Controller
             curl_setopt_array(
                 $curl,
                 array(
-                CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => '{
+                    CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => '{
         "referenceTable": "RefProvince",
         "referenceCode": ""
             }',
-                CURLOPT_HTTPHEADER => array(
+                    CURLOPT_HTTPHEADER => array(
                         'Content-Type: application/json',
                         'Authorization: Bearer ' . $token,
                     ),
@@ -130,19 +172,19 @@ class infoCIFController extends Controller
             curl_setopt_array(
                 $curl,
                 array(
-                CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => '{
+                    CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => '{
         "referenceTable": "RefNationality",
         "referenceCode": ""
             }',
-                CURLOPT_HTTPHEADER => array(
+                    CURLOPT_HTTPHEADER => array(
                         'Content-Type: application/json',
                         'Authorization: Bearer ' . $token,
                     ),
@@ -158,19 +200,19 @@ class infoCIFController extends Controller
             curl_setopt_array(
                 $curl,
                 array(
-                CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => '{
+                    CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => '{
         "referenceTable": "RefEducation",
         "referenceCode": ""
             }',
-                CURLOPT_HTTPHEADER => array(
+                    CURLOPT_HTTPHEADER => array(
                         'Content-Type: application/json',
                         'Authorization: Bearer ' . $token,
                     ),
@@ -186,19 +228,19 @@ class infoCIFController extends Controller
             curl_setopt_array(
                 $curl,
                 array(
-                CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => '{
+                    CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => '{
         "referenceTable": "RefOccupation",
         "referenceCode": ""
             }',
-                CURLOPT_HTTPHEADER => array(
+                    CURLOPT_HTTPHEADER => array(
                         'Content-Type: application/json',
                         'Authorization: Bearer ' . $token,
                     ),
@@ -214,19 +256,19 @@ class infoCIFController extends Controller
             curl_setopt_array(
                 $curl,
                 array(
-                CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => '{
+                    CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => '{
         "referenceTable": "RefSectorOfIndustry",
         "referenceCode": ""
             }',
-                CURLOPT_HTTPHEADER => array(
+                    CURLOPT_HTTPHEADER => array(
                         'Content-Type: application/json',
                         'Authorization: Bearer ' . $token,
                     ),
@@ -242,19 +284,19 @@ class infoCIFController extends Controller
             curl_setopt_array(
                 $curl,
                 array(
-                CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => '{
+                    CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => '{
         "referenceTable": "RefMonthlyIncome",
         "referenceCode": ""
             }',
-                CURLOPT_HTTPHEADER => array(
+                    CURLOPT_HTTPHEADER => array(
                         'Content-Type: application/json',
                         'Authorization: Bearer ' . $token,
                     ),
@@ -270,19 +312,19 @@ class infoCIFController extends Controller
             curl_setopt_array(
                 $curl,
                 array(
-                CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => '{
+                    CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => '{
         "referenceTable": "RefMonthlySpending",
         "referenceCode": ""
             }',
-                CURLOPT_HTTPHEADER => array(
+                    CURLOPT_HTTPHEADER => array(
                         'Content-Type: application/json',
                         'Authorization: Bearer ' . $token,
                     ),
@@ -298,19 +340,19 @@ class infoCIFController extends Controller
             curl_setopt_array(
                 $curl,
                 array(
-                CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => '{
+                    CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => '{
         "referenceTable": "RefSourceOfFund",
         "referenceCode": ""
             }',
-                CURLOPT_HTTPHEADER => array(
+                    CURLOPT_HTTPHEADER => array(
                         'Content-Type: application/json',
                         'Authorization: Bearer ' . $token,
                     ),
@@ -326,19 +368,19 @@ class infoCIFController extends Controller
             curl_setopt_array(
                 $curl,
                 array(
-                CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => '{
+                    CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => '{
         "referenceTable": "RefJobPosition",
         "referenceCode": ""
             }',
-                CURLOPT_HTTPHEADER => array(
+                    CURLOPT_HTTPHEADER => array(
                         'Content-Type: application/json',
                         'Authorization: Bearer ' . $token,
                     ),
@@ -349,40 +391,42 @@ class infoCIFController extends Controller
             $jabatan = $datajabatan->data;
             // dd($city);
             curl_close($curl);
-             ///////////////////////////////////////////////////
-             $curl = curl_init();
-             curl_setopt_array(
-                 $curl,
-                 array(
-                 CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
-                 CURLOPT_RETURNTRANSFER => true,
-                 CURLOPT_ENCODING => '',
-                 CURLOPT_MAXREDIRS => 10,
-                 CURLOPT_TIMEOUT => 0,
-                 CURLOPT_FOLLOWLOCATION => true,
-                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                 CURLOPT_CUSTOMREQUEST => 'POST',
-                 CURLOPT_POSTFIELDS => '{
+            ///////////////////////////////////////////////////
+            $curl = curl_init();
+            curl_setopt_array(
+                $curl,
+                array(
+                    CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => '{
          "referenceTable": "RefMaritalStatus",
          "referenceCode": ""
              }',
-                 CURLOPT_HTTPHEADER => array(
-                         'Content-Type: application/json',
-                         'Authorization: Bearer ' . $token,
-                     ),
-                 )
-             );
-             $responsekawin = curl_exec($curl);
-             $datakawin = json_decode($responsekawin);
-             $kawin = $datakawin->data;
-             // dd($city);
-             curl_close($curl);
+                    CURLOPT_HTTPHEADER => array(
+                        'Content-Type: application/json',
+                        'Authorization: Bearer ' . $token,
+                    ),
+                )
+            );
+            $responsekawin = curl_exec($curl);
+            $datakawin = json_decode($responsekawin);
+            $kawin = $datakawin->data;
+            $dataid = $id;
+            curl_close($curl);
 
             // dd($cif);
             return view(
                 'page.cif.infocif',
                 compact(
+                    'dataid',
                     'profile',
+                    'newdata',
                     'datainfo',
                     'dataaddress',
                     'dataoccupation',
@@ -408,74 +452,50 @@ class infoCIFController extends Controller
     }
 
 
-    public function Profile()
+    public function autorisasi(Request $request, $id)
     {
-    }
+        $token = $request->session()->get('token');
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        if (isset($_POST['verif'])) {
+            $auth = 1;
+            $status = 1;
+        } else {
+            $auth = 2;
+            $status = 2;
+        }
+        $body = array(
+            "cifNumber" => (string)$request->cifNumber,
+            "auth" => $auth,
+            "status" => $status,
+        );
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/cif/auth/' . $id,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'PUT',
+            CURLOPT_POSTFIELDS => json_encode($body),
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json',
+                'Authorization: Bearer ' . $token
+            ),
+        )
+        );
+        $response = curl_exec($curl);
+        $new = json_decode($response);
+        // dd($body);
+        $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+        if ($httpcode == 200) {
+            Alert::success('Selamat', 'Data Telah di Autorisasi');
+            return redirect()->route('cif');
+        } else {
+            Alert::error('Error', 'Periksa Kembali Data');
+            return redirect()->route('cif');
+        }
     }
 }

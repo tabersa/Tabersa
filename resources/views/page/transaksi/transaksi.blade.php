@@ -44,7 +44,7 @@
                         <!--begin::Table body-->
                         <tbody>
                             @forelse($transaksi->data as $datatransaksi)
-                                <tr class="table-row" data-href="infotransaksi/{{ $datatransaksi->id }}/show">
+                                <tr class="table-row" data-href="infotransaksi/show/{{ $datatransaksi->id }}">
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="symbol symbol-50px me-3">
@@ -69,49 +69,43 @@
                                     <td class="text-start">
                                         {{-- <div id="kt_table_widget_14_chart_1" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div> --}}
                                         <span
-                                            class=" fs-6">Rp.{{ number_format($datatransaksi->totalAmount, 2, ',', '.') }}</span>
+                                            class=" fs-6">Rp.{{ number_format($datatransaksi->totalAmount, 0, ',', '.') }}</span>
                                     </td>
                                     <td class="text-start">
 
                                         @if ($datatransaksi->status === 0)
-                                            <a href="#" class="btn btn-sm btn-block btn-active-color-light"
-                                                style="background-color: #D1D8D3">
-                                                <span class="text-hover-info fw-bold" style="color: #808A82">
+                                            <a href="#" class="btn btn-sm btn-warning btn-block btn-active-color-light">
+                                                <span class="text-hover-info fw-bold">
                                                     Pending
                                                 </span>
                                             </a>
                                         @elseif ($datatransaksi->status === 1)
-                                            <a href="#" class="btn btn-sm btn-block btn-active-color-light"
-                                                style="background-color: #ECFAFF">
-                                                <span class="text-hover-info fw-bold" style="color: ##27BFEF">
+                                            <a href="#" class="btn btn-sm btn-success btn-block btn-active-color-light">
+                                                <span class="text-hover-info fw-bold"7BFEF">
                                                     Approved
                                                 </span>
                                             </a>
                                         @elseif ($datatransaksi->status === 2)
-                                            <a href="#" class="btn btn-sm btn-block btn-active-color-light"
-                                                style="background-color: #FFEBEB">
-                                                <span class="text-hover-info fw-bold" style="color: #DC3F3F">
+                                            <a href="#" class="btn btn-sm btn-danger btn-block btn-active-color-light">
+                                                <span class="text-hover-info fw-bold">
                                                     Rejected
                                                 </span>
                                             </a>
                                         @elseif ($datatransaksi->status === 3)
-                                            <a href="#" class="btn btn-sm btn-block btn-active-color-light"
-                                                style="background-color: #eeff8f">
-                                                <span class="text-hover-info fw-bold" style="color: white">
-                                                    Canceled
+                                            <a href="#" class="btn btn-info btn-sm btn-block btn-active-color-light">
+                                                <span class="text-hover-info fw-bold">
+                                                    Canceled System
                                                 </span>
                                             </a>
                                         @elseif ($datatransaksi->status === 4)
-                                            <a href="#" class="btn btn-sm btn-block btn-active-color-light"
-                                                style="background-color: #eeff8f">
-                                                <span class="text-hover-info fw-bold" style="color: white">
-                                                    Canceled
+                                            <a href="#" class="btn btn-info btn-sm btn-block btn-active-color-light">
+                                                <span class="text-hover-info fw-bold">
+                                                    Canceled User
                                                 </span>
                                             </a>
                                         @else
-                                            <a href="#" class="btn btn-sm btn-block btn-active-color-light"
-                                                style="background-color: #FFEBEB">
-                                                <span class="text-hover-info fw-bold" style="color: #DC3F3F">
+                                            <a href="#" class="btn btn-sm btn-danger btn-block btn-active-color-light">
+                                                <span class="text-hover-info fw-bold">
                                                     Failed
                                                 </span>
                                             </a>

@@ -136,12 +136,21 @@ License: For each use you must have a valid license purchased only from above li
                                     class="form-control bg-transparent mt-4" />
                                 <!--end::Email-->
                             </div> --}}
+                            
                             <div class="fv-row mb-3">
                                 <!--begin::Email-->
-                                <span class="fw-bold"> USERNAME</span>
+                                <span class="fw-bold"> Tenant</span>
+                                <input id="tenant" type="text"
+                                    class=" bg-transparent mt-4 form-control @error('tenant') is-invalid @enderror"
+                                    name="tenant" value="601687" required autofocus />
+                                <!--end::Email-->
+                            </div>
+                            <div class="fv-row mb-3">
+                                <!--begin::Email-->
+                                <span class="fw-bold"> Username</span>
                                 <input id="username" type="text"
                                     class=" bg-transparent mt-4 form-control @error('username') is-invalid @enderror"
-                                    name="username" value="{{ old('email') }}" required autocomplete="email"
+                                    name="username" value="bpr.demo" required
                                     autofocus />
                                 <!--end::Email-->
                             </div>
@@ -151,7 +160,7 @@ License: For each use you must have a valid license purchased only from above li
                                 <span class="fw-bold">Password</span>
                                 <input id="password" type="password"
                                     class="bg-transparent mt-4 form-control @error('password') is-invalid @enderror"
-                                    name="password" required autocomplete="current-password" />
+                                    name="password" value="Taber54!" required autocomplete="current-password" />
                                 <!--end::Password-->
                             </div>
                             <!--end::Input group=-->

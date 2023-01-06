@@ -8,8 +8,6 @@
 
 @section('content')
 
-
-
     <!--begin::Content-->
     <div id="kt_app_content" class="app-content flex-column-fluid">
         <!--begin::Content container-->
@@ -50,7 +48,7 @@
                         <tbody>
                             @forelse ($datainfo as $datasaving)
                                 <!--begin::Table row-->
-                                <tr class="table-row" data-href="infotabungan/{{ $datasaving->id }}/show">
+                                <tr class="table-row" data-href="infotabungan/show/{{ $datasaving->id }}">
                                     <!--begin::Checkbox-->
                                     <td></td>
                                     <!--end::Checkbox-->
@@ -103,17 +101,23 @@
                                     <!--begin::email-->
                                     <td class="text-center">
                                         @if ($datasaving->status === 1)
-                                            <a href="#" class="btn btn-sm btn-active-color-primary"
-                                                style="background-color: #ECFAFF;">
-                                                <span class="fw-bold text-hover-dark" style="color: #27BFEF">
+                                            <a href="#" class="btn btn-success btn-sm "
+                                                >
+                                                <span class="fw-bold bg-success ">
                                                     Active
                                                 </span>
                                             </a>
+                                        @elseif ($datasaving->status === 2)
+                                        <a href="#" class="btn btn-danger btn-sm "
+                                            >
+                                            <span class="fw-bold  ">
+                                                Reject
+                                            </span>
+                                        </a>
                                         @else
-                                            <a href="#" class="btn btn-sm btn-active-color-primary"
-                                                style="background-color: #DCF9DD">
-                                                <span class="fw-bold text-hover-dark" style="color: #54CC58">
-                                                    Verified
+                                            <a href="#" class="btn btn-sm btn-warning">
+                                                <span class="fw-bold text-hover-dark">
+                                                    Pending
                                                 </span>
                                             </a>
                                         @endif

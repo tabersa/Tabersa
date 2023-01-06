@@ -19,7 +19,56 @@
         <div id="kt_app_content_container" class="app-container container-xxl">
             <!--begin::Card-->
             <div class="card">
-
+                @if ($datainfo->auth == 2 && $datainfo->status == 2)
+                                    <!--begin::Card body-->
+                <div class="card-body py-4">
+                    <div class="d-flex justify-content-between shadow-sm">
+                        <div class="p-6">
+                            <div class="row">
+                                <!--begin:: Avatar -->
+                                <div class="col-4">
+                                    <div class="d-flex align-items-center">
+                                        <div class="symbol symbol-50px me-5">
+                                            <span class="symbol-label bg-light">
+                                                <img src="assets/media/svg/avatars/001-boy.svg" class="h-75 align-self-end"
+                                                    alt="" />
+                                                    <img class="h-100 " src="{{ Avatar::create($datacif->fullName)->setTheme('pastel')->setShape('square')->setBorder(2, '#FFF', 90) }}" />
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end::Avatar-->
+                                <!--begin::User details-->
+                                <div class="col">
+                                    <div class="d-flex justify-content-start flex-column">
+                                        <a href="{{ url('infocif') }}"
+                                            class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{ $datacif->fullName }}</a>
+                                        <span class="text-dark fw-semibold d-block fs-7">CIF ID
+                                            {{ $datacif->cifNumber }}</span>
+                                    </div>
+                                </div>
+                                <!--begin::User details-->
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="d-flex justify-content-start flex-column">
+                                <a href="{{ url('infocif') }}"
+                                    class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{ $dataproduct->productName }}</a>
+                                @foreach ($dataakun->data as $akun)
+                                    @if ($datainfo->savingAccountType == $akun->value)
+                                    <span class="text-dark fw-semibold d-block fs-7">{{ $akun->label }}</span>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="p-6">
+                                <span class="fw-bold text-danger mb-1 fs-4">Tabungan Direject</span>
+                        </div>
+                    </div>
+                    
+                </div>
+                <!--end::Card body-->
+                @else
                 <!--begin::Card body-->
                 <div class="card-body py-4">
                     <div class="d-flex justify-content-between shadow-sm">
@@ -113,15 +162,19 @@
                                     <!--end::Amount=-->
                                     <!--begin::Amount=-->
                                     @if ($data->dc == 'D')
-                                        <td class="text-danger"> - Rp.{{ $data->amount }}</td>
+                                        <td class="text-end text-danger"> - Rp.{{ $data->amount }}</td>
                                     @else
-                                        <td class="text-success">+ Rp.{{ $data->amount }}</td>
+                                        <td class=" text-end text-success">+ Rp.{{ $data->amount }}</td>
                                     @endif
 
                                     <!--end::Amount=-->
                                 </tr>
                             @empty
-                                <span>Tidak Ada Transaksi</span>
+                            <tr>
+                                <td rowspan="4">
+                                    <span>Tidak Ada Transaksi</span>
+                                </td>
+                            </tr>
                             @endforelse
 
                         </tbody>
@@ -130,6 +183,8 @@
                     <!--end::Table-->
                 </div>
                 <!--end::Card body-->
+                @endif
+
             </div>
             <!--end::Card-->
         </div>

@@ -51893,3 +51893,30 @@ html:not([data-theme="dark"]) {
 .table-row{
 cursor:pointer;
 }
+
+.tableprint {
+    font-family: sans-serif;
+    color: #444;
+    border-collapse: collapse;
+    width: 50%;
+    border: 1px solid #f2f5f7;
+}
+ 
+.tableprint tr th{
+    background: #58cc5c;
+    color: #fff;
+    font-weight: bold;
+}
+ 
+.tableprint, th, td {
+    padding: 8px 20px;
+    text-align: center;
+}
+ 
+.tableprint tr:hover {
+    background-color: #f5f5f5;
+}
+ 
+.tableprint tr:nth-child(even) {
+    background-color: #f2f2f2;
+}

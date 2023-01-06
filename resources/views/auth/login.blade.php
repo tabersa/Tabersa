@@ -53,7 +53,7 @@ License: For each use you must have a valid license purchased only from above li
     @include('sweetalert::alert')
 
     <!--begin::Theme mode setup on page load-->
-    <script>
+    {{-- <script>
         var defaultThemeMode = "light";
         var themeMode;
         if (document.documentElement) {
@@ -71,12 +71,12 @@ License: For each use you must have a valid license purchased only from above li
             }
             document.documentElement.setAttribute("data-theme", themeMode);
         }
-    </script>
+    </script> --}}
     <!--end::Theme mode setup on page load-->
     <!--begin::Root-->
     <div class="d-flex flex-column flex-root" id="kt_app_root">
         <!--begin::Page bg image-->
-        <style>
+        {{-- <style>
             body {
                 background-color: white;
             }
@@ -84,7 +84,7 @@ License: For each use you must have a valid license purchased only from above li
             [data-theme="dark"] body {
                 background-color: black;
             }
-        </style>
+        </style> --}}
         <!--end::Page bg image-->
         <!--begin::Authentication - Sign-in -->
         <div class="d-flex flex-center flex-column flex-column-fluid flex-lg-row">
@@ -124,7 +124,7 @@ License: For each use you must have a valid license purchased only from above li
                             <div class="text-center mb-11">
                                 <!--begin::Title-->
                                 <img src="{{ asset('assets/media/tabersa/logohorizontal.png') }}" alt=""
-                                    height="90" width="auto">
+                                    height="10" width="auto">
                                 <!--end::Title-->
                             </div>
                             <!--begin::Heading-->
@@ -138,10 +138,18 @@ License: For each use you must have a valid license purchased only from above li
                             </div> --}}
                             <div class="fv-row mb-3">
                                 <!--begin::Email-->
-                                <span class="fw-bold"> USERNAME</span>
+                                <span class="fw-bold"> Tenant</span>
+                                <input id="tenant" type="text"
+                                    class=" bg-transparent mt-4 form-control @error('tenant') is-invalid @enderror"
+                                    name="tenant" value="{{ old('tenant') }}" required autofocus />
+                                <!--end::Email-->
+                            </div>
+                            <div class="fv-row mb-3">
+                                <!--begin::Email-->
+                                <span class="fw-bold"> Username</span>
                                 <input id="username" type="text"
                                     class=" bg-transparent mt-4 form-control @error('username') is-invalid @enderror"
-                                    name="username" value="{{ old('email') }}" required autocomplete="email"
+                                    name="username" value="601687" required autocomplete="email"
                                     autofocus />
                                 <!--end::Email-->
                             </div>
