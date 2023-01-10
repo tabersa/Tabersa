@@ -673,18 +673,30 @@
                                         {{-- ///////////////// --}}
                                     </div>
                                 </div>
-                                @if ($newdata->status != 1 && $newdata->status != 2)
-                                    <div class="d-flex flex-row-reverse mt-10">
-                                        <!-- Submit button -->
-                                        <hr>
-                                        <input name="verif" type="submit"
-                                            class="btn btn-success text-light mb-2 p-5 mx-2" value="Verified">
-                                        <input name="reject "type="submit"
-                                            class="btn btn-danger text-light mb-2 p-5 mx-2" value="Reject">
+                                @if($datainfo->cifNumber===null)
+                                <div class="d-flex flex-row-reverse mt-10">
+                                    <!-- Submit button -->
+                                    <hr>
+                                    <input name="verif" type="submit"
+                                        class="btn btn-success text-light mb-2 p-5 mx-2" value="Verified">
+                                    <input name="reject "type="submit"
+                                        class="btn btn-danger text-light mb-2 p-5 mx-2" value="Reject">
 
-                                        <input type="button" class="btn btn-secondary mb-2 p-5 mx-2 " value="Kembali"
-                                            onclick="history.back();">
-                                    </div>
+                                    <input type="button" class="btn btn-secondary mb-2 p-5 mx-2 " value="Kembali"
+                                        onclick="history.back();">
+                                </div>
+                                @elseif ($newdata->status != 1 && $newdata->status != 2 )
+                                <div class="d-flex flex-row-reverse mt-10">
+                                    <!-- Submit button -->
+                                    <hr>
+                                    <input name="verif" type="submit"
+                                        class="btn btn-success text-light mb-2 p-5 mx-2" value="Verified">
+                                    <input name="reject "type="submit"
+                                        class="btn btn-danger text-light mb-2 p-5 mx-2" value="Reject">
+
+                                    <input type="button" class="btn btn-secondary mb-2 p-5 mx-2 " value="Kembali"
+                                        onclick="history.back();">
+                                </div>
                                 @else
                                     <div class="d-flex flex-row-reverse mt-10">
                                         <!-- Submit button -->

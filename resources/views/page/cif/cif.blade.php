@@ -32,13 +32,13 @@
 
                         <thead>
                             <!--begin::Table row-->
-                            <tr class="text-start fw-bold fs-7 text-uppercase gs-0">
+                            <tr class="fw-bold fs-7 text-uppercase gs-0">
                                 {{-- <th class="min-fit">No</th> --}}
-                                <th class="min-w-125px ">NASABAH</th>
-                                <th class="min-w-125px">TANGGAL REGISTER</th>
-                                <th class="min-w-125px">IDENTITAS</th>
-                                <th class="min-w-125px">NO. SELULER</th>
-                                <th class="min-w-125px">EMAIL</th>
+                                <th class="min-w-125px text-center">NASABAH</th>
+                                <th class="min-w-125px text-center">TANGGAL REGISTER</th>
+                                <th class="min-w-125px text-center">IDENTITAS</th>
+                                <th class="min-w-125px text-center">NO. SELULER</th>
+                                <th class="min-w-125px text-center">EMAIL</th>
                                 <th class="text-center min-w-100px">STATUS</th>
                             </tr>
                             <!--end::Table row-->
@@ -63,12 +63,20 @@
                                         </div>
                                         <!--end::Avatar-->
                                         <!--begin::User details-->
+                                        @if ($datacif->cifNumber == null)
                                         <div class="d-flex justify-content-start flex-column">
-                                            <span class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{ $datacif->fullName }}</span>
-                                            <span class="text-dark fw-semibold d-block fs-7">CIF
+                                            <span class="text-dark text-start fw-bold mb-1 fs-6">{{ $datacif->fullName }}</span>
+                                            <span class="text-dark text-start fw-semibold d-block fs-7">CIF is Null</span>
+                                        </div>
+                                        @else
+                                        <div class="d-flex justify-content-start flex-column">
+                                            <span class="text-dark text-start fw-bold mb-1 fs-6">{{ $datacif->fullName }}</span>
+                                            <span class="text-dark text-start fw-semibold d-block fs-7">CIF
                                                 {{ $datacif->cifNumber }}</span>
 
                                         </div>
+                                        @endif
+                                        
                                     </td>
                                     <!--end::User=-->
                                     <!--begin::tgl regist=-->
@@ -79,7 +87,7 @@
                                     <!--end::tgl regist=-->
                                     <!--begin::identitas=-->
                                     <td>
-                                        <span class="text-dark fw-bold text-hover-primary d-block mb-1 fs-4">KTP</span>
+                                        <span class="text-dark fw-bold  d-block mb-1 fs-4">KTP</span>
                                         <span class="d-block fs-7">{{ $datacif->identityNumber }}</span>
                                     </td>
                                     <!--end::identitas=-->

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use RealRashid\SweetAlert\Facades\Alert;
 
+require 'API.php';
+
 class infoSavingController extends Controller
 {
     public function index(Request $request, $id)
@@ -13,53 +15,8 @@ class infoSavingController extends Controller
         // dd($id);
         if ($request->session()->exists('token')) {
             $token = $request->session()->get('token');
-
-            
-            // dapetin username header
-            $curl = curl_init();
-            curl_setopt_array(
-                $curl,
-                array(
-                    CURLOPT_URL => 'http://147.139.130.151:8060/api/identity/profile',
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => '',
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 0,
-                    CURLOPT_FOLLOWLOCATION => true,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => 'GET',
-                    CURLOPT_HTTPHEADER => array(
-                        'Authorization: Bearer ' . $token
-                    ),
-                )
-            );
-            $response = curl_exec($curl);
-            $profile = json_decode($response);
-            // dd($profile);
-            $curl = curl_init();
-
-            curl_setopt_array(
-                $curl,
-                array(
-                    CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/saving/' . $id,
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => '',
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 0,
-                    CURLOPT_FOLLOWLOCATION => true,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => 'GET',
-                    CURLOPT_HTTPHEADER => array(
-                        'Authorization: Bearer ' . $token,
-                    ),
-                )
-            );
-
-            $datasaving = curl_exec($curl);
-            $saving = json_decode($datasaving);
-
-            // dd($saving);
-            
+            $profile = getProfile($token);
+            $saving = getSavingID($token,$id);
             
             if ($saving->succeeded != false) {
             $datainfo = $saving->data;
@@ -123,59 +80,9 @@ class infoSavingController extends Controller
                 return view('page.tabungan.infotabungan', compact('profile', 'datainfo', 'datacif', 'dataproduct', 'trs', 'dataakun'));
             } else {
                 // Alert::error('Account Number '.$datacif->fullName.' Kosong', 'Mohon Autorisasi Dahulu');
-                $curl = curl_init();
-                curl_setopt_array(
-                    $curl,
-                    array(
-                        CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
-                        CURLOPT_RETURNTRANSFER => true,
-                        CURLOPT_ENCODING => '',
-                        CURLOPT_MAXREDIRS => 10,
-                        CURLOPT_TIMEOUT => 0,
-                        CURLOPT_FOLLOWLOCATION => true,
-                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                        CURLOPT_CUSTOMREQUEST => 'POST',
-                        CURLOPT_POSTFIELDS => '{
-                            "referenceTable": "RefSavingAccountType",
-                            "referenceCode": ""
-                        }',
-                        CURLOPT_HTTPHEADER => array(
-                            'Content-Type: application/json',
-                            'Authorization: Bearer ' . $token
-                        ),
-                    )
-                );
-                $response = curl_exec($curl);
-                $datatipe = json_decode($response);
-                curl_close($curl);
+                    $datatipe = getSavingAccountType($token);
+                    $datapurpose = getDataPurpose($token);
 
-
-                $curl = curl_init();
-                curl_setopt_array(
-                    $curl,
-                    array(
-                        CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
-                        CURLOPT_RETURNTRANSFER => true,
-                        CURLOPT_ENCODING => '',
-                        CURLOPT_MAXREDIRS => 10,
-                        CURLOPT_TIMEOUT => 0,
-                        CURLOPT_FOLLOWLOCATION => true,
-                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                        CURLOPT_CUSTOMREQUEST => 'POST',
-                        CURLOPT_POSTFIELDS => '{
-                            "referenceTable": "RefPurposeOfAccount",
-                            "referenceCode": ""
-                        }',
-                        CURLOPT_HTTPHEADER => array(
-                            'Content-Type: application/json',
-                            'Authorization: Bearer ' . $token
-                        ),
-                    )
-                );
-                $response = curl_exec($curl);
-                $datapurpose = json_decode($response);
-                // dd($datainfo);
-                curl_close($curl);
                 return view('page.tabungan.autorisasitabungan', compact('profile', 'datainfo', 'datacif', 'dataproduct', 'datatipe', 'datapurpose'));
 
             }
@@ -193,43 +100,9 @@ class infoSavingController extends Controller
     public function autorisasi(Request $request, $id)
     {
         $token = $request->session()->get('token');
-
-        if (isset($_POST['verif'])) {
-            $auth = 1;
-            $status = 1;
-        } else {
-            $auth = 2;
-            $status = 2;
-        }
-        $body = array(
-            "branchId" => $request->branchId,
-            "cifNumber" => $request->cifNumber,
-            "accountNumber" => (string) $request->accountNumber,
-            "virtualAccountNumber" => (string) $request->virtualAccountNumber,
-            "auth" => $auth,
-            "status" => $status,
-        );
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/saving/auth/' . $id,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'PUT',
-            CURLOPT_POSTFIELDS => json_encode($body),
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json',
-                'Authorization: Bearer ' . $token
-            ),
-        )
-        );
-        $response = curl_exec($curl);
-        $new = json_decode($response);
-        $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
+        
+        list($new, $httpcode) = authSaving($request, $id);
+        
         if ($httpcode == 200) {
             Alert::success('Selamat', 'Data Telah di Autorisasi');
             return redirect()->route('tabungan');
