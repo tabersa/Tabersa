@@ -16,11 +16,12 @@ class SavingController extends Controller
 
             $profile = getProfile($token);
             $datainfo = getSaving($token);
-
+            $savingType = getSavingAccountType($token);
+            $bank = getDataBank($token);
             if($profile === null) {
                 return redirect()->route('landing');
             } else {
-                return view('page.tabungan.tabungan', compact('profile', 'datainfo'));
+                return view('page.tabungan.tabungan', compact('savingType','bank','profile', 'datainfo'));
             }
         } else {
             Alert::error('Error Title', 'Error Message')->width('1000px');

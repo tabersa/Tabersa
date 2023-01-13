@@ -12,7 +12,7 @@
         <!--begin::Content container-->
         <div id="kt_app_content_container" class="app-container container-xxl">
             <!--begin::Card-->
-            <div class="card">
+            <div class="card mb-10">
                 <!--begin::Header-->
                 <div class="card-header">
                     <!--begin::Title-->
@@ -25,7 +25,7 @@
                 </div>
                 <!--end::Header-->
                 <!--begin::Card body-->
-                <div class="card-body py-4">
+                <div class="card-body py-10">
                     <!--begin::Table-->
                     <table class="table align-middle table-hover table-row-dashed fs-6 gy-5 table-cif">
                         <!--begin::Table head-->
@@ -34,11 +34,11 @@
                             <!--begin::Table row-->
                             <tr class="fw-bold fs-7 text-uppercase gs-0">
                                 {{-- <th class="min-fit">No</th> --}}
-                                <th class="min-w-125px text-center">NASABAH</th>
-                                <th class="min-w-125px text-center">TANGGAL REGISTER</th>
-                                <th class="min-w-125px text-center">IDENTITAS</th>
-                                <th class="min-w-125px text-center">NO. SELULER</th>
-                                <th class="min-w-125px text-center">EMAIL</th>
+                                <th class="min-w-125px text-start">NASABAH</th>
+                                <th class="min-w-125px text-start">TANGGAL REGISTER</th>
+                                <th class="min-w-125px text-start">IDENTITAS</th>
+                                <th class="min-w-125px text-start">NO. SELULER</th>
+                                <th class="min-w-125px text-start">EMAIL</th>
                                 <th class="text-center min-w-100px">STATUS</th>
                             </tr>
                             <!--end::Table row-->
@@ -81,30 +81,30 @@
                                     <!--end::User=-->
                                     <!--begin::tgl regist=-->
 
-                                    <td>
+                                    <td class="text-start">
                                         {{ date('d F Y', strtotime(substr($datacif->createdOn, 0, 10))) }}
                                     </td>
                                     <!--end::tgl regist=-->
                                     <!--begin::identitas=-->
-                                    <td>
+                                    <td class="text-start">
                                         <span class="text-dark fw-bold  d-block mb-1 fs-4">KTP</span>
                                         <span class="d-block fs-7">{{ $datacif->identityNumber }}</span>
                                     </td>
                                     <!--end::identitas=-->
                                     <!--begin::no.seluler=-->
-                                    <td>{{ $datacif->mobileNumber }}</td>
+                                    <td class="text-start">{{ $datacif->mobileNumber }}</td>
                                     <!--end::no.seluler=-->
                                     <!--begin::email-->
-                                    <td>{{ $datacif->emailAddress }}</td>
+                                    <td class="text-start">{{ $datacif->emailAddress }}</td>
                                     <!--begin::email-->
                                     <!--begin::Action=-->
                                     <td class="text-center">
                                         @if ($datacif->status === 1)
-                                            <span class="badge badge-success fs-7 fw-bold py-3 px-8">Verified</span>
+                                            <span class="badge badge-success ">Verified</span>
                                         @elseif ($datacif->status === 2)
-                                            <span class="badge badge-danger fs-7 fw-bold py-3 px-8">Reject</span>
+                                            <span class="badge badge-danger ">Reject</span>
                                         @else
-                                            <span class="badge badge-secondary fs-7 fw-bold py-3 px-8">Unverified</span>
+                                            <span class="badge badge-secondary ">Unverified</span>
                                         @endif
 
                                     </td>
@@ -134,7 +134,8 @@
     <script>
         $(document).ready(function() {
             $('.table-cif').DataTable({
-                "dom": "< <'pull-left'f><t><' row'<'col col-lg-2 py-3'i><'col-md-auto'l><'col'p>> >"
+                "dom": "< <'pull-left'f><t> >"
+                    //<' row'<'col col-lg-2 py-3'i>><'col-md-auto'l> <'col'p>
             });
         });
     </script>

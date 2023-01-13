@@ -169,6 +169,25 @@
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
+                <!--begin:Menu item-->
+                <div class="menu-item menu-accordion my-4">
+                    <!--begin:Menu link-->
+                    <a class="menu-link" href="{{ url('/news') }}">
+                        <span class="menu-icon">
+                            <!--begin::Svg Icon | path: icons/duotune/graphs/gra010.svg-->
+                            <span class="svg-icon svg-icon-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                    <path fill="#fff"
+                                    d="M96 96c0-35.3 28.7-64 64-64H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H80c-44.2 0-80-35.8-80-80V128c0-17.7 14.3-32 32-32s32 14.3 32 32V400c0 8.8 7.2 16 16 16s16-7.2 16-16V96zm64 24v80c0 13.3 10.7 24 24 24H424c13.3 0 24-10.7 24-24V120c0-13.3-10.7-24-24-24H184c-13.3 0-24 10.7-24 24zm0 184c0 8.8 7.2 16 16 16h96c8.8 0 16-7.2 16-16s-7.2-16-16-16H176c-8.8 0-16 7.2-16 16zm160 0c0 8.8 7.2 16 16 16h96c8.8 0 16-7.2 16-16s-7.2-16-16-16H336c-8.8 0-16 7.2-16 16zM160 400c0 8.8 7.2 16 16 16h96c8.8 0 16-7.2 16-16s-7.2-16-16-16H176c-8.8 0-16 7.2-16 16zm160 0c0 8.8 7.2 16 16 16h96c8.8 0 16-7.2 16-16s-7.2-16-16-16H336c-8.8 0-16 7.2-16 16z"/>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-title text-light fw-bold">News</span>
+                    </a>
+                    <!--end:Menu link-->
+                </div>
+                <!--end:Menu item-->
 
             </div>
             <!--end::Menu-->
@@ -176,9 +195,9 @@
         <!--end::Menu wrapper-->
     </div>
     <!--end::sidebar menu-->
-    <form id="kt_app_sidebar_footer" action="{{ route('logout') }}" method="POST" class=" app-sidebar-footer flex-column-auto pt-2 pb-6 px-6">
+    <a id="kt_app_sidebar_footer" href="{{ route('out') }}" class=" app-sidebar-footer flex-column-auto pt-2 pb-6 px-6">
         @csrf
-        <a href="javascript:;" onclick="parentNode.submit();">
+        {{-- <a href="javascript:;" onclick="parentNode.submit();"> --}}
             {{-- <div class="app-sidebar-footer flex-column-auto pt-2 pb-6 px-6" id="kt_app_sidebar_footer"> --}}
                 <div class="btn btn-flex flex-center btn-custom btn-primary overflow-hidden text-nowrap px-0 h-40px w-100" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss-="click">
                     <span class="btn-label text-light">Logout</span>
@@ -190,5 +209,5 @@
                 </div>
             {{-- </div> --}}
         </a>
-    </form>
+    </a>
 </div>

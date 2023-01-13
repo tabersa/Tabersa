@@ -130,11 +130,11 @@
                         <!--begin::Table head-->
                         <thead class="border-bottom border-gray-200 fs-7 fw-bold">
                             <!--begin::Table row-->
-                            <tr class="text-start  text-uppercase gs-0">
-                                <th class="min-w-150px">Tgl Transaksi</th>
-                                <th class="min-w-150px">Kode Transaksi</th>
-                                <th class="min-w-400px">Keterangan</th>
-                                <th class="min-w-100px">Nominal</th>
+                            <tr class=" text-uppercase gs-0">
+                                <th class="min-w-150px text-start ">Tgl Transaksi</th>
+                                <th class="min-w-150px text-start ">Kode Transaksi</th>
+                                <th class="min-w-400px text-start ">Keterangan</th>
+                                <th class="min-w-100px text-end">Nominal</th>
                             </tr>
                             <!--end::Table row-->
                         </thead>
@@ -145,26 +145,26 @@
                             @forelse ($trs as $data)
                                 <tr>
                                     <!--begin::order=-->
-                                    <td>
+                                    <td class="text-start">
                                         12 Nov 2022
                                     </td>
                                     <!--end::order=-->
                                     <!--begin::Status=-->
-                                    <td>
+                                    <td class="text-start">
                                         {{ $data->billerCode }}
                                     </td>
                                     <!--end::Status=-->
                                     <!--begin::Amount=-->
-                                    <td>
+                                    <td class="text-start">
                                         {{ $data->description }}
 
                                     </td>
                                     <!--end::Amount=-->
                                     <!--begin::Amount=-->
                                     @if ($data->dc == 'D')
-                                        <td class="text-end text-danger"> - Rp.{{ $data->amount }}</td>
+                                        <td class="text-end text-danger"> - Rp {{ number_format($data->amount, 0, ',', ',') }}</td>
                                     @else
-                                        <td class=" text-end text-success">+ Rp.{{ $data->amount }}</td>
+                                        <td class=" text-end text-success">+ Rp {{ number_format($data->amount, 0, ',', ',') }}</td>
                                     @endif
 
                                     <!--end::Amount=-->
@@ -200,8 +200,9 @@
     <script>
         $(document).ready(function() {
             $('.table-mutasi').DataTable({
-                "dom": "< <'pull-left'f><t><' row'<'col col-lg-2 py-3'i><'col-md-auto'l><'col'p>> >"
-            });
+                "dom": "< <'pull-left'f><t> >"
+                    // <' row'<'col col-lg-2 py-3'i><'col-md-auto'l><'col'p>>
+                });
         });
     </script>
 

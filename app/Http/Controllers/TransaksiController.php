@@ -16,12 +16,12 @@ class TransaksiController extends Controller
             $token = $request->session()->get('token');
             $profile = getProfile($token);
             $transaksi = getTransaksi($token);
-            
+            $bank = getDataBank($token);
             foreach ($transaksi->data as $key) {
                 $datacif = getTransaksiID($token, $key->cifId);
             }
 
-            return view('page.transaksi.transaksi', compact('profile', 'transaksi','datacif'));
+            return view('page.transaksi.transaksi', compact('bank','profile', 'transaksi','datacif'));
         } else {
             Alert::error('Error Title', 'Error Message')->width('1000px');
             return redirect()->route('/');

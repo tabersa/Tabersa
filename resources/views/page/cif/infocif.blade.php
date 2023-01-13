@@ -107,13 +107,11 @@
                                         <!-- Radio input -->
                                         <div class="row mb-8">
                                             <label class="form-label mb-4" for="form6Example1">Jenis Kelamin <br></label>
-
+                                            @if ($datainfo->gender == '1')
                                             <div class="col">
                                                 <div class="form-outline">
                                                     <input disabled class="form-check-input" type="radio"
-                                                        name="flexRadioDefault" id="flexRadioDefault1" <?php if ($datainfo->gender == '1') {
-                                                            echo 'checked="checked"';
-                                                        } ?>>
+                                                        name="flexRadioDefault" id="flexRadioDefault1" checked>
                                                     <label class="form-check-label" for="flexRadioDefault1">
                                                         Laki-Laki
                                                     </label>
@@ -123,14 +121,32 @@
                                                 <div class="form-outline">
                                                     <input disabled class="form-check-input" type="radio"
                                                         name="flexRadioDefault" id="flexRadioDefault1">
-                                                    <label class="form-check-label" for="flexRadioDefault1"
-                                                        <?php if ($datainfo->gender == '2') {
-                                                            echo 'checked="checked"';
-                                                        } ?>>
+                                                    <label class="form-check-label" for="flexRadioDefault1">
                                                         Perempuan
                                                     </label>
                                                 </div>
+                                            </div>        
+                                            @else
+                                            <div class="col">
+                                                <div class="form-outline">
+                                                    <input disabled class="form-check-input" type="radio"
+                                                        name="flexRadioDefault" id="flexRadioDefault1" >
+                                                    <label class="form-check-label" for="flexRadioDefault1">
+                                                        Laki-Laki
+                                                    </label>
+                                                </div>
                                             </div>
+                                            <div class="col">
+                                                <div class="form-outline">
+                                                    <input disabled class="form-check-input" type="radio"
+                                                        name="flexRadioDefault" id="flexRadioDefault1" checked>
+                                                    <label class="form-check-label" for="flexRadioDefault1">
+                                                        Perempuan
+                                                    </label>
+                                                </div>
+                                            </div>        
+                                            @endif
+                                            
                                         </div>
 
                                         <!-- Text input -->
@@ -170,7 +186,16 @@
 
                                         </div>
 
-                                        <!-- switch -->
+                                        @if ($dataaddress->identityAddress == $dataaddress->residenceAddress)
+                                        <div class="form-outline my-10">
+                                            <div class="form-check form-switch">
+                                                <input disabled class="form-check-input" type="checkbox" role="switch"
+                                                    id="flexSwitchCheckDefault" checked>
+                                                <label class="form-check-label" for="flexSwitchCheckDefault">Alamat
+                                                    Identitas sama dengan domisili</label>
+                                            </div>
+                                        </div>
+                                        @else
                                         <div class="form-outline my-10">
                                             <div class="form-check form-switch">
                                                 <input disabled class="form-check-input" type="checkbox" role="switch"
@@ -179,6 +204,9 @@
                                                     Identitas sama dengan domisili</label>
                                             </div>
                                         </div>
+                                        @endif
+                                        <!-- switch -->
+                                        
 
                                         <!-- Message input -->
                                         <div class="form-outline mb-4">
@@ -501,18 +529,32 @@
 
                                         <div class="form-outline mb-4">
 
-                                            <h4 class="card-title align-items-start flex-column pt-10 mb-20">
+                                            <h4 class="card-title align-items-start flex-column pt-10">
                                                 <span class="fs-2 fw-bold text-gray-800 mb-10"><br>Alamat Domisili</span>
                                                 <hr>
                                             </h4>
 
                                         </div>
 
+                                        <div class="form-outline mb-4">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="form6Example1">Status Domisili</label>
+                                                <select disabled class="form-select" aria-label="Default select example">
+                                                    <option selected disabled>Piih</option>
+                                                    @foreach ($residensial->data as $list)
+                                                        <option value="{{ $list->value }}" <?php if ($dataaddress->residensialStatus == $list->value) {
+                                                            echo 'selected="selected"';
+                                                        } ?>>
+                                                            {{ $list->label }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
 
                                         <!-- Message input -->
-                                        <div class="form-outline mb-4 pt-5">
+                                        <div class="form-outline mb-4">
                                             <label class="form-label" for="form6Example7">Alamat Lengkap</label>
-                                            <textarea disabled class="form-control" id="form6Example7" rows="4">{{ $dataaddress->identityAddress }}</textarea>
+                                            <textarea disabled class="form-control" id="form6Example7" rows="4">{{ $dataaddress->residenceAddress }}</textarea>
                                         </div>
 
                                         <!-- Text input -->
@@ -522,7 +564,7 @@
                                                     <label class="form-label" for="form6Example1">Desa / Kelurahan</label>
                                                     <input disabled type="text" id="form6Example1"
                                                         class="form-control"
-                                                        value="{{ $dataaddress->identitySubDistrict }}" />
+                                                        value="{{ $dataaddress->residenceSubDistrict }}" />
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -530,7 +572,7 @@
                                                     <label class="form-label" for="form6Example2">Kecamatan</label>
                                                     <input disabled type="text" id="form6Example2"
                                                         class="form-control"
-                                                        value="{{ $dataaddress->identityDistrict }}" />
+                                                        value="{{ $dataaddress->residenceDistrict }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -543,7 +585,7 @@
                                                     <select disabled class="form-select"
                                                         aria-label="Default select example">
                                                         @foreach ($city as $list)
-                                                            <option value="{{ $list->value }}" <?php if ($dataaddress->identityCity == $list->value) {
+                                                            <option value="{{ $list->value }}" <?php if ($dataaddress->residenceCity == $list->value) {
                                                                 echo 'selected="selected"';
                                                             } ?>>
                                                                 {{ $list->label }}</option>
@@ -557,7 +599,7 @@
                                                     <select disabled class="form-control m-bootstrap-select m_selectpicker"
                                                         name="regional_code" required="">
                                                         @foreach ($province as $list)
-                                                            <option value="{{ $list->value }}" <?php if ($dataaddress->identityProvince == $list->value) {
+                                                            <option value="{{ $list->value }}" <?php if ($dataaddress->residenceProvince == $list->value) {
                                                                 echo 'selected="selected"';
                                                             } ?>>
                                                                 {{ $list->label }}</option>
@@ -568,10 +610,10 @@
                                         </div>
 
                                         <!-- nama -->
-                                        <div class="form-outline mb-4">
+                                        <div class="form-outline mb-3">
                                             <label class="form-label fw-bold" for="form6Example1">Kode Pos</label>
                                             <input disabled type="text" id="form6Example1" class="form-control"
-                                                value="{{ $dataaddress->identityZipCode }}" />
+                                                value="{{ $dataaddress->residenceZipCode }}" />
                                         </div>
 
                                         {{-- PASANGAN --}}
@@ -599,20 +641,11 @@
                                                 </select>
                                             </div>
                                         </div>
-
+                                        @if ($datainfo->maritalStatus == 1)
                                         <div class="form-outline mb-4">
                                             <label class="form-label fw-bold" for="form6Example1">Nama</label>
                                             <input disabled type="text" id="form6Example1" class="form-control"
                                                 value="{{ $dataspouse->spouseName }}" />
-                                        </div>
-
-                                        <div class="form-outline mb-4">
-                                            <label class="form-label fw-bold" for="form6Example1">Jumlah
-                                                Tanggungan</label>
-                                            <div class="input-group mb-3">
-                                                <input disabled type="text" class="form-control" placeholder=""
-                                                    value="{{ $dataspouse->numberOfDependant }}">
-                                            </div>
                                         </div>
 
                                         <!-- Text input -->
@@ -622,11 +655,12 @@
                                                     <label class="form-label" for="form6Example1">Identitas</label>
                                                     <select disabled class="form-select"
                                                         aria-label="Default select example">
-                                                        <option selected disabled>Piih</option>
-                                                        <option value="1">KTP</option>
-                                                        <option value="2">SIM</option>
-                                                        <option value="3">VISA</option>
-                                                        <option value="4">PASPORT</option>
+                                                        @foreach ($type->data as $list)
+                                                        <option value="{{ $list->value }}" <?php if ($dataspouse->spouseIdentityType == $list->value) {
+                                                            echo 'selected="selected"';
+                                                        } ?>>
+                                                            {{ $list->label }}</option>
+                                                    @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -668,7 +702,18 @@
                                             </div>
                                         </div>
 
-
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label fw-bold" for="form6Example1">Jumlah
+                                                Tanggungan</label>
+                                            <div class="input-group mb-3">
+                                                <input disabled type="text" class="form-control" placeholder=""
+                                                    value="{{ $dataspouse->numberOfDependant }}">
+                                            </div>
+                                        </div>
+                                        @else
+                                            
+                                        @endif
+                                        
 
                                         {{-- ///////////////// --}}
                                     </div>

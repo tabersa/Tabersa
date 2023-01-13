@@ -19,10 +19,11 @@ class infoCIFController extends Controller
     {
         if ($request->session()->exists('token')) {
             $token = $request->session()->get('token');
-
+            $bank = getDataBank($token);
             $profile = getProfile($token);
             $newdata = getCifSearch($token, $id);
             list($datainfo, $dataaddress, $dataoccupation, $dataspouse, $dataid) = getCifID($token,$id);
+            $type = getIdentityType($token);
             $city = getRefCity($token);
             $province = getRefProvince($token);
             $national = getRefNationality($token);
@@ -34,6 +35,7 @@ class infoCIFController extends Controller
             $dari = getRefSourceFund($token);
             $jabatan = getRefJobPosition($token);
             $kawin = getRefMarital($token);
+            $residensial = getResidensialStatus($token);
             
 
             if($profile === null) {
@@ -42,6 +44,8 @@ class infoCIFController extends Controller
                 return view(
                     'page.cif.infocif',
                     compact(
+                        'residensial',
+                        'bank',
                         'dataid',
                         'profile',
                         'newdata',
@@ -50,6 +54,7 @@ class infoCIFController extends Controller
                         'dataoccupation',
                         'dataspouse',
                         'city',
+                        'type',
                         'province',
                         'national',
                         'edu',
@@ -73,7 +78,6 @@ class infoCIFController extends Controller
 
     public function autorisasi(Request $request, $id)
     {
-        
         list($new, $httpcode) = authCif($request, $id);
         if ($httpcode == 200) {
             Alert::success('Selamat', 'Data Telah di Autorisasi');

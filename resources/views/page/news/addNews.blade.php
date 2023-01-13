@@ -1,0 +1,115 @@
+@extends('index')
+@extends('dashboard.layout.toolbar')
+
+@extends('dashboard.layout.headhtml')
+
+@section('title', 'Tabersa | Add News')
+@section('toolbartitle')
+    <span>
+        <a href="{{ url('/news') }}" style="color: #54CC58">News</a>
+        &emsp;/&emsp;Add News
+    </span>
+@endsection
+@section('content')
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container container-xxl">
+            <!--begin::Card-->
+            <div class="card">
+                <div class="card-header">
+                    <!--begin::Title-->
+                    <h3 class="card-title align-items-start flex-column">
+                        <span class="card-label fs-1 fw-bold text-gray-800 mb-4"><br>Add News</span>
+                    </h3>
+                    <!--end::Title-->
+                </div>
+                <!--begin::Card body-->
+                <div class="card-body mb-10 py-4">
+                    <form method="POST" action="/news/add" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        {{ method_field('put') }}
+                    <div class="row">
+                        <div class="col">
+                            <input type="hidden" name="pembuat" id="form6Example3" class="form-control"
+                            value="
+                            <?php 
+                            $profile->data->firstName . $profile->data->lastName
+                            ?>"  />
+                            <input type="hidden" name="tanggal" id="form6Example3" class="form-control"
+                                    value="
+                                    <?php
+                                    date("Y-m-d H:i:s");
+                                    ?>"  />
+                            <!-- nama -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label fw-bold" for="form6Example1">Judul</label>
+                                <input name="headline" type="text" id="form6Example1" class="form-control"
+                                    value="" required/>
+                            </div>
+
+                            <!-- Text input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label fw-bold" for="form6Example3">Gambar</label>
+                                <input type="file" name="file" id="form6Example3" class="form-control"
+                                    value="" required />
+                            </div>
+
+                            {{-- ////////////////////// --}}
+
+                        </div>
+                        <div class="col mx-4">
+                            <!-- Message input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label fw-bold" for="form6Example7">Teks</label>
+                                <textarea class="form-control" id="form6Example7" rows="9"></textarea>
+                            </div>
+
+
+
+
+                            {{-- ///////////////// --}}
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row-reverse mt-10">
+                        <!-- Submit button -->
+                        <hr>
+                        <input name="verif" type="submit"
+                            class="btn btn-success text-light mb-2 p-5 mx-2" value="Upload">
+
+                        <input type="button" class="btn btn-secondary mb-2 p-5 mx-2 " value="Kembali"
+                            onclick="history.back();">
+                    </div>
+                </form>
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Content container-->
+    </div>
+    <!--end::Content-->
+
+
+@endsection
+
+@section('script')
+
+    <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <script>
+        var hostUrl = "assets/";
+    </script>
+    <!--begin::Global Javascript Bundle(used by all pages)-->
+    <script src="assets/plugins/global/plugins.bundle.js"></script>
+    <script src="assets/js/scripts.bundle.js"></script>
+    <script src="assets/js/custom/apps/user-management/users/list/export-users.js"></script>
+    <script src="{{ asset('assets/js/custom/apps/user-management/users/list/table.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/apps/user-management/users/list/add.js') }}"></script>
+    <script src="{{ asset('assets/js/widgets.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/widgets.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/apps/chat/chat.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/utilities/modals/create-app.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/utilities/modals/users-search.js') }}"></script>
+
+@endsection

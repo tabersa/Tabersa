@@ -2,13 +2,87 @@
 
 namespace App\Http\Controllers;
 
+use CURLFile;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Session;
+
+//////////////////////////////////////////////////////////////////////////////////////////////// ////////////////////////////////////////////////////////////////////////////////////////////////////
+// DATA TOKEN
+function getTokenData(Request $request)
+{
+    $body = array(
+        'tenant' => $request->tenant,
+        'username' => $request->username,
+        'password' => $request->password,
+    );
+    $api = config('properties.api');
+    $curl = curl_init();
+    curl_setopt_array(
+        $curl,
+        array(
+            CURLOPT_URL => $api . 'tokens',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => json_encode($body),
+            CURLOPT_HTTPHEADER => array(
+                'tenant:' . $request->tenant,
+                'Content-Type: application/json',
+                'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjExNDFhMTg4LTVhMDktMzExYi1iYmEyLTRhZDgzMTU2MDk1OCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImJwcmRlbW9AdGFiZXJzYS5pZCIsImZ1bGxOYW1lIjoiQlBSIFNBSEFCQVQgQU5BSyBORUdFUkkgIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkJQUiBTQUhBQkFUIEFOQUsgTkVHRVJJIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvc3VybmFtZSI6IiIsImlwQWRkcmVzcyI6IjE4MC4yNTIuMTcxLjIxIiwidGVuYW50IjoiNjAxNjg3IiwiZXhwIjoxNjcxNTQ5MzY5fQ._BXDryhH8yzofNhsSpcYw0Oyuo1KzzuQ8k7BcKgdFxg'
+            ),
+        )
+    );
+    $response = curl_exec($curl);
+    $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    curl_close($curl);
+    $data = json_decode($response);
+    return array($data, $httpcode);
+}
+function refreshToken($token, $refresh)
+{
+    $api = config('properties.api');
+    $tenant = Session::get('tenant');
+    $curl = curl_init();
+    curl_setopt_array(
+        $curl,
+        array(
+            CURLOPT_URL => $api . 'tokens/refresh',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+            "token": "' . $token . '",
+            "refreshToken": "' . $refresh . '"
+}',
+            CURLOPT_HTTPHEADER => array(
+                'tenant: ' . $tenant,
+                'Content-Type: application/json',
+                'Authorization: Bearer ' . $token,
+            ),
+        )
+    );
+    $response = curl_exec($curl);
+    $refreshData = json_decode($response);
+    curl_close($curl);
+    return $refreshData;
+
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////// ////////////////////////////////////////////////////////////////////////////////////////////////////
 // DATA CIF
 function getCIf($token)
 {
     $api = config('properties.api');
+    $tenant = Session::get('tenant');
     $curl = curl_init();
     curl_setopt_array(
         $curl,
@@ -23,7 +97,7 @@ function getCIf($token)
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => config('properties.cifbody'),
             CURLOPT_HTTPHEADER => array(
-                'tenant: 601687',
+                'tenant: ' . $tenant,
                 'Authorization: Bearer ' . $token,
                 'Content-Type: application/json'
             ),
@@ -407,7 +481,7 @@ function getTransaksiCif($token, $transaksi)
     return $datacif;
 }
 
-function authTransaksi($token,$id)
+function authTransaksi($token, $id)
 {
     if (isset($_POST['verif'])) {
         $auth = 1;
@@ -449,7 +523,300 @@ function authTransaksi($token,$id)
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////// ////////////////////////////////////////////////////////////////////////////////////////////////////
+// DATA SETTINGS
+function getDataBank($token)
+{
+    $api = config('properties.api');
+    $curl = curl_init();
+    curl_setopt_array(
+        $curl,
+        array(
+            CURLOPT_URL => $api . 'identity/bank',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $token
+            ),
+        )
+    );
+
+    $response = curl_exec($curl);
+    curl_close($curl);
+    $dataBank = json_decode($response);
+    return $dataBank;
+
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////// ////////////////////////////////////////////////////////////////////////////////////////////////////
+// DATA NEWS
+
+function getNews($token)
+{
+    $api = config('properties.api');
+    $curl = curl_init();
+    curl_setopt_array(
+        $curl,
+        array(
+            CURLOPT_URL => $api . 'v1/news/search',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+  "advancedSearch": {
+    "fields": [
+      ""
+    ],
+    "keyword": ""
+  },
+  "keyword": "",
+  "pageNumber": 0,
+  "pageSize": 0,
+  "orderBy": [
+    ""
+  ],
+  "headline": "",
+  "text": ""
+}',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $token,
+                'Content-Type: application/json'
+            ),
+        )
+    );
+
+    $response = curl_exec($curl);
+    $dataNews = json_decode($response);
+    curl_close($curl);
+    return $dataNews;
+
+}
+
+function getFeaturedNews($token)
+{
+    $api = config('properties.api');
+    $curl = curl_init();
+    curl_setopt_array(
+        $curl,
+        array(
+            CURLOPT_URL => $api . 'v1/news/featured',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $token
+            ),
+        )
+    );
+
+    $response = curl_exec($curl);
+    $dataFeatured = json_decode($response);
+    curl_close($curl);
+    return $dataFeatured;
+
+}
+
+function getDetailNews($token, $id)
+{
+    $api = config('properties.api');
+    $curl = curl_init();
+    curl_setopt_array(
+        $curl,
+        array(
+            CURLOPT_URL => $api . 'v1/news/' . $id,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $token
+            ),
+        )
+    );
+
+    $response = curl_exec($curl);
+    $detail = json_decode($response);
+    curl_close($curl);
+    return $detail;
+
+}
+
+function addNews(Request $request)
+{
+    $token = $request->session()->get('token');
+
+    $request->validate([
+        'headline' => 'required',
+        'file.*' => 'mimes:jpg,jpeg,png|max:2000'
+    ]);
+
+    $api = config('properties.api');
+    $id = getRandomString(30);
+    $file = $request->file;
+    // dapetin username header
+    $curl = curl_init();
+    curl_setopt_array(
+        $curl,
+        array(
+            CURLOPT_URL => $api . 'v1/reference/upload-file/news',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => array(
+                'file' => new CURLFile($file)
+            ),
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $token
+            ),
+        )
+    );
+    $response = curl_exec($curl);
+    $x = json_decode($response);
+    // $link = $x->data;
+    dd($x);
+
+    curl_close($curl);
+
+    $body = array(
+        "headline" => (string) $request->headline,
+        "text" => (string) $request->text,
+        "publishedBy" => (string) $request->pembuat,
+        "publishedOn" => (string) $request->tanggal,
+        "imageUrl" => $link,
+    );
+    $curl = curl_init();
+
+    curl_setopt_array(
+        $curl,
+        array(
+            CURLOPT_URL => $api . 'v1/news/' . $id,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'PUT',
+            CURLOPT_POSTFIELDS => $body,
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $token,
+                'Content-Type: application/json'
+            ),
+        )
+    );
+
+    $response = curl_exec($curl);
+    $dataAdd = json_decode($response);
+    $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    curl_close($curl);
+    return array($dataAdd, $httpcode);
+
+
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////// ////////////////////////////////////////////////////////////////////////////////////////////////////
 // DATA REFERENCE
+
+
+
+function getResidensialStatus($token)
+{
+    $api = config('properties.api');
+    $curl = curl_init();
+    curl_setopt_array(
+        $curl,
+        array(
+            CURLOPT_URL => $api . 'v1/reference',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+  "referenceTable": "RefResidensialStatus",
+  "referenceCode": ""
+}',
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json',
+                'Authorization: Bearer ' . $token
+            ),
+        )
+    );
+
+    $response = curl_exec($curl);
+    $residensial = json_decode($response);
+    curl_close($curl);
+    return $residensial;
+
+}
+
+function getIdentityType($token)
+{
+    $api = config('properties.api');
+    // dapetin username header
+    $curl = curl_init();
+    curl_setopt_array(
+        $curl,
+        array(
+            CURLOPT_URL => $api . 'v1/reference',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+  "referenceTable": "RefIdentity",
+  "referenceCode": ""
+}',
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json',
+                'Authorization: Bearer ' . $token
+            ),
+        )
+    );
+
+    $response = curl_exec($curl);
+    $type = json_decode($response);
+    curl_close($curl);
+    return $type;
+}
+
+function getRandomString($n)
+{
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $randomString = '';
+
+    for ($i = 0; $i < $n; $i++) {
+        $index = rand(0, strlen($characters) - 1);
+        $randomString .= $characters[$index];
+    }
+
+    return $randomString;
+}
 function getProfile($token)
 {
     $api = config('properties.api');

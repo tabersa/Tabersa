@@ -12,7 +12,7 @@
         <!--begin::Content container-->
         <div id="kt_app_content_container" class="app-container container-xxl">
             <!--begin::Card-->
-            <div class="card">
+            <div class="card mb-10">
                 <!--begin::Header-->
                 <div class="card-header">
                     <!--begin::Title-->
@@ -24,7 +24,7 @@
                 </div>
                 <!--end::Header-->
                 <!--begin::Card body-->
-                <div class="card-body py-4">
+                <div class="card-body">
                     <!--begin::Table-->
                     <table class="table align-middle table-hover table-row-dashed fs-6 gy-5 table-transaksi">
                         <!--begin::Table head-->
@@ -69,42 +69,42 @@
                                     <td class="text-start">
                                         {{-- <div id="kt_table_widget_14_chart_1" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div> --}}
                                         <span
-                                            class=" fs-6">Rp.{{ number_format($datatransaksi->totalAmount, 0, ',', '.') }}</span>
+                                            class=" fs-6">Rp {{ number_format($datatransaksi->totalAmount, 0, ',', '.') }}</span>
                                     </td>
-                                    <td class="text-start">
+                                    <td class="text-center">
 
                                         @if ($datatransaksi->status === 0)
-                                            <a href="#" class="btn btn-sm btn-warning btn-block btn-active-color-light">
+                                            <a href="#" class="badge badge-warning">
                                                 <span class="text-hover-info fw-bold">
                                                     Pending
                                                 </span>
                                             </a>
                                         @elseif ($datatransaksi->status === 1)
-                                            <a href="#" class="btn btn-sm btn-success btn-block btn-active-color-light">
+                                            <a href="#" class="badge badge-success">
                                                 <span class="text-hover-info fw-bold"7BFEF">
                                                     Approved
                                                 </span>
                                             </a>
                                         @elseif ($datatransaksi->status === 2)
-                                            <a href="#" class="btn btn-sm btn-danger btn-block btn-active-color-light">
+                                            <a href="#" class="badge badge-danger">
                                                 <span class="text-hover-info fw-bold">
                                                     Rejected
                                                 </span>
                                             </a>
                                         @elseif ($datatransaksi->status === 3)
-                                            <a href="#" class="btn btn-info btn-sm btn-block btn-active-color-light">
+                                            <a href="#" class="badge badge-info">
                                                 <span class="text-hover-info fw-bold">
-                                                    Canceled System
+                                                    Canceled by System
                                                 </span>
                                             </a>
                                         @elseif ($datatransaksi->status === 4)
-                                            <a href="#" class="btn btn-info btn-sm btn-block btn-active-color-light">
+                                            <a href="#" class="badge badge-info">
                                                 <span class="text-hover-info fw-bold">
-                                                    Canceled User
+                                                    Canceled by User
                                                 </span>
                                             </a>
                                         @else
-                                            <a href="#" class="btn btn-sm btn-danger btn-block btn-active-color-light">
+                                            <a href="#" class="badge badge-danger">
                                                 <span class="text-hover-info fw-bold">
                                                     Failed
                                                 </span>
@@ -143,7 +143,8 @@
     <script>
         $(document).ready(function() {
             $('.table-transaksi').DataTable({
-                "dom": "< <'pull-left'f><t><' row'<'col col-lg-2 py-3'i><'col-md-auto'l><'col'p>> >"
+                "dom": "< <'pull-left'f><t> >"
+                    // <' row'<'col col-lg-2 py-3'i><'col-md-auto'l><'col'p>>
             });
         });
     </script>

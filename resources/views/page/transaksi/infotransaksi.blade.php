@@ -84,10 +84,10 @@
                         <thead class="border-bottom border-gray-200 fs-7 fw-bold">
                             <!--begin::Table row-->
                             <tr class="fw-bold text-uppercase gs-0">
-                                <th class="min-w-200px text-center">Account</th>
-                                <th class="min-w-300px text-center">Keterangan</th>
-                                <th class="min-w-200px text-center">Debit</th>
-                                <th class="min-w-200px text-center">Kredit</th>
+                                <th class="min-w-200px text-start">Account</th>
+                                <th class="min-w-300px text-start">Keterangan</th>
+                                <th class="min-w-200px text-end">Debit</th>
+                                <th class="min-w-200px text-end">Kredit</th>
 
                             </tr>
                             <!--end::Table row-->
@@ -99,31 +99,31 @@
                             @forelse ($datadetail as $detail)
                                 <tr>
                                     <!--begin::order=-->
-                                    <td>
+                                    <td class="text-start">
                                         {{ $detail->account }}
                                     </td>
                                     <!--end::order=-->
                                     <!--begin::Status=-->
-                                    <td>
+                                    <td class="text-start">
                                         {{ $detail->description }}
                                     </td>
                                     <!--end::Status=-->
                                     <!--begin::Amount=-->
                                     @if ($detail->dc == 'C')
-                                        <td>
-                                            Rp . {{ number_format($detail->amount, 0, ',', '.') }}
+                                        <td class="text-end">
+                                            Rp {{ number_format($detail->amount, 0, ',', ',') }}
                                         </td>
                                         <!--end::Amount=-->
                                         <!--begin::Amount=-->
-                                        <td> - </td>
+                                        <td class="text-end"> - </td>
                                     @else
-                                        <td>
+                                        <td class="text-end">
                                             -
                                         </td>
                                         <!--end::Amount=-->
                                         <!--begin::Amount=-->
-                                        <td>
-                                            Rp . {{ number_format($detail->amount, 0, ',', '.') }}
+                                        <td class="text-end">
+                                            Rp {{ number_format($detail->amount, 0, ',', ',') }}
                                         </td>
                                     @endif
 
@@ -177,8 +177,8 @@
     <script>
         $(document).ready(function() {
             $('.table-mutasi').DataTable({
-                "dom": "< row'<'col pull-left'f>><t><' row'<'col col-lg-2 py-3'i><'col-md-auto'l><'col'p>> ",
-                
+                "dom": "< row'<'col pull-left'f>><t> ",
+                    // <' row'<'col col-lg-2 py-3'i><'col-md-auto'l><'col'p>>
             });
         });
     </script>

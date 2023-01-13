@@ -17,7 +17,7 @@ class infoSavingController extends Controller
             $token = $request->session()->get('token');
             $profile = getProfile($token);
             $saving = getSavingID($token,$id);
-            
+            $bank = getDataBank($token);
             if ($saving->succeeded != false) {
             $datainfo = $saving->data;
             $datacif = $saving->data->cif;
@@ -77,13 +77,13 @@ class infoSavingController extends Controller
                 $response = curl_exec($curl);
                 $dataakun = json_decode($response);
                 // dd($cif);
-                return view('page.tabungan.infotabungan', compact('profile', 'datainfo', 'datacif', 'dataproduct', 'trs', 'dataakun'));
+                return view('page.tabungan.infotabungan', compact('bank','profile', 'datainfo', 'datacif', 'dataproduct', 'trs', 'dataakun'));
             } else {
                 // Alert::error('Account Number '.$datacif->fullName.' Kosong', 'Mohon Autorisasi Dahulu');
                     $datatipe = getSavingAccountType($token);
                     $datapurpose = getDataPurpose($token);
 
-                return view('page.tabungan.autorisasitabungan', compact('profile', 'datainfo', 'datacif', 'dataproduct', 'datatipe', 'datapurpose'));
+                return view('page.tabungan.autorisasitabungan', compact('bank','profile', 'datainfo', 'datacif', 'dataproduct', 'datatipe', 'datapurpose'));
 
             }
         } else {

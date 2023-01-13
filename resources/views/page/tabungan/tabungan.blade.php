@@ -13,7 +13,7 @@
         <!--begin::Content container-->
         <div id="kt_app_content_container" class="app-container container-xxl">
             <!--begin::Card-->
-            <div class="card">
+            <div class="card mb-10 ">
                 <!--begin::Header-->
                 <div class="card-header divider">
                     <!--begin::Title-->
@@ -25,7 +25,7 @@
                 </div>
                 <!--end::Header-->
                 <!--begin::Card body-->
-                <div class="card-body py-4">
+                <div class="card-body">
                     <!--begin::Table-->
                     <table class="table table-hover align-middle table-row-dashed fs-6 gy-5 table-tabungan">
                         <!--begin::Table head-->
@@ -56,33 +56,37 @@
                                     <td class="d-flex align-items-center">
                                         <!--begin:: Avatar -->
                                         <div class="symbol symbol-50px me-3">
-                                            <img class="h-100 " src="{{ Avatar::create($datasaving->cifNumber)->setTheme('pastel')->setShape('square')->setBorder(2, '#FFF', 90) }}" />
+                                            <img class="h-100 " src="{{ Avatar::create($datasaving->accountNumber)->setTheme('pastel')->setShape('square')->setBorder(2, '#FFF', 90) }}" />
                                         </div>
                                         <!--end::Avatar-->
                                         <!--begin::User details-->
                                         <div class="d-flex justify-content-start flex-column">
                                             <a class="fw-bold text-dark text-hover-primary d-block fs-5"
                                                 href="infotabungan/{{ $datasaving->id }}/show">
-                                                {{ $datasaving->cifNumber }}
+                                                {{ $datasaving->accountNumber }} / {{ $datasaving->virtualAccountNumber }}
                                             </a>
                                         </div>
                                         <!--begin::User details-->
                                     </td>
                                     <!--end::User=-->
                                     <!--begin::tgl regist=-->
-                                    <td>
+                                    <td class="text-start">
                                         <div class="d-flex justify-content-start flex-column">
                                             <span class=" fw-semibold d-block fs-7">
                                                 {{ $datasaving->savingProduct->productName }}
                                             </span>
                                             <span class=" fw-semibold d-block fs-7">
-                                                Tabungan BPR
+                                                @foreach ($savingType->data as $list)
+                                                @if ($datasaving->savingAccountType == $list->value)
+                                                    {{ $list->label }}
+                                                @endif
+                                                @endforeach
                                             </span>
                                         </div>
                                     </td>
                                     <!--end::tgl regist=-->
                                     <!--begin::identitas=-->
-                                    <td>
+                                    <td class="text-start">
                                         <div class="d-flex justify-content-start flex-column">
                                             <span class="fw-bold mb-1 fs-6">
                                                 {{ $datasaving->cif->fullName }}
@@ -94,28 +98,28 @@
                                     </td>
                                     <!--end::identitas=-->
                                     <!--begin::no.seluler=-->
-                                    <td> <span class="mb-1 fs-6">
+                                    <td class="text-start"> <span class="mb-1 fs-6">
                                             {{ date('d F Y', strtotime(substr($datasaving->openDate, 0, 10))) }}
                                         </span></td>
                                     <!--end::no.seluler=-->
                                     <!--begin::email-->
                                     <td class="text-center">
                                         @if ($datasaving->status === 1)
-                                            <a href="#" class="btn btn-success btn-sm "
+                                            <a href="#" class="badge badge-success  "
                                                 >
                                                 <span class="fw-bold bg-success ">
                                                     Active
                                                 </span>
                                             </a>
                                         @elseif ($datasaving->status === 2)
-                                        <a href="#" class="btn btn-danger btn-sm "
+                                        <a href="#" class="badge badge-danger  "
                                             >
                                             <span class="fw-bold  ">
                                                 Reject
                                             </span>
                                         </a>
                                         @else
-                                            <a href="#" class="btn btn-sm btn-warning">
+                                            <a href="#" class="badge  badge-warning">
                                                 <span class="fw-bold text-hover-dark">
                                                     Pending
                                                 </span>
@@ -161,7 +165,8 @@
     <script>
         $(document).ready(function() {
             $('.table-tabungan').DataTable({
-                "dom": "< <'pull-left'f><t><' row'<'col col-lg-2 py-3'i><'col-md-auto'l><'col'p>> >"
+                "dom": "< <'pull-left'f><t> >"
+                    // <' row'<'col col-lg-2 py-3'i><'col-md-auto'l><'col'p>>
             });
         });
     </script>

@@ -3,7 +3,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 // use App\Http\Controllers\LoginController;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CIFController;
 use App\Http\Controllers\infoCIFController;
 use App\Http\Controllers\SavingController;
@@ -12,7 +12,7 @@ use App\Http\Controllers\SinkronController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\infoTransaksiController;
 use App\Http\Controllers\SettingController;
-
+use App\Http\Controllers\NewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,11 +27,12 @@ use App\Http\Controllers\SettingController;
 Auth::routes();
 Route::get('/', function () {
     return view('login');
-});
+})->name('/');
 
+Route::post('/masuk', [LoginController::class, 'login'])->name('masuk');
 Route::get('/landing', [LoginController::class, 'index'])->name('landing');
 Route::get('/back', [LoginController::class, 'back'])->name('back');
-Route::get('/keluar', [LoginController::class, 'keluar'])->name('keluar');
+Route::get('/out', [LoginController::class, 'out'])->name('out');
 // 
 Route::get('/dashboard', [DashboardController::class, 'Profile'])->name('dashboard');
 
@@ -51,6 +52,17 @@ Route::get('/cetakmutasi/{id}', [infoTransaksiController::class, 'cetak'])->name
 Route::get('/sinkron', [SinkronController::class, 'index'])->name('sinkron');
 
 Route::get('/setting', [SettingController::class, 'index'])->name('setting');
+Route::get('/profileSetting', [SettingController::class, 'profile'])->name('profileSetting');
+Route::get('/literasiSetting', [SettingController::class, 'literasi'])->name('literasiSetting');
+Route::get('/tabunganSetting', [SettingController::class, 'tabungan'])->name('tabunganSetting');
+
+
+Route::get('/news', [NewsController::class, 'index'])->name('news');
+Route::get('/news/show/{id}', [NewsController::class, 'show'])->name('news.show');
+Route::get('/news/input', [NewsController::class, 'input'])->name('news.input');
+Route::put('/news/add', [NewsController::class, 'add'])->name('news.add');
+
+
 
 
 // Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');

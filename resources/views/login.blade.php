@@ -88,36 +88,13 @@ License: For each use you must have a valid license purchased only from above li
         <!--end::Page bg image-->
         <!--begin::Authentication - Sign-in -->
         <div class="d-flex flex-center flex-column flex-column-fluid flex-lg-row">
-            <!--begin::Aside-->
-            {{-- <div class="d-flex flex-center w-lg-50 pt-15 pt-lg-0 px-10">
-                <!--begin::Aside-->
-                <div class="d-flex flex-center flex-lg-start flex-column">
-                    <!--begin::Logo-->
-                    <a href="../../demo1/dist/index.html" class="mb-7">
-                        <img alt="Logo" src="{{ asset('assets/media/tabersa/logoborder.png') }}"
-                        style="
-                        position: absolute;
-                        bottom: 0;
-                        right: -100;
-                        "
-                        />
-                    </a>
-                    <!--end::Logo-->
-                    <!--begin::Title-->
-                    <h2 class="text-white fw-normal m-0">Branding tools designed for your business</h2>
-                    <!--end::Title-->
-                </div>
-                <!--begin::Aside-->
-            </div> --}}
-            <!--begin::Aside-->
-            <!--begin::Body-->
             <div class="d-flex flex-center w-lg-8 p-8">
                 <!--begin::Card-->
                 <div class="card rounded-3 w-md-500px shadow-lg">
                     <!--begin::Card body-->
                     <div class="card-body p-10 px-10">
                         <!--begin::Form-->
-                        <form method="POST" action="{{ route('login') }}" class="form w-100" novalidate="novalidate"
+                        <form method="POST" action="/masuk" class="form w-100" novalidate="novalidate"
                             id="kt_sign_in_form">
                             @csrf
                             <!--begin::Heading-->
@@ -127,15 +104,6 @@ License: For each use you must have a valid license purchased only from above li
                                     height="90" width="auto">
                                 <!--end::Title-->
                             </div>
-                            <!--begin::Heading-->
-                            <!--begin::Input group=-->
-                            {{-- <div class="fv-row mb-3">
-                                <!--begin::Email-->
-                                <span class="fw-bold"> Tenant</span>
-                                <input id="tenant" type="tenant" class=" bg-transparent mt-4 form-control @error('tenant') is-invalid @enderror" name="tenant" value="{{ old('tenant') }}" required autofocus
-                                    class="form-control bg-transparent mt-4" />
-                                <!--end::Email-->
-                            </div> --}}
                             
                             <div class="fv-row mb-3">
                                 <!--begin::Email-->

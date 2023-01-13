@@ -43,9 +43,8 @@
                     <div data-kt-menu-placement="bottom-start" class="menu-item here-show menu-here-bg-primary menu-lg-down-accordion me-0 me-lg-2">
                         <!--begin:Menu link-->
                         <span class="menu-link">
-                            <img src="{{ asset('assets/media/tabersa/bpr.png') }}" alt="" height="50"
-                                width="40" class="mx-8">
-                            <a class="h2 text-dark fw-bold mt-4" href="{{ url('dashboard') }}" style="font-family: Arial, Helvetica, sans-serif">BPR Sahabat Dalam Negeri</a>
+                            <img src="{{ $bank->data->imageUrl }}" alt="" height="50" width="auto" class="mx-8">
+                            <a class="h2 text-dark fw-bold mt-4" href="{{ url('dashboard') }}" style="font-family: Arial, Helvetica, sans-serif">{{ $bank->data->bankName }}</a>
                             {{-- <span class="menu-arrow d-lg-none"></span> --}}
                         </span>
                         <!--end:Menu link-->

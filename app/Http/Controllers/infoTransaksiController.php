@@ -14,12 +14,12 @@ class infoTransaksiController extends Controller
     {
         if ($request->session()->exists('token')) {
             $token = $request->session()->get('token');
-
+            $bank = getDataBank($token);
             $profile = getProfile($token);
             list($transaksi,$datainfo, $datadetail) = getDataTransaksi($token, $id);
             $datacif = getTransaksiCif($token, $transaksi->data->cifId);
 
-            return view('page.transaksi.infotransaksi', compact('profile', 'datainfo', 'datadetail', 'datacif'));
+            return view('page.transaksi.infotransaksi', compact('bank','profile', 'datainfo', 'datadetail', 'datacif'));
         } else {
             Alert::error('Error Title', 'Error Message')->width('1000px');
             return redirect()->route('/');
