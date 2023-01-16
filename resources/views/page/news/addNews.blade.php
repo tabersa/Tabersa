@@ -3,11 +3,11 @@
 
 @extends('dashboard.layout.headhtml')
 
-@section('title', 'Tabersa | Add News')
+@section('title', 'Tabersa | Update News')
 @section('toolbartitle')
     <span>
         <a href="{{ url('/news') }}" style="color: #54CC58">News</a>
-        &emsp;/&emsp;Add News
+        &emsp;/&emsp;Update News
     </span>
 @endsection
 @section('content')
@@ -16,43 +16,47 @@
         <!--begin::Content container-->
         <div id="kt_app_content_container" class="app-container container-xxl">
             <!--begin::Card-->
-            <div class="card">
+            <div class="card mb-10">
                 <div class="card-header">
                     <!--begin::Title-->
                     <h3 class="card-title align-items-start flex-column">
-                        <span class="card-label fs-1 fw-bold text-gray-800 mb-4"><br>Add News</span>
+                        <span class="card-label fs-1 fw-bold text-gray-800 mb-4"><br>Update News</span>
                     </h3>
                     <!--end::Title-->
                 </div>
                 <!--begin::Card body-->
                 <div class="card-body mb-10 py-4">
-                    <form method="POST" action="/news/add" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('news.add') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         {{ method_field('put') }}
                     <div class="row">
                         <div class="col">
-                            <input type="hidden" name="pembuat" id="form6Example3" class="form-control"
-                            value="
-                            <?php 
-                            $profile->data->firstName . $profile->data->lastName
-                            ?>"  />
-                            <input type="hidden" name="tanggal" id="form6Example3" class="form-control"
-                                    value="
-                                    <?php
-                                    date("Y-m-d H:i:s");
-                                    ?>"  />
+                            <input readonly type="hidden" name="id" id="form6Example3" class="form-control"
+                            value="{{ $detail->data->id }}" />
+                            <div class="form-outline mb-4">
+                                {{-- <label class="form-label fw-bold" for="form6Example1">Author</label> --}}
+                                <input readonly type="hidden" name="pembuat" id="form6Example3" class="form-control"
+                            value="{{ $profile->data->firstName . $profile->data->lastName }}" />
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                {{-- <label class="form-label fw-bold" for="form6Example1">Waktu</label> --}}
+                                <input readonly type="hidden" name="tanggal" id="form6Example3" class="form-control "
+                                    value="{{ date("Y-m-d H:i:s") }}"  />
+                            </div>
+                            
                             <!-- nama -->
                             <div class="form-outline mb-4">
                                 <label class="form-label fw-bold" for="form6Example1">Judul</label>
                                 <input name="headline" type="text" id="form6Example1" class="form-control"
-                                    value="" required/>
+                                    value="{{ $detail->data->headline }}" required/>
                             </div>
 
                             <!-- Text input -->
                             <div class="form-outline mb-4">
                                 <label class="form-label fw-bold" for="form6Example3">Gambar</label>
-                                <input type="file" name="file" id="form6Example3" class="form-control"
-                                    value="" required />
+                                <input type="file" name="file" class="form-control"
+                                required />
                             </div>
 
                             {{-- ////////////////////// --}}
@@ -62,7 +66,7 @@
                             <!-- Message input -->
                             <div class="form-outline mb-4">
                                 <label class="form-label fw-bold" for="form6Example7">Teks</label>
-                                <textarea class="form-control" id="form6Example7" rows="9"></textarea>
+                                <textarea class="form-control" id="form6Example7" rows="12" name="text">{{ $detail->data->text }}</textarea>
                             </div>
 
 

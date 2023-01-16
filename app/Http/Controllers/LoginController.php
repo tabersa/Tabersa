@@ -54,8 +54,9 @@ class LoginController extends Controller
         'password' => 'required',
     ]);
     list($data, $httpcode) = getTokenData($request);
-        $refresh = RefreshToken($data->data->token,$data->data->refreshToken );
+
     if ($httpcode == 200) {
+        $refresh = RefreshToken($data->data->token,$data->data->refreshToken );
         $token = $data->data->token;
         Session::put('token', $token);
         Session::put('tenant', $request->tenant);

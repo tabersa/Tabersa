@@ -17,7 +17,7 @@
         <!--begin::Content container-->
         <div id="kt_app_content_container" class="app-container container-xxl">
             <!--begin::Post card-->
-            <div class="card">
+            <div class="card mb-10">
                 <!--begin::Body-->
                 <div class="card-body p-lg-10 pb-lg-0">
                     <!--begin::Layout-->
@@ -29,18 +29,16 @@
                                 <!--begin::Wrapper-->
                                 <div class="mb-8">
                                     <!--begin::Info-->
-                                    <div class="d-flex flex-wrap mb-6">
+                                    <div class="d-flex flex-wrap mb-6 justify-content-between">
                                         <!--begin::Item-->
                                         <div class="me-9 my-1">
                                             <!--begin::Icon-->
-                                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                                             <span class="svg-icon svg-icon-primary svg-icon-2 me-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 448 512">
                                                     <path fill="#58cc5c"
                                                     d="M128 0c17.7 0 32 14.3 32 32V64H288V32c0-17.7 14.3-32 32-32s32 14.3 32 32V64h48c26.5 0 48 21.5 48 48v48H0V112C0 85.5 21.5 64 48 64H96V32c0-17.7 14.3-32 32-32zM0 192H448V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V192zm64 80v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm128 0v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H208c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H336zM64 400v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H208zm112 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H336c-8.8 0-16 7.2-16 16z"/>
                                                 </svg>
                                             </span>
-                                            <!--end::Svg Icon-->
                                             <!--end::Icon-->
                                             <!--begin::Label-->
                                             <span class="fw-bold text-gray-400">
@@ -48,12 +46,14 @@
                                             </span>
                                             <!--end::Label-->
                                         </div>
+                                        <a class="btn btn-success right-0" href="/news/input/{{ $detail->data->id }}">Update News</a>
                                         <!--end::Item-->
                                     </div>
                                     <!--end::Info-->
                                     <!--begin::Title-->
-                                    <a href="#" class="text-dark fs-2 fw-bold">{{ $detail->data->headline }}<br>
+                                    <a href="#" class="text-dark fs-1 fw-bold">{{ $detail->data->headline }}<br>
                                     <span class="fw-bold text-muted fs-5 ps-1">by {{ $detail->data->publishedBy }}</span></a>
+                                    
                                     <!--end::Title-->
                                     <!--begin::Container-->
                                     <div class="overlay mt-8">
@@ -78,38 +78,7 @@
                             <!--end::Post content-->
                         </div>
                         <!--end::Content-->
-                        <!--begin::Sidebar-->
-                        <div class="flex-column flex-lg-row-auto w-100 w-xl-300px mb-10 pr-8">
-                            
-                            <!--begin::Recent posts-->
-                            <div class="m-0">
-                                <h4 class="text-dark mb-7">Recent Posts</h4>
-                                <!--begin::Item-->
-                                @forelse ($dataNews->data as $news)
-                                <div class="d-flex flex-stack mb-7 table-row" data-href="/news/show/{{ $news->id }}">
-                                    <!--begin::Symbol-->
-                                    <div class="symbol symbol-60px symbol-2by3 me-4">
-                                        <div class="symbol-label" style="background-image: url('{{ $news->imageUrl }}')"></div>
-                                    </div>
-                                    <!--end::Symbol-->
-                                    <!--begin::Title-->
-                                    <div class="m-0">
-                                        <a href="#" class="text-dark fw-bold text-hover-primary fs-6">{{ $news->headline }}</a>
-                                        <span class="text-gray-600 fw-semibold d-block pt-1 fs-7">{{ substr($news->text,0,30) }}</span>
-                                    </div>
-                                    <!--end::Title-->
-                                </div>
-                                <!--end::Item-->
-                                @empty
-                                <div class="d-flex flex-stack mb-7">
-                                    <span class="text-gray-600 fw-semibold d-block pt-1 fs-7">Data Kosong</span>
-                                </div>
-                                @endforelse
-                                
-                            </div>
-                            <!--end::Recent posts-->
-                        </div>
-                        <!--end::Sidebar-->
+                        
                     </div>
                     <!--end::Layout-->
                 </div>

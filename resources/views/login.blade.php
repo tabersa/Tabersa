@@ -110,7 +110,9 @@ License: For each use you must have a valid license purchased only from above li
                                 <span class="fw-bold"> Tenant</span>
                                 <input id="tenant" type="text"
                                     class=" bg-transparent mt-4 form-control @error('tenant') is-invalid @enderror"
-                                    name="tenant" required autofocus />
+                                    name="tenant" required autofocus
+                                    value="601687" 
+                                    />
                                 <!--end::Email-->
                             </div>
                             <div class="fv-row mb-3">
@@ -119,7 +121,9 @@ License: For each use you must have a valid license purchased only from above li
                                 <input id="username" type="text"
                                     class=" bg-transparent mt-4 form-control @error('username') is-invalid @enderror"
                                     name="username"  required
-                                    autofocus />
+                                    autofocus
+                                    value="bpr.demo"
+                                    />
                                 <!--end::Email-->
                             </div>
                             <!--end::Input group=-->
@@ -128,7 +132,9 @@ License: For each use you must have a valid license purchased only from above li
                                 <span class="fw-bold">Password</span>
                                 <input id="password" type="password"
                                     class="bg-transparent mt-4 form-control @error('password') is-invalid @enderror"
-                                    name="password" required autocomplete="current-password" />
+                                    name="password" required 
+                                    value="Taber54!" 
+                                    />
                                 <!--end::Password-->
                             </div>
                             <!--end::Input group=-->

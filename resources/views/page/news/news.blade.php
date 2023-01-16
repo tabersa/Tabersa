@@ -113,9 +113,9 @@
                                 <div class="fs-1 fw-bold">List News</div>
 
                             </div>
-                            <div class="card-toolbar">
+                            {{-- <div class="card-toolbar">
                                 <a href="{{ route('news.input') }}" class="btn btn-bg-success text-light btn-sm">Tambah Data</a>
-                            </div>
+                            </div> --}}
                             <!--end::Card title-->
                         </div>
                         <!--end::Card header-->

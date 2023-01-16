@@ -183,10 +183,11 @@ function getCifID($token, $id)
     $dataaddress = $cif->data->cifAddress;
     $dataoccupation = $cif->data->cifOccupation;
     $dataspouse = $cif->data->cifSpouse;
+    $dataPhoto = $cif->data->cifPhoto;
     $dataid = $id;
     // dd($datainfo);
     curl_close($curl);
-    return array($datainfo, $dataaddress, $dataoccupation, $dataspouse, $dataid);
+    return array($datainfo, $dataaddress, $dataoccupation, $dataspouse, $dataid, $dataPhoto);
 }
 
 function authCIf($request, $id)
@@ -659,6 +660,11 @@ function getDetailNews($token, $id)
 function addNews(Request $request)
 {
     $token = $request->session()->get('token');
+    $author = $request->pembuat;
+    $id = $request->id;
+    $waktu = $request->tanggal;
+    $headline = $request->headline;
+    $text = $request->text;
 
     $request->validate([
         'headline' => 'required',
@@ -666,8 +672,7 @@ function addNews(Request $request)
     ]);
 
     $api = config('properties.api');
-    $id = getRandomString(30);
-    $file = $request->file;
+    $file = $request->file('file');
     // dapetin username header
     $curl = curl_init();
     curl_setopt_array(
@@ -690,19 +695,10 @@ function addNews(Request $request)
         )
     );
     $response = curl_exec($curl);
-    $x = json_decode($response);
-    // $link = $x->data;
-    dd($x);
-
+    $fileimage = json_decode($response);
+    $link = $fileimage->data;
     curl_close($curl);
 
-    $body = array(
-        "headline" => (string) $request->headline,
-        "text" => (string) $request->text,
-        "publishedBy" => (string) $request->pembuat,
-        "publishedOn" => (string) $request->tanggal,
-        "imageUrl" => $link,
-    );
     $curl = curl_init();
 
     curl_setopt_array(
@@ -716,7 +712,14 @@ function addNews(Request $request)
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'PUT',
-            CURLOPT_POSTFIELDS => $body,
+            CURLOPT_POSTFIELDS => '{
+                "headline": "'.(string)$headline.'",
+                "text":  "'.(string)$text.'",
+                "publishedBy":  "'.(string)$author.'",
+                "publishedOn":  "'.date("Y-m-d").'.T'.date("H:i:s").'.672Z",
+                "imageUrl":  "'.(string)$link.'",
+                "status": 0
+            }',
             CURLOPT_HTTPHEADER => array(
                 'Authorization: Bearer ' . $token,
                 'Content-Type: application/json'
@@ -726,6 +729,7 @@ function addNews(Request $request)
 
     $response = curl_exec($curl);
     $dataAdd = json_decode($response);
+    // dd($author);
     $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     curl_close($curl);
     return array($dataAdd, $httpcode);

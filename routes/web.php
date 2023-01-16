@@ -59,8 +59,9 @@ Route::get('/tabunganSetting', [SettingController::class, 'tabungan'])->name('ta
 
 Route::get('/news', [NewsController::class, 'index'])->name('news');
 Route::get('/news/show/{id}', [NewsController::class, 'show'])->name('news.show');
-Route::get('/news/input', [NewsController::class, 'input'])->name('news.input');
+Route::get('/news/input/{id}', [NewsController::class, 'input'])->name('news.input');
 Route::put('/news/add', [NewsController::class, 'add'])->name('news.add');
+
 
 
 

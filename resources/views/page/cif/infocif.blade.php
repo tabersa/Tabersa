@@ -31,15 +31,53 @@
                                 <span class="text-gray-400 fw-semibold fs-6">Periksa Informasi Customer Anda Disini</span>
                             </h3>
                             <!--end::Title-->
-
+                            
                         </div>
                         <!--end::Header-->
+                        
                         <!--begin::Body-->
                         <div class="card-body pt-6">
-                                <form method="POST" action="/infocif/autorisasi/{{ $dataid }}">
-                    
-                                    {{ csrf_field() }}
-                                    {{ method_field('put') }}
+                            <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
+												<!--begin::Nav item-->
+												<li class="nav-item">
+													<a class="nav-link text-active-primary py-5 me-6" href="../../demo1/dist/apps/projects/project.html">Overview</a>
+												</li>
+												<!--end::Nav item-->
+												<!--begin::Nav item-->
+												<li class="nav-item">
+													<a class="nav-link text-active-primary py-5 me-6" href="../../demo1/dist/apps/projects/targets.html">Targets</a>
+												</li>
+												<!--end::Nav item-->
+												<!--begin::Nav item-->
+												<li class="nav-item">
+													<a class="nav-link text-active-primary py-5 me-6" href="../../demo1/dist/apps/projects/budget.html">Budget</a>
+												</li>
+												<!--end::Nav item-->
+												<!--begin::Nav item-->
+												<li class="nav-item">
+													<a class="nav-link text-active-primary py-5 me-6" href="../../demo1/dist/apps/projects/users.html">Users</a>
+												</li>
+												<!--end::Nav item-->
+												<!--begin::Nav item-->
+												<li class="nav-item">
+													<a class="nav-link text-active-primary py-5 me-6" href="../../demo1/dist/apps/projects/files.html">Files</a>
+												</li>
+												<!--end::Nav item-->
+												<!--begin::Nav item-->
+												<li class="nav-item">
+													<a class="nav-link text-active-primary py-5 me-6" href="../../demo1/dist/apps/projects/activity.html">Activity</a>
+												</li>
+												<!--end::Nav item-->
+												<!--begin::Nav item-->
+												<li class="nav-item">
+													<a class="nav-link text-active-primary py-5 me-6 active" href="../../demo1/dist/apps/projects/settings.html">Settings</a>
+												</li>
+												<!--end::Nav item-->
+											</ul>
+                            <form method="POST" action="/infocif/autorisasi/{{ $dataid }}">
+
+                                {{ csrf_field() }}
+                                {{ method_field('put') }}
                                 <div class="row">
                                     <div class="col mx-4">
                                         <div class="form-outline mb-4">
@@ -108,45 +146,45 @@
                                         <div class="row mb-8">
                                             <label class="form-label mb-4" for="form6Example1">Jenis Kelamin <br></label>
                                             @if ($datainfo->gender == '1')
-                                            <div class="col">
-                                                <div class="form-outline">
-                                                    <input disabled class="form-check-input" type="radio"
-                                                        name="flexRadioDefault" id="flexRadioDefault1" checked>
-                                                    <label class="form-check-label" for="flexRadioDefault1">
-                                                        Laki-Laki
-                                                    </label>
+                                                <div class="col">
+                                                    <div class="form-outline">
+                                                        <input disabled class="form-check-input" type="radio"
+                                                            name="flexRadioDefault" id="flexRadioDefault1" checked>
+                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                            Laki-Laki
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-outline">
-                                                    <input disabled class="form-check-input" type="radio"
-                                                        name="flexRadioDefault" id="flexRadioDefault1">
-                                                    <label class="form-check-label" for="flexRadioDefault1">
-                                                        Perempuan
-                                                    </label>
+                                                <div class="col">
+                                                    <div class="form-outline">
+                                                        <input disabled class="form-check-input" type="radio"
+                                                            name="flexRadioDefault" id="flexRadioDefault1">
+                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                            Perempuan
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                            </div>        
                                             @else
-                                            <div class="col">
-                                                <div class="form-outline">
-                                                    <input disabled class="form-check-input" type="radio"
-                                                        name="flexRadioDefault" id="flexRadioDefault1" >
-                                                    <label class="form-check-label" for="flexRadioDefault1">
-                                                        Laki-Laki
-                                                    </label>
+                                                <div class="col">
+                                                    <div class="form-outline">
+                                                        <input disabled class="form-check-input" type="radio"
+                                                            name="flexRadioDefault" id="flexRadioDefault1">
+                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                            Laki-Laki
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-outline">
-                                                    <input disabled class="form-check-input" type="radio"
-                                                        name="flexRadioDefault" id="flexRadioDefault1" checked>
-                                                    <label class="form-check-label" for="flexRadioDefault1">
-                                                        Perempuan
-                                                    </label>
+                                                <div class="col">
+                                                    <div class="form-outline">
+                                                        <input disabled class="form-check-input" type="radio"
+                                                            name="flexRadioDefault" id="flexRadioDefault1" checked>
+                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                            Perempuan
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                            </div>        
                                             @endif
-                                            
+
                                         </div>
 
                                         <!-- Text input -->
@@ -154,14 +192,15 @@
                                             <div class="col">
                                                 <div class="form-outline">
                                                     <label class="form-label" for="form6Example1">Tempat Lahir</label>
-                                                    <input disabled type="text" id="form6Example1" class="form-control"
-                                                        value="{{ $datainfo->placeOfBirth }}" />
+                                                    <input disabled type="text" id="form6Example1"
+                                                        class="form-control" value="{{ $datainfo->placeOfBirth }}" />
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
                                                     <label class="form-label" for="form6Example2">Tanggal Lahir</label>
-                                                    <input disabled type="date" id="form6Example2" class="form-control"
+                                                    <input disabled type="date" id="form6Example2"
+                                                        class="form-control"
                                                         value="{{ date('Y-m-d', strtotime(substr($datainfo->dateOfBirth, 0, 10))) }}" />
                                                 </div>
                                             </div>
@@ -187,26 +226,26 @@
                                         </div>
 
                                         @if ($dataaddress->identityAddress == $dataaddress->residenceAddress)
-                                        <div class="form-outline my-10">
-                                            <div class="form-check form-switch">
-                                                <input disabled class="form-check-input" type="checkbox" role="switch"
-                                                    id="flexSwitchCheckDefault" checked>
-                                                <label class="form-check-label" for="flexSwitchCheckDefault">Alamat
-                                                    Identitas sama dengan domisili</label>
+                                            <div class="form-outline my-10">
+                                                <div class="form-check form-switch">
+                                                    <input disabled class="form-check-input" type="checkbox"
+                                                        role="switch" id="flexSwitchCheckDefault" checked>
+                                                    <label class="form-check-label" for="flexSwitchCheckDefault">Alamat
+                                                        Identitas sama dengan domisili</label>
+                                                </div>
                                             </div>
-                                        </div>
                                         @else
-                                        <div class="form-outline my-10">
-                                            <div class="form-check form-switch">
-                                                <input disabled class="form-check-input" type="checkbox" role="switch"
-                                                    id="flexSwitchCheckDefault">
-                                                <label class="form-check-label" for="flexSwitchCheckDefault">Alamat
-                                                    Identitas sama dengan domisili</label>
+                                            <div class="form-outline my-10">
+                                                <div class="form-check form-switch">
+                                                    <input disabled class="form-check-input" type="checkbox"
+                                                        role="switch" id="flexSwitchCheckDefault">
+                                                    <label class="form-check-label" for="flexSwitchCheckDefault">Alamat
+                                                        Identitas sama dengan domisili</label>
+                                                </div>
                                             </div>
-                                        </div>
                                         @endif
                                         <!-- switch -->
-                                        
+
 
                                         <!-- Message input -->
                                         <div class="form-outline mb-4">
@@ -642,129 +681,156 @@
                                             </div>
                                         </div>
                                         @if ($datainfo->maritalStatus == 1)
-                                        <div class="form-outline mb-4">
-                                            <label class="form-label fw-bold" for="form6Example1">Nama</label>
-                                            <input disabled type="text" id="form6Example1" class="form-control"
-                                                value="{{ $dataspouse->spouseName }}" />
-                                        </div>
+                                            <div class="form-outline mb-4">
+                                                <label class="form-label fw-bold" for="form6Example1">Nama</label>
+                                                <input disabled type="text" id="form6Example1" class="form-control"
+                                                    value="{{ $dataspouse->spouseName }}" />
+                                            </div>
 
-                                        <!-- Text input -->
-                                        <div class="row mb-4">
-                                            <div class="col-3">
-                                                <div class="form-outline">
-                                                    <label class="form-label" for="form6Example1">Identitas</label>
-                                                    <select disabled class="form-select"
-                                                        aria-label="Default select example">
-                                                        @foreach ($type->data as $list)
-                                                        <option value="{{ $list->value }}" <?php if ($dataspouse->spouseIdentityType == $list->value) {
-                                                            echo 'selected="selected"';
-                                                        } ?>>
-                                                            {{ $list->label }}</option>
-                                                    @endforeach
-                                                    </select>
+                                            <!-- Text input -->
+                                            <div class="row mb-4">
+                                                <div class="col-3">
+                                                    <div class="form-outline">
+                                                        <label class="form-label" for="form6Example1">Identitas</label>
+                                                        <select disabled class="form-select"
+                                                            aria-label="Default select example">
+                                                            @foreach ($type->data as $list)
+                                                                <option value="{{ $list->value }}" <?php if ($dataspouse->spouseIdentityType == $list->value) {
+                                                                    echo 'selected="selected"';
+                                                                } ?>>
+                                                                    {{ $list->label }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-outline">
+                                                        <label class="form-label fw-bold"
+                                                            for="form6Example1">Identitas</label>
+                                                        <input disabled type="text" id="form6Example1"
+                                                            class="form-control"
+                                                            value="{{ $dataspouse->spouseIdentityNumber }}" />
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col">
-                                                <div class="form-outline">
-                                                    <label class="form-label fw-bold"
-                                                        for="form6Example1">Identitas</label>
-                                                    <input disabled type="text" id="form6Example1"
-                                                        class="form-control"
-                                                        value="{{ $dataspouse->spouseIdentityNumber }}" />
+
+                                            <div class="form-outline mb-4">
+                                                <label class="form-label fw-bold" for="form6Example1">Tanggal
+                                                    Kadaluarsa</label>
+                                                <input disabled type="date" id="form6Example1" class="form-control"
+                                                    value="{{ date('Y-m-d', strtotime(substr($dataspouse->spouseIdentityExpiredDate, 0, 10))) }}" />
+                                            </div>
+
+                                            <!-- Text input -->
+                                            <div class="row mb-4">
+                                                <div class="col">
+                                                    <div class="form-outline">
+                                                        <label class="form-label" for="form6Example1">Tempat Lahir</label>
+                                                        <input disabled type="text" id="form6Example1"
+                                                            class="form-control"
+                                                            value="{{ $dataspouse->spousePlaceOfBirth }}" />
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-outline">
+                                                        <label class="form-label" for="form6Example2">Tanggal
+                                                            Lahir</label>
+                                                        <input disabled type="date" id="form6Example2"
+                                                            class="form-control"
+                                                            value="{{ date('Y-m-d', strtotime(substr($dataspouse->spouseDateOfBirth, 0, 10))) }}" />
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="form-outline mb-4">
-                                            <label class="form-label fw-bold" for="form6Example1">Tanggal
-                                                Kadaluarsa</label>
-                                            <input disabled type="date" id="form6Example1" class="form-control"
-                                                value="{{ date('Y-m-d', strtotime(substr($dataspouse->spouseIdentityExpiredDate, 0, 10))) }}" />
-                                        </div>
-
-                                        <!-- Text input -->
-                                        <div class="row mb-4">
-                                            <div class="col">
-                                                <div class="form-outline">
-                                                    <label class="form-label" for="form6Example1">Tempat Lahir</label>
-                                                    <input disabled type="text" id="form6Example1"
-                                                        class="form-control"
-                                                        value="{{ $dataspouse->spousePlaceOfBirth }}" />
+                                            <div class="form-outline mb-4">
+                                                <label class="form-label fw-bold" for="form6Example1">Jumlah
+                                                    Tanggungan</label>
+                                                <div class="input-group mb-3">
+                                                    <input disabled type="text" class="form-control" placeholder=""
+                                                        value="{{ $dataspouse->numberOfDependant }}">
                                                 </div>
                                             </div>
-                                            <div class="col">
-                                                <div class="form-outline">
-                                                    <label class="form-label" for="form6Example2">Tanggal Lahir</label>
-                                                    <input disabled type="date" id="form6Example2"
-                                                        class="form-control"
-                                                        value="{{ date('Y-m-d', strtotime(substr($dataspouse->spouseDateOfBirth, 0, 10))) }}" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-outline mb-4">
-                                            <label class="form-label fw-bold" for="form6Example1">Jumlah
-                                                Tanggungan</label>
-                                            <div class="input-group mb-3">
-                                                <input disabled type="text" class="form-control" placeholder=""
-                                                    value="{{ $dataspouse->numberOfDependant }}">
-                                            </div>
-                                        </div>
                                         @else
-                                            
                                         @endif
-                                        
 
-                                        {{-- ///////////////// --}}
+                                        <div class="form-outline mb-8">
+                                            <h4 class="card-title align-items-center flex-column">
+                                                <span class="fs-2 fw-bold text-gray-800 mb-4"><br>Foto Identitas</span>
+                                                <hr>
+                                            </h4>
+                                        </div>
+
+                                        <div class="form-outline mb-4 row">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col justify-content-start">
+                                                        <label class="form-label fw-bold" for="form6Example1">
+                                                            Foto 
+                                                        </label><br>
+                                                        <img src="{{ $dataPhoto->imageUrl1 }}" height="200px" width="200px">
+                                                    </div>
+                                                    <div class="col justify-content-start">
+                                                        <label class="form-label fw-bold" for="form6Example1">
+                                                            Foto 
+                                                        </label><br>
+                                                        <img src="{{ $dataPhoto->imageUrl2 }}" height="200px" width="auto">
+                                                    </label>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                @if($datainfo->cifNumber===null)
-                                <div class="d-flex flex-row-reverse mt-10">
-                                    <!-- Submit button -->
-                                    <hr>
-                                    <input name="verif" type="submit"
-                                        class="btn btn-success text-light mb-2 p-5 mx-2" value="Verified">
-                                    <input name="reject "type="submit"
-                                        class="btn btn-danger text-light mb-2 p-5 mx-2" value="Reject">
-
-                                    <input type="button" class="btn btn-secondary mb-2 p-5 mx-2 " value="Kembali"
-                                        onclick="history.back();">
-                                </div>
-                                @elseif ($newdata->status != 1 && $newdata->status != 2 )
-                                <div class="d-flex flex-row-reverse mt-10">
-                                    <!-- Submit button -->
-                                    <hr>
-                                    <input name="verif" type="submit"
-                                        class="btn btn-success text-light mb-2 p-5 mx-2" value="Verified">
-                                    <input name="reject "type="submit"
-                                        class="btn btn-danger text-light mb-2 p-5 mx-2" value="Reject">
-
-                                    <input type="button" class="btn btn-secondary mb-2 p-5 mx-2 " value="Kembali"
-                                        onclick="history.back();">
-                                </div>
-                                @else
-                                    <div class="d-flex flex-row-reverse mt-10">
-                                        <!-- Submit button -->
-                                        <hr>
-
-                                        <input type="button" onclick="history.back();"
-                                            class="btn btn-secondary mb-2 p-5 mx-2 " value="Kembali">
-                                    </div>
-                                @endif
-
-                            </form>
-
+                                {{-- ///////////////// --}}
                         </div>
-                        <!--end: Card Body-->
                     </div>
+                    @if ($datainfo->cifNumber === null)
+                        <div class="d-flex flex-row-reverse mt-10">
+                            <!-- Submit button -->
+                            <hr>
+                            <input name="verif" type="submit" class="btn btn-success text-light mb-2 p-5 mx-2"
+                                value="Verified">
+                            <input name="reject "type="submit" class="btn btn-danger text-light mb-2 p-5 mx-2"
+                                value="Reject">
+
+                            <input type="button" class="btn btn-secondary mb-2 p-5 mx-2 " value="Kembali"
+                                onclick="history.back();">
+                        </div>
+                    @elseif ($newdata->status != 1 && $newdata->status != 2)
+                        <div class="d-flex flex-row-reverse mt-10">
+                            <!-- Submit button -->
+                            <hr>
+                            <input name="verif" type="submit" class="btn btn-success text-light mb-2 p-5 mx-2"
+                                value="Verified">
+                            <input name="reject "type="submit" class="btn btn-danger text-light mb-2 p-5 mx-2"
+                                value="Reject">
+
+                            <input type="button" class="btn btn-secondary mb-2 p-5 mx-2 " value="Kembali"
+                                onclick="history.back();">
+                        </div>
+                    @else
+                        <div class="d-flex flex-row-reverse mt-10">
+                            <!-- Submit button -->
+                            <hr>
+
+                            <input type="button" onclick="history.back();" class="btn btn-secondary mb-2 p-5 mx-2 "
+                                value="Kembali">
+                        </div>
+                    @endif
+
+                    </form>
 
                 </div>
-                <!--end::Tables widget 14-->
+                <!--end: Card Body-->
             </div>
-            <!--end::Col-->
 
         </div>
-        <!--end::Row-->
+        <!--end::Tables widget 14-->
+    </div>
+    <!--end::Col-->
+
+    </div>
+    <!--end::Row-->
 
     </div>
     <!--end::Content wrapper-->

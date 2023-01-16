@@ -27,7 +27,7 @@
                 <!--begin::Card body-->
                 <div class="card-body py-10">
                     <!--begin::Table-->
-                    <table class="table align-middle table-hover table-row-dashed fs-6 gy-5 table-cif">
+                    <table class="table align-middle table-hover fs-6 gy-5 table-cif">
                         <!--begin::Table head-->
 
                         <thead>
@@ -35,7 +35,7 @@
                             <tr class="fw-bold fs-7 text-uppercase gs-0">
                                 {{-- <th class="min-fit">No</th> --}}
                                 <th class="min-w-125px text-start">NASABAH</th>
-                                <th class="min-w-125px text-start">TANGGAL REGISTER</th>
+                                <th class="min-w-125px text-start">TGL REGISTER</th>
                                 <th class="min-w-125px text-start">IDENTITAS</th>
                                 <th class="min-w-125px text-start">NO. SELULER</th>
                                 <th class="min-w-125px text-start">EMAIL</th>
@@ -48,7 +48,7 @@
                         <tbody class="fw-semibold">
                             <!--begin::Table row-->
                             @forelse ($cif->data as $datacif)
-                                <tr class="table-row"data-href="infocif/show/{{ $datacif->id }}">
+                                <tr class="table-row" data-href="infocif/show/{{ $datacif->id }}">
                                     {{-- <td class="d-flex align-items-center">{{1}}</td> --}}
                                     <!--begin::User=-->
                                     <td class="d-flex align-items-center">

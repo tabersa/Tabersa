@@ -22,7 +22,7 @@ class infoCIFController extends Controller
             $bank = getDataBank($token);
             $profile = getProfile($token);
             $newdata = getCifSearch($token, $id);
-            list($datainfo, $dataaddress, $dataoccupation, $dataspouse, $dataid) = getCifID($token,$id);
+            list($datainfo, $dataaddress, $dataoccupation, $dataspouse, $dataid, $dataPhoto) = getCifID($token,$id);
             $type = getIdentityType($token);
             $city = getRefCity($token);
             $province = getRefProvince($token);
@@ -44,6 +44,7 @@ class infoCIFController extends Controller
                 return view(
                     'page.cif.infocif',
                     compact(
+                        'dataPhoto',
                         'residensial',
                         'bank',
                         'dataid',
