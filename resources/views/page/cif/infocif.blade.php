@@ -11,7 +11,6 @@
     </span>
 @endsection
 @section('content')
-
     <!--begin::Content wrapper-->
     <div id="kt_app_content" class="app-content flex-column-fluid ">
         <!--begin::Content container-->
@@ -31,49 +30,39 @@
                                 <span class="text-gray-400 fw-semibold fs-6">Periksa Informasi Customer Anda Disini</span>
                             </h3>
                             <!--end::Title-->
-                            
+
                         </div>
                         <!--end::Header-->
-                        
+
                         <!--begin::Body-->
                         <div class="card-body pt-6">
-                            <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
-												<!--begin::Nav item-->
-												<li class="nav-item">
-													<a class="nav-link text-active-primary py-5 me-6" href="../../demo1/dist/apps/projects/project.html">Overview</a>
-												</li>
-												<!--end::Nav item-->
-												<!--begin::Nav item-->
-												<li class="nav-item">
-													<a class="nav-link text-active-primary py-5 me-6" href="../../demo1/dist/apps/projects/targets.html">Targets</a>
-												</li>
-												<!--end::Nav item-->
-												<!--begin::Nav item-->
-												<li class="nav-item">
-													<a class="nav-link text-active-primary py-5 me-6" href="../../demo1/dist/apps/projects/budget.html">Budget</a>
-												</li>
-												<!--end::Nav item-->
-												<!--begin::Nav item-->
-												<li class="nav-item">
-													<a class="nav-link text-active-primary py-5 me-6" href="../../demo1/dist/apps/projects/users.html">Users</a>
-												</li>
-												<!--end::Nav item-->
-												<!--begin::Nav item-->
-												<li class="nav-item">
-													<a class="nav-link text-active-primary py-5 me-6" href="../../demo1/dist/apps/projects/files.html">Files</a>
-												</li>
-												<!--end::Nav item-->
-												<!--begin::Nav item-->
-												<li class="nav-item">
-													<a class="nav-link text-active-primary py-5 me-6" href="../../demo1/dist/apps/projects/activity.html">Activity</a>
-												</li>
-												<!--end::Nav item-->
-												<!--begin::Nav item-->
-												<li class="nav-item">
-													<a class="nav-link text-active-primary py-5 me-6 active" href="../../demo1/dist/apps/projects/settings.html">Settings</a>
-												</li>
-												<!--end::Nav item-->
-											</ul>
+                            <ul
+                                class="nav nav-fill nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
+                                <!--begin::Nav item-->
+                                <li class="nav-item ">
+                                    <a class="nav-link text-active-primary py-5 me-6  active"
+                                        href="/infocif/cif/{{ $dataspesifik->id }}">CIF</a>
+                                </li>
+                                <!--end::Nav item-->
+                                <!--begin::Nav item-->
+                                <li class="nav-item">
+                                    <a class="nav-link text-active-primary py-5 me-6"
+                                        href="/infocif/tabungan/{{ $dataspesifik->id }}">Tabungan</a>
+                                </li>
+                                <!--end::Nav item-->
+                                <!--begin::Nav item-->
+                                <li class="nav-item">
+                                    <a class="nav-link text-active-primary py-5 me-6 "
+                                        href="/infocif/deposito/{{ $dataspesifik->id }}"">Deposito</a>
+                                </li>
+                                <!--end::Nav item-->
+                                <!--begin::Nav item-->
+                                <li class="nav-item">
+                                    <a class="nav-link text-active-primary py-5 me-6"
+                                        href="/infocif/kredit/{{ $dataspesifik->id }}"">Kredit</a>
+                                </li>
+                                <!--end::Nav item-->
+                            </ul>
                             <form method="POST" action="/infocif/autorisasi/{{ $dataid }}">
 
                                 {{ csrf_field() }}
@@ -765,17 +754,19 @@
                                                 <div class="row">
                                                     <div class="col justify-content-start">
                                                         <label class="form-label fw-bold" for="form6Example1">
-                                                            Foto 
+                                                            Foto
                                                         </label><br>
-                                                        <img src="{{ $dataPhoto->imageUrl1 }}" height="200px" width="200px">
+                                                        <img src="{{ $dataPhoto->imageUrl1 }}" height="200px"
+                                                            width="200px">
                                                     </div>
                                                     <div class="col justify-content-start">
                                                         <label class="form-label fw-bold" for="form6Example1">
-                                                            Foto 
+                                                            Foto
                                                         </label><br>
-                                                        <img src="{{ $dataPhoto->imageUrl2 }}" height="200px" width="auto">
-                                                    </label>
-                                                </div>
+                                                        <img src="{{ $dataPhoto->imageUrl2 }}" height="200px"
+                                                            width="auto">
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

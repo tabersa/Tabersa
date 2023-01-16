@@ -232,6 +232,52 @@ function authCIf($request, $id)
     return array($new, $httpcode);
 }
 
+function getSpecificCIF($token, $id){
+    $api = config('properties.api');
+    // dapetin username header
+    $curl = curl_init();
+    curl_setopt_array(
+        $curl,
+        array(
+            CURLOPT_URL => $api . 'v1/cif/search',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS =>'{
+  "advancedSearch": {
+    "fields": [
+    ],
+    "keyword": ""
+  },
+  "keyword": "'.$id.'",
+  "pageNumber": 0,
+  "pageSize": 100,
+  "orderBy": [
+    "CreatedOn DESC"
+  ],
+  "cifId": "",
+  "transactionDateFrom": "",
+  "transactionDateTo": "",
+  "status": 1000
+}',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer ' . $token,
+    'Content-Type: application/json'
+  ),
+));
+
+$response = curl_exec($curl);
+$data = json_decode($response);
+$dataspesifik = $data->data[0];
+    // dd($dataspesifik);
+curl_close($curl);
+return $dataspesifik;
+
+}
 //////////////////////////////////////////////////////////////////////////////////////////////// ////////////////////////////////////////////////////////////////////////////////////////////////////
 // DATA SAVING
 function getSaving($token)
@@ -351,6 +397,33 @@ function authSaving($request, $id)
     $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     curl_close($curl);
     return array($new, $httpcode);
+}
+
+function getSavingByID($token,$id){
+    $api = config('properties.api');
+    // dapetin username header
+    $curl = curl_init();
+    curl_setopt_array(
+        $curl,
+        array(
+            CURLOPT_URL => $api . 'v1/saving/bycif/'. $id,
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer ' . $token,
+),
+));
+
+$response = curl_exec($curl);
+    $dataID = json_decode($response);
+curl_close($curl);
+return $dataID;
+
 }
 //////////////////////////////////////////////////////////////////////////////////////////////// ////////////////////////////////////////////////////////////////////////////////////////////////////
 // DATA TRANSAKSI

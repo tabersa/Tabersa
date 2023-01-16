@@ -87,7 +87,7 @@
                         {{-- <span class="menu-arrow"></span> --}}
                     </a>
                     <!--end:Menu link-->
-                    
+
                 </div>
                 <!--end:Menu item-->
                 <!--begin:Menu item-->
@@ -151,10 +151,11 @@
                 </div>
                 <!--end:Menu item-->
                 <!--begin:Menu item-->
-                <div class="menu-item menu-accordion my-4">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion my-4">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="{{ url('/setting') }}">
+                    <span class="menu-link">
                         <span class="menu-icon">
+                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <!--begin::Svg Icon | path: icons/duotune/graphs/gra010.svg-->
                             <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -163,51 +164,76 @@
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
-                        </span>
-                        <span class="menu-title text-light fw-bold">Settings</span>
-                    </a>
-                    <!--end:Menu link-->
-                </div>
-                <!--end:Menu item-->
-                <!--begin:Menu item-->
-                <div class="menu-item menu-accordion my-4">
-                    <!--begin:Menu link-->
-                    <a class="menu-link" href="{{ url('/news') }}">
-                        <span class="menu-icon">
-                            <!--begin::Svg Icon | path: icons/duotune/graphs/gra010.svg-->
-                            <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path fill="#fff"
-                                    d="M96 96c0-35.3 28.7-64 64-64H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H80c-44.2 0-80-35.8-80-80V128c0-17.7 14.3-32 32-32s32 14.3 32 32V400c0 8.8 7.2 16 16 16s16-7.2 16-16V96zm64 24v80c0 13.3 10.7 24 24 24H424c13.3 0 24-10.7 24-24V120c0-13.3-10.7-24-24-24H184c-13.3 0-24 10.7-24 24zm0 184c0 8.8 7.2 16 16 16h96c8.8 0 16-7.2 16-16s-7.2-16-16-16H176c-8.8 0-16 7.2-16 16zm160 0c0 8.8 7.2 16 16 16h96c8.8 0 16-7.2 16-16s-7.2-16-16-16H336c-8.8 0-16 7.2-16 16zM160 400c0 8.8 7.2 16 16 16h96c8.8 0 16-7.2 16-16s-7.2-16-16-16H176c-8.8 0-16 7.2-16 16zm160 0c0 8.8 7.2 16 16 16h96c8.8 0 16-7.2 16-16s-7.2-16-16-16H336c-8.8 0-16 7.2-16 16z"/>
-                                </svg>
-                            </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title text-light fw-bold">News</span>
-                    </a>
+                        <span class="menu-title text-light fw-bold">Settings</span>
+                        <span class="menu-arrow" ></span>
+                    </span>
                     <!--end:Menu link-->
+                    <!--begin:Menu sub-->
+                    <div class="menu-sub menu-sub-accordion">
+                        <!--begin:Menu item-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link" href="{{ route('profileSetting') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title text-light fw-semibold">Profile</span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                        <!--end:Menu item-->
+                        <!--begin:Menu item-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link" href="{{ route('news') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title text-light fw-semibold">News</span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                        <!--end:Menu item-->
+                        <!--begin:Menu item-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link" href="{{ route('tabunganSetting') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title text-light fw-semibold">Tabungan</span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                        <!--end:Menu item-->
+                        </div>
+                    </div>
+                    <!--end:Menu sub-->
                 </div>
                 <!--end:Menu item-->
-
-            </div>
+                
             <!--end::Menu-->
         </div>
         <!--end::Menu wrapper-->
     </div>
     <!--end::sidebar menu-->
-    <a id="kt_app_sidebar_footer" href="{{ route('out') }}" class=" app-sidebar-footer flex-column-auto pt-2 pb-6 px-6">
+    <a id="kt_app_sidebar_footer" href="{{ route('out') }}"
+        class=" app-sidebar-footer flex-column-auto pt-2 pb-6 px-6">
         @csrf
         {{-- <a href="javascript:;" onclick="parentNode.submit();"> --}}
-            {{-- <div class="app-sidebar-footer flex-column-auto pt-2 pb-6 px-6" id="kt_app_sidebar_footer"> --}}
-                <div class="btn btn-flex flex-center btn-custom btn-primary overflow-hidden text-nowrap px-0 h-40px w-100" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss-="click">
-                    <span class="btn-label text-light">Logout</span>
-                    <span class="svg-icon btn-icon svg-icon-2 m-0">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                            <path fill="#fff" d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V256c0 17.7 14.3 32 32 32s32-14.3 32-32V32zM143.5 120.6c13.6-11.3 15.4-31.5 4.1-45.1s-31.5-15.4-45.1-4.1C49.7 115.4 16 181.8 16 256c0 132.5 107.5 240 240 240s240-107.5 240-240c0-74.2-33.8-140.6-86.6-184.6c-13.6-11.3-33.8-9.4-45.1 4.1s-9.4 33.8 4.1 45.1c38.9 32.3 63.5 81 63.5 135.4c0 97.2-78.8 176-176 176s-176-78.8-176-176c0-54.4 24.7-103.1 63.5-135.4z" />
-                        </svg>
-                    </span>
-                </div>
-            {{-- </div> --}}
-        </a>
+        {{-- <div class="app-sidebar-footer flex-column-auto pt-2 pb-6 px-6" id="kt_app_sidebar_footer"> --}}
+        <div class="btn btn-flex flex-center btn-custom btn-primary overflow-hidden text-nowrap px-0 h-40px w-100"
+            data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss-="click">
+            <span class="btn-label text-light">Logout</span>
+            <span class="svg-icon btn-icon svg-icon-2 m-0">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path fill="#fff"
+                        d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V256c0 17.7 14.3 32 32 32s32-14.3 32-32V32zM143.5 120.6c13.6-11.3 15.4-31.5 4.1-45.1s-31.5-15.4-45.1-4.1C49.7 115.4 16 181.8 16 256c0 132.5 107.5 240 240 240s240-107.5 240-240c0-74.2-33.8-140.6-86.6-184.6c-13.6-11.3-33.8-9.4-45.1 4.1s-9.4 33.8 4.1 45.1c38.9 32.3 63.5 81 63.5 135.4c0 97.2-78.8 176-176 176s-176-78.8-176-176c0-54.4 24.7-103.1 63.5-135.4z" />
+                </svg>
+            </span>
+        </div>
+        {{-- </div> --}}
     </a>
 </div>

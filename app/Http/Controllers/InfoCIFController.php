@@ -22,6 +22,7 @@ class infoCIFController extends Controller
             $bank = getDataBank($token);
             $profile = getProfile($token);
             $newdata = getCifSearch($token, $id);
+            $dataspesifik = getSpecificCIF($token, $id);
             list($datainfo, $dataaddress, $dataoccupation, $dataspouse, $dataid, $dataPhoto) = getCifID($token,$id);
             $type = getIdentityType($token);
             $city = getRefCity($token);
@@ -44,6 +45,7 @@ class infoCIFController extends Controller
                 return view(
                     'page.cif.infocif',
                     compact(
+                        'dataspesifik',
                         'dataPhoto',
                         'residensial',
                         'bank',
@@ -76,7 +78,33 @@ class infoCIFController extends Controller
         }
     }
 
+    public function tabungan(Request $request,$id){
+        $token = $request->session()->get('token');
+        $bank = getDataBank($token);
+        $profile = getProfile($token);
+        $dataspesifik = getSpecificCIF($token, $id);
+        $savingType = getSavingAccountType($token);
+        $dataID = getSavingByID($token, $id);
+        return view('page.cif.tabungancif', compact('savingType','bank','profile', 'dataspesifik','dataID'));
+    }
 
+    public function deposito(Request $request,$id){
+        $token = $request->session()->get('token');
+        $bank = getDataBank($token);
+        $profile = getProfile($token);
+        $dataspesifik = getSpecificCIF($token, $id);
+        $dataID = getSavingByID($token, $id);
+        return view('page.cif.deposito', compact('dataspesifik','bank','profile','dataID'));
+    }
+
+    public function kredit(Request $request,$id){
+        $token = $request->session()->get('token');
+        $bank = getDataBank($token);
+        $profile = getProfile($token);
+        $dataspesifik = getSpecificCIF($token, $id);
+        $dataID = getSavingByID($token, $id);
+        return view('page.cif.kredit', compact('dataspesifik','bank','profile','dataID'));
+    }
     public function autorisasi(Request $request, $id)
     {
         list($new, $httpcode) = authCif($request, $id);

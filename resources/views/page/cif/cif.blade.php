@@ -48,7 +48,7 @@
                         <tbody class="fw-semibold">
                             <!--begin::Table row-->
                             @forelse ($cif->data as $datacif)
-                                <tr class="table-row" data-href="infocif/show/{{ $datacif->id }}">
+                                <tr class="table-row" data-href="infocif/cif/{{ $datacif->id }}">
                                     {{-- <td class="d-flex align-items-center">{{1}}</td> --}}
                                     <!--begin::User=-->
                                     <td class="d-flex align-items-center">
