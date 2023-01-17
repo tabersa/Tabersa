@@ -232,7 +232,8 @@ function authCIf($request, $id)
     return array($new, $httpcode);
 }
 
-function getSpecificCIF($token, $id){
+function getSpecificCIF($token, $id)
+{
     $api = config('properties.api');
     // dapetin username header
     $curl = curl_init();
@@ -240,20 +241,20 @@ function getSpecificCIF($token, $id){
         $curl,
         array(
             CURLOPT_URL => $api . 'v1/cif/search',
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'POST',
-  CURLOPT_POSTFIELDS =>'{
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
   "advancedSearch": {
     "fields": [
     ],
     "keyword": ""
   },
-  "keyword": "'.$id.'",
+  "keyword": "' . $id . '",
   "pageNumber": 0,
   "pageSize": 100,
   "orderBy": [
@@ -264,18 +265,19 @@ function getSpecificCIF($token, $id){
   "transactionDateTo": "",
   "status": 1000
 }',
-  CURLOPT_HTTPHEADER => array(
-    'Authorization: Bearer ' . $token,
-    'Content-Type: application/json'
-  ),
-));
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $token,
+                'Content-Type: application/json'
+            ),
+        )
+    );
 
-$response = curl_exec($curl);
-$data = json_decode($response);
-$dataspesifik = $data->data[0];
+    $response = curl_exec($curl);
+    $data = json_decode($response);
+    $dataspesifik = $data->data[0];
     // dd($dataspesifik);
-curl_close($curl);
-return $dataspesifik;
+    curl_close($curl);
+    return $dataspesifik;
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////////// ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -399,30 +401,32 @@ function authSaving($request, $id)
     return array($new, $httpcode);
 }
 
-function getSavingByID($token,$id){
+function getSavingByID($token, $id)
+{
     $api = config('properties.api');
     // dapetin username header
     $curl = curl_init();
     curl_setopt_array(
         $curl,
         array(
-            CURLOPT_URL => $api . 'v1/saving/bycif/'. $id,
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'GET',
-  CURLOPT_HTTPHEADER => array(
-    'Authorization: Bearer ' . $token,
-),
-));
+            CURLOPT_URL => $api . 'v1/saving/bycif/' . $id,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $token,
+            ),
+        )
+    );
 
-$response = curl_exec($curl);
+    $response = curl_exec($curl);
     $dataID = json_decode($response);
-curl_close($curl);
-return $dataID;
+    curl_close($curl);
+    return $dataID;
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////////// ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -655,7 +659,7 @@ function getNews($token)
   "pageNumber": 0,
   "pageSize": 0,
   "orderBy": [
-    ""
+    "publishedOn DESC"
   ],
   "headline": "",
   "text": ""
@@ -738,15 +742,18 @@ function addNews(Request $request)
     $waktu = $request->tanggal;
     $headline = $request->headline;
     $text = $request->text;
+    $file = $request->file;
 
-    $request->validate([
-        'headline' => 'required',
-        'file.*' => 'mimes:jpg,jpeg,png|max:2000'
-    ]);
+    $fileawal = (object) @$_FILES['file'];
 
+    
+    
+
+
+
+    // dd($fileawal);
     $api = config('properties.api');
-    $file = $request->file('file');
-    // dapetin username header
+
     $curl = curl_init();
     curl_setopt_array(
         $curl,
@@ -756,24 +763,25 @@ function addNews(Request $request)
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_FOLLOWLOCATION => false,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => array(
-                'file' => new CURLFile($file)
-            ),
+            CURLOPT_POSTFIELDS => array('file' => new CURLFILE($file)),
+            
             CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer ' . $token
+                'Authorization: Bearer ' . $token,
             ),
         )
     );
+
     $response = curl_exec($curl);
-    $fileimage = json_decode($response);
-    $link = $fileimage->data;
     curl_close($curl);
+    $fileimage = json_decode($response);
+    dd($fileimage);
+    $link = $fileimage->data;
+
 
     $curl = curl_init();
-
     curl_setopt_array(
         $curl,
         array(
@@ -786,11 +794,11 @@ function addNews(Request $request)
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'PUT',
             CURLOPT_POSTFIELDS => '{
-                "headline": "'.(string)$headline.'",
-                "text":  "'.(string)$text.'",
-                "publishedBy":  "'.(string)$author.'",
-                "publishedOn":  "'.date("Y-m-d").'.T'.date("H:i:s").'.672Z",
-                "imageUrl":  "'.(string)$link.'",
+                "headline": "' . (string) $headline . '",
+                "text":  "' . (string) $text . '",
+                "publishedBy":  "' . (string) $author . '",
+                "publishedOn":  "' . date("Y-m-d") . '.T' . date("H:i:s") . '.672Z",
+                "imageUrl":  "' . (string) $link . '",
                 "status": 0
             }',
             CURLOPT_HTTPHEADER => array(
@@ -802,7 +810,7 @@ function addNews(Request $request)
 
     $response = curl_exec($curl);
     $dataAdd = json_decode($response);
-    // dd($author);
+    // dd($dataAdd);
     $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     curl_close($curl);
     return array($dataAdd, $httpcode);

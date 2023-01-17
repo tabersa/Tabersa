@@ -15,7 +15,7 @@
                 <!--begin::Row-->
                 <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
                     <!--begin::Col-->
-                    <div class="col-xl p-1 m-0">
+                    <div class="col-xl p-0 m-0">
                         <!--begin::Tables widget 14-->
                         <div class="card bg-transparent">
                             <!--begin::Header-->

@@ -31,7 +31,7 @@
                                         <div class="symbol symbol-50px me-5">
                                             <span class="symbol-label bg-light">
                                                 <img class="h-100 "
-                                                    src="{{ Avatar::create($datacif->fullName)->setTheme('pastel')->setShape('square')->setBorder(2, '#FFF', 90) }}" />
+                                                    src="{{ Avatar::create($datacif->fullName)->setTheme('tabersa')->setShape('square')->toBase64() }}" />
 
                                             </span>
                                         </div>
@@ -228,8 +228,8 @@
     <script>
         $(document).ready(function() {
             $('.table-mutasi').DataTable({
-                "dom": "< row'<'col pull-left'f>><t> ",
-                    // <' row'<'col col-lg-2 py-3'i><'col-md-auto'l><'col'p>>
+                "dom": "<t> ",
+                    // < row'<'col pull-left'f>><' row'<'col col-lg-2 py-3'i><'col-md-auto'l><'col'p>>
             });
         });
     </script>

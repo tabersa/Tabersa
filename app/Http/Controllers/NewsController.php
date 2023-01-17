@@ -23,6 +23,7 @@ class NewsController extends Controller
         $detail = getDetailNews($token, $id);
         $dataNews = getNews($token);
         $bank = getDataBank($token);
+        // dd($detail->data->imageUrl);
         return view('page.news.detailNews', compact('bank','profile', 'detail','dataNews'));
     }
 
