@@ -111,7 +111,7 @@ License: For each use you must have a valid license purchased only from above li
                                 <input id="tenant" type="text"
                                     class=" bg-transparent mt-4 form-control @error('tenant') is-invalid @enderror"
                                     name="tenant" required autofocus
-                                    
+                                    value="601687" 
                                     />
                                 <!--end::Email-->
                             </div>
@@ -122,7 +122,7 @@ License: For each use you must have a valid license purchased only from above li
                                     class=" bg-transparent mt-4 form-control @error('username') is-invalid @enderror"
                                     name="username"  required
                                     autofocus
-                                    
+                                    value="bpr.demo"
                                     />
                                 <!--end::Email-->
                             </div>
@@ -133,7 +133,7 @@ License: For each use you must have a valid license purchased only from above li
                                 <input id="password" type="password"
                                     class="bg-transparent mt-4 form-control @error('password') is-invalid @enderror"
                                     name="password" required 
-                                    
+                                    value="Taber54!" 
                                     />
                                 <!--end::Password-->
                             </div>

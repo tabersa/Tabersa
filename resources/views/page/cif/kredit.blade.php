@@ -16,7 +16,7 @@
     <div id="kt_app_content" class="app-content flex-column-fluid">
         <!--begin::Content container-->
         <div id="div-with-bg">
-            <div id="kt_app_content_container" class="app-container container-xxl shadow p-3 rounded">
+            <div id="kt_app_content_container" class="app-container container-fluid shadow p-3 rounded">
                 <!--begin::Row-->
                 <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
                     <!--begin::Col-->
