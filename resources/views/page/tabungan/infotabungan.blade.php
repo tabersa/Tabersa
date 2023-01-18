@@ -10,67 +10,84 @@
         &emsp;/&emsp;Mutasi
     </span>
 @endsection
+
 @section('content')
 
-
-    <!--begin::Content-->
-    <div id="kt_app_content" class="app-content flex-column-fluid">
+    <!--begin::Content wrapper-->
+    <div id="kt_app_content" class="content d-flex flex-column flex-column-fluid">
         <!--begin::Content container-->
-        <div id="kt_app_content_container" class="app-container container-fluid">
-            <!--begin::Card-->
-            <div class="card">
-                @if ($datainfo->auth == 2 && $datainfo->status == 2)
-                                    <!--begin::Card body-->
-                <div class="card-body py-4">
-                    <div class="d-flex justify-content-between shadow-sm">
-                        <div class="p-6">
-                            <div class="row">
-                                <!--begin:: Avatar -->
-                                <div class="col-4">
-                                    <div class="d-flex align-items-center">
-                                        <div class="symbol symbol-50px me-5">
-                                            <span class="symbol-label bg-light">
-                                                <img src="assets/media/svg/avatars/001-boy.svg" class="h-75 align-self-end"
-                                                    alt="" />
-                                                    <img class="h-100 " src="{{ Avatar::create($datacif->fullName)->setTheme('pastel')->setShape('square')->setBorder(2, '#FFF', 90) }}" />
-                                            </span>
+
+        <div id="kt_app_content_container" class="container-fluid">
+            {{-- <ol class="breadcrumb breadcrumb-dot text-muted fs-6 fw-bold mb-10">
+                
+            </ol> --}}
+        <!--begin::Row-->
+        <div class="row gy-0 gx-10">
+            <!--begin::Col-->
+            <div class="col-xl-12">
+                <!--begin::Tables widget 14-->
+                <div class="card shadow-lg">
+                    <!--begin::Header-->
+                    <div class="card-header border-0 pt-5">
+                        <!--begin::Title-->
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="card-label fs-1 fw-bold text-gray-800 mb-4"><br>Autorisasi Data Tabungan</span>
+                            <span class="text-gray-400 fw-semibold fs-6">Autorisasi Data dari {{ $datacif->fullName }}</span>
+                        </h3>
+                        <!--end::Title-->
+
+                    </div>
+                    <!--end::Header-->
+                    <!--begin::Body-->
+                    @if ($datainfo->auth == 2 && $datainfo->status == 2)
+                    <div class="card-body py-3">
+                        <div class="d-flex justify-content-between shadow-sm">
+                            <div class="p-6">
+                                <div class="row">
+                                    <!--begin:: Avatar -->
+                                    <div class="col-4">
+                                        <div class="d-flex align-items-center">
+                                            <div class="symbol symbol-50px me-5">
+                                                <span class="symbol-label bg-light">
+                                                    <img src="assets/media/svg/avatars/001-boy.svg" class="h-75 align-self-end"
+                                                        alt="" />
+                                                        <img class="h-100 " src="{{ Avatar::create($datacif->fullName)->setTheme('pastel')->setShape('square')->setBorder(2, '#FFF', 90) }}" />
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!--end::Avatar-->
-                                <!--begin::User details-->
-                                <div class="col">
-                                    <div class="d-flex justify-content-start flex-column">
-                                        <a href="{{ url('infocif') }}"
-                                            class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{ $datacif->fullName }}</a>
-                                        <span class="text-dark fw-semibold d-block fs-7">CIF ID
-                                            {{ $datacif->cifNumber }}</span>
+                                    <!--end::Avatar-->
+                                    <!--begin::User details-->
+                                    <div class="col">
+                                        <div class="d-flex justify-content-start flex-column">
+                                            <a href="{{ url('infocif') }}"
+                                                class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{ $datacif->fullName }}</a>
+                                            <span class="text-dark fw-semibold d-block fs-7">CIF ID
+                                                {{ $datacif->cifNumber }}</span>
+                                        </div>
                                     </div>
+                                    <!--begin::User details-->
                                 </div>
-                                <!--begin::User details-->
                             </div>
-                        </div>
-                        <div class="p-6">
-                            <div class="d-flex justify-content-start flex-column">
-                                <a href="{{ url('infocif') }}"
-                                    class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{ $dataproduct->productName }}</a>
-                                @foreach ($dataakun->data as $akun)
-                                    @if ($datainfo->savingAccountType == $akun->value)
-                                    <span class="text-dark fw-semibold d-block fs-7">{{ $akun->label }}</span>
-                                    @endif
-                                @endforeach
+                            <div class="p-6">
+                                <div class="d-flex justify-content-start flex-column">
+                                    <a href="{{ url('infocif') }}"
+                                        class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{ $dataproduct->productName }}</a>
+                                    @foreach ($dataakun->data as $akun)
+                                        @if ($datainfo->savingAccountType == $akun->value)
+                                        <span class="text-dark fw-semibold d-block fs-7">{{ $akun->label }}</span>
+                                        @endif
+                                    @endforeach
+                                </div>
                             </div>
-                        </div>
-                        <div class="p-6">
-                                <span class="fw-bold text-danger mb-1 fs-4">Tabungan Direject</span>
+                            <div class="p-6">
+                                    <span class="fw-bold text-danger mb-1 fs-4">Tabungan Direject</span>
+                            </div>
                         </div>
                     </div>
-                    
-                </div>
-                <!--end::Card body-->
-                @else
-                <!--begin::Card body-->
-                <div class="card-body py-4">
+                    @else
+                    <!--begin::Card body-->
+                <div class="card-body py-3">
                     <div class="d-flex justify-content-between shadow-sm">
                         <div class="p-6">
                             <div class="row">
@@ -183,17 +200,27 @@
                     <!--end::Table-->
                 </div>
                 <!--end::Card body-->
-                @endif
+                    @endif
+                    <!--end: Card Body-->
+                    <div class="card-footer border-top p-9 mb-15">
+                        
+                    </div>
+                </div>
 
             </div>
-            <!--end::Card-->
+            <!--end::Tables widget 14-->
         </div>
-        <!--end::Content container-->
-    </div>
-    <!--end::Content-->
+        <!--end::Col-->
 
+    </div>
+
+    <!--end::Row-->
+
+</div>
+<!--end::Content wrapper-->
 
 @endsection
+
 
 @section('script')
 

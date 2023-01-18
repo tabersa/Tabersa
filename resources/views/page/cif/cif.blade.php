@@ -4,32 +4,38 @@
 @extends('dashboard.layout.headhtml')
 
 @section('title', 'Tabersa | Customer Information Page')
-@section('toolbartitle', 'Customer Information Page')
+
 
 @section('content')
-    <div id="kt_app_content" class="app-content flex-column-fluid">
-        <!--begin::Content container-->
-        <div id="div-with-bg">
-            <div id="kt_app_content_container" class="app-container container-fluid shadow p-3 rounded">
-                <!--begin::Row-->
-                <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
-                    <!--begin::Col-->
-                    <div class="col-xl p-0 m-0">
-                        <!--begin::Tables widget 14-->
-                        <div class="card bg-transparent">
-                            <!--begin::Header-->
-                            <div class="card-header divider">
-                                <!--begin::Title-->
-                                <h3 class="card-title align-items-start flex-column">
-                                    <span class="card-label fs-1 fw-bold text-gray-800 mb-4"><br>Customer Information
-                                        Page</span>
-                                    <span class="text-gray-400 fw-semibold fs-6 divider">Periksa Data Customer Anda
-                                        Disini</span>
-                                </h3>
-                                <!--end::Title-->
-                            </div>
-                            <!--end::Header-->
-                            <!--begin::Body-->
+
+<!--begin::Content wrapper-->
+<div id="kt_app_content" class="content d-flex flex-column flex-column-fluid">
+    <!--begin::Content container-->
+    
+        <div id="kt_app_content_container" class="container-fluid">
+            <ol class="breadcrumb breadcrumb-dot text-muted fs-6 fw-bold mb-10">
+                @section('toolbartitle', 'Customer Information Page')
+            </ol>
+            <!--begin::Row-->
+            <div class="row gy-0 gx-10">
+                <!--begin::Col-->
+                <div class="col-xl-12">
+                    <!--begin::Tables widget 14-->
+                    <div class="card shadow-lg">
+                        <!--begin::Header-->
+                        <div class="card-header border-0 pt-5">
+                            <!--begin::Title-->
+                            <h3 class="card-title align-items-start flex-column">
+                                <span class="card-label fs-1 fw-bold text-gray-800 mb-4"><br>Customer Information
+                                    Page</span>
+                                <span class="text-gray-400 fw-semibold fs-6 divider">Periksa Data Customer Anda
+                                    Disini</span>
+                            </h3>
+                            <!--end::Title-->
+                        </div>
+                        <!--end::Header-->
+                        <!--begin::Body-->
+                        <div class="card-body py-3">
                             <table class="table table-hover align-middle table-row-dashed fs-6 gy-5 table-tabungan">
                                 <!--begin::Table head-->
                                 <thead>
@@ -129,20 +135,28 @@
                                 </tbody>
                                 <!--end::Table body-->
                             </table>
-                            <!--end: Card Body-->
                         </div>
+                        <!--end: Card Body-->
+                        <div class="card-footer border-top p-9">
 
+                        </div>
                     </div>
-                    <!--end::Tables widget 14-->
+
                 </div>
-                <!--end::Col-->
-
+                <!--end::Tables widget 14-->
             </div>
-        </div>
-        <!--end::Row-->
+            <!--end::Col-->
 
-    </div>
+        </div>
+    
+    <!--end::Row-->
+
+</div>
+<!--end::Content wrapper-->
+
 @endsection
+
+
 
 @section('script')
     <script>

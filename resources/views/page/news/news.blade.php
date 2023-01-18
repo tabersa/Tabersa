@@ -4,92 +4,100 @@
 @extends('dashboard.layout.headhtml')
 
 @section('title', 'Tabersa | News')
-@section('toolbartitle', 'News')
 
 @section('content')
 
-    <!--begin::Content wrapper-->
-    <div id="kt_app_content" class="app-content flex-column-fluid">
-        <!--begin::Content container-->
-        <div id="div-with-bg">
-            <div id="kt_app_content_container" class="app-container container-fluid shadow p-3 rounded">
-                <!--begin::Row-->
-                <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
-                    <!--begin::Col-->
-                    <div class="col-xl p-0 m-0">
-                        <!--begin::Tables widget 14-->
-                        <div class="card bg-transparent">
-                            <!--begin::Header-->
-                            <div class="card-header pt-7">
-                                <!--begin::Title-->
-                                <h3 class="card-title align-items-start flex-column">
-                                    <span class="card-label fs-1 fw-bold text-gray-800 mb-4"><br>List Berita</span>
-                                    {{-- <span class="text-gray-400 fw-semibold fs-6"> Welcome {{ $profile->data->firstName }}</span> --}}
-                                </h3>
-                                <!--end::Title-->
-                                <div class="card-toolbar">
-                                    <a href="{{ route('news.formAdd') }}" class="btn btn-success">Tambah data</a>
-                                </div>
-                            </div>
-                            <!--end::Header-->
-                            <!--begin::Body-->
-                            <div class="card-body pt-5">
-                                <div class="container">
-                                    <table class="table align-middle table-hover table-row-dashed table-cif">
-                                        <!--begin::Table body-->
-                                        <tbody class="fw-semibold">
-                                            <!--begin::Table row-->
-                                            @forelse ($dataNews->data as $news)
-                                                <tr class="table-row" data-href="/news/show/{{ $news->id }}">
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-md-12 text-start">
-                                                                {{-- <img style='float:left;margin-right:20px;'
-                                                                    src="{{ $news->imageUrl }}" height="200px" width="200px" /> --}}
-                                                                <div class="fs-1 fw-bold">{{ $news->headline }}</div>
-                                                                <div class="fs-8 mb-8">by {{ $news->publishedBy }}</div>
-    
-                                                                <div class="fs-6">
-                                                                    {{ $news->text }}
-                                                                </div>
-                                                                <div class="fs-8 mt-4 text-gray-400 text-end">
-                                                                    {{ date('d F Y', strtotime(substr($news->publishedOn, 0, 10))) }}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <a href="/news/input/{{ $news->id }}" class="btn btn-success">Edit</a>
-                                                    </td>
-                                                </tr>
-                                            @empty
-                                            <tr><td><span class="fs-1">Data Kosong</span></td></tr>    
-                                            
-                                            @endforelse
-    
-                                            <!--end::Table row-->
-                                        </tbody>
-                                        <!--end::Table body-->
-                                    </table>
-                                </div>
-                                <!--end::Card body-->
-                            </div>
-                            <!--end: Card Body-->
+<!--begin::Content wrapper-->
+<div id="kt_app_content" class="content d-flex flex-column flex-column-fluid">
+    <!--begin::Content container-->
+
+    <div id="kt_app_content_container" class="container-fluid">
+        <ol class="breadcrumb breadcrumb-dot text-muted fs-6 fw-bold mb-10">
+
+            @section('toolbartitle', 'News')
+        </ol>
+        <!--begin::Row-->
+        <div class="row gy-0 gx-10">
+            <!--begin::Col-->
+            <div class="col-xl-12">
+                <!--begin::Tables widget 14-->
+                <div class="card shadow-lg">
+                    <!--begin::Header-->
+                    <div class="card-header border-0 pt-5">
+                        <!--begin::Title-->
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="card-label fs-1 fw-bold text-gray-800 mb-4"><br>List Berita</span>
+                            {{-- <span class="text-gray-400 fw-semibold fs-6"> Welcome {{ $profile->data->firstName }}</span> --}}
+                        </h3>
+                        <!--end::Title-->
+                        <div class="card-toolbar">
+                            <a href="{{ route('news.formAdd') }}" class="btn btn-success">Tambah data</a>
                         </div>
+                    </div>
+                    <!--end::Header-->
+                    <!--begin::Body-->
+                    <div class="card-body py-3">
+                        <div class="container">
+                            <table class="table align-middle table-hover table-row-dashed table-cif">
+                                <!--begin::Table body-->
+                                <tbody class="fw-semibold">
+                                    <!--begin::Table row-->
+                                    @forelse ($dataNews->data as $news)
+                                        <tr class="table-row" data-href="/news/show/{{ $news->id }}">
+                                            <td>
+                                                <div class="row">
+                                                    <div class="col-md-12 text-start">
+                                                        {{-- <img style='float:left;margin-right:20px;'
+                                                                src="{{ $news->imageUrl }}" height="200px" width="200px" /> --}}
+                                                        <div class="fs-1 fw-bold">{{ $news->headline }}</div>
+                                                        <div class="fs-8 mb-8">by {{ $news->publishedBy }}</div>
+
+                                                        <div class="fs-6">
+                                                            {{ $news->text }}
+                                                        </div>
+                                                        <div class="fs-8 mt-4 text-gray-400 text-end">
+                                                            {{ date('d F Y', strtotime(substr($news->publishedOn, 0, 10))) }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href="/news/formupdate/{{ $news->id }}"
+                                                    class="btn btn-success">Edit</a>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td><span class="fs-1">Data Kosong</span></td>
+                                        </tr>
+                                    @endforelse
+
+                                    <!--end::Table row-->
+                                </tbody>
+                                <!--end::Table body-->
+                            </table>
+                        </div>
+                    </div>
+                    <!--end: Card Body-->
+                    <div class="card-footer border-top p-9">
 
                     </div>
-                    <!--end::Tables widget 14-->
                 </div>
-                <!--end::Col-->
 
             </div>
+            <!--end::Tables widget 14-->
         </div>
-        <!--end::Row-->
+        <!--end::Col-->
 
     </div>
-    <!--end::Content wrapper-->
+
+    <!--end::Row-->
+
+</div>
+<!--end::Content wrapper-->
 
 @endsection
+
 
     @section('script')
     <script>

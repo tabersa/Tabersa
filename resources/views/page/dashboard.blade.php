@@ -8,18 +8,21 @@
 @section('content')
 
     <!--begin::Content wrapper-->
-    <div id="kt_app_content" class="app-content flex-column-fluid">
+    <div id="kt_app_content" class="content d-flex flex-column flex-column-fluid">
         <!--begin::Content container-->
-        <div id="div-with-bg">
-            <div id="kt_app_content_container" class="app-container container-fluid shadow p-3 rounded">
+        
+            <div id="kt_app_content_container" class="container-fluid">
+                <ol class="breadcrumb breadcrumb-dot text-muted fs-6 fw-bold mb-10">
+
+                </ol>
                 <!--begin::Row-->
-                <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                <div class="row gy-0 gx-10">
                     <!--begin::Col-->
-                    <div class="col-xl p-0 m-0">
+                    <div class="col-xl-12">
                         <!--begin::Tables widget 14-->
-                        <div class="card bg-transparent">
+                        <div class="card shadow-lg">
                             <!--begin::Header-->
-                            <div class="card-header pt-7">
+                            <div class="card-header border-0 pt-5">
                                 <!--begin::Title-->
                                 <h3 class="card-title align-items-start flex-column">
                                     <span class="card-label fs-1 fw-bold text-gray-800 mb-4"><br>Dashboard</span>
@@ -30,10 +33,13 @@
                             </div>
                             <!--end::Header-->
                             <!--begin::Body-->
-                            <div class="card-body pt-6">
+                            <div class="card-body py-3">
 
                             </div>
                             <!--end: Card Body-->
+                            <div class="card-footer border-top p-9">
+
+                            </div>
                         </div>
 
                     </div>
@@ -42,7 +48,7 @@
                 <!--end::Col-->
 
             </div>
-        </div>
+        
         <!--end::Row-->
 
     </div>
@@ -50,10 +56,3 @@
 
 @endsection
 
-@section('script')
-    <script type="text/javascript" charset="utf-8">
-        $(document).ready(function() {
-            $('.table-paginate').dataTable();
-        });
-    </script>
-@endsection

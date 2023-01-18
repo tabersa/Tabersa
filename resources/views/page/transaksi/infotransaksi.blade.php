@@ -10,17 +10,37 @@
         &emsp;/&emsp;Mutasi
     </span>
 @endsection
+
 @section('content')
 
-
-    <!--begin::Content-->
-    <div id="kt_app_content" class="app-content flex-column-fluid">
+    <!--begin::Content wrapper-->
+    <div id="kt_app_content" class="content d-flex flex-column flex-column-fluid">
         <!--begin::Content container-->
-        <div id="kt_app_content_container" class="app-container container-fluid">
-            <!--begin::Card-->
-            <div class="card">
 
-                <!--begin::Card body-->
+        <div id="kt_app_content_container" class="container-fluid">
+            {{-- <ol class="breadcrumb breadcrumb-dot text-muted fs-6 fw-bold mb-10">
+                
+            </ol> --}}
+        <!--begin::Row-->
+        <div class="row gy-0 gx-10">
+            <!--begin::Col-->
+            <div class="col-xl-12">
+                <!--begin::Tables widget 14-->
+                <div class="card shadow-lg">
+                    <!--begin::Header-->
+                    <div class="card-header border-0 pt-5">
+                        <!--begin::Title-->
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="card-label fs-1 fw-bold text-gray-800 mb-4"><br>Tabungan</span>
+                            <span class="text-gray-400 fw-semibold fs-6">Periksa Tabungan Anda Disini</span>
+                        </h3>
+                        <!--end::Title-->
+
+                    </div>
+                    <!--end::Header-->
+                    <!--begin::Body-->
+                    <div class="card-body py-3">
+                        <!--begin::Card body-->
                 <div class="card-body py-4">
                     <div class="d-flex justify-content-between shadow-sm">
                         <div class="p-6">
@@ -77,7 +97,8 @@
                                 class="text-dark fw-semibold d-block fs-7">{{ date('d F Y', strtotime(substr($datainfo->transactionDate, 0, 10))) }}</span>
                         </div>
                         <div class="p-6">
-                            <a href="#" class="btn btn-success er fs-6 px-8 py-4" data-bs-toggle="modal" data-bs-target="#kt_modal_view_users">Bukti Transfer</a>
+                            <a href="#" class="btn btn-success er fs-6 px-8 py-4" data-bs-toggle="modal"
+                                data-bs-target="#kt_modal_view_users">Bukti Transfer</a>
                         </div>
 
                     </div>
@@ -138,90 +159,104 @@
                         </tbody>
                         <!--end::Table body-->
                     </table>
-                    <!--end::Table-->
-                    @if ($datainfo->status != 1 && $datainfo->status != 2 && $datainfo->status != 3 && $datainfo->status != 4)
-                            <form method="POST" action="/infotransaksi/autorisasi/{{ $datainfo->id }}">
-                                {{ csrf_field() }}
-                                {{ method_field('put') }}
-                                <div class="d-flex flex-row-reverse mt-10">
-                                    <!-- Submit button -->
-                                    <hr>
-                                    <input name="verif" type="submit" class="btn btn-success text-light mb-2 p-5 mx-2"
-                                        value="Verified">
-                                    <input name="reject "type="submit" class="btn btn-danger text-light mb-2 p-5 mx-2"
-                                        value="Reject">
-                                    <input type="button" class="btn btn-secondary mb-2 p-5 mx-2 " value="Kembali"
-                                        onclick="history.back();">
-                                </div>
-                            </form>
-                        @else
+                    </div>
+                    <!--end: Card Body-->
+                    <div class="card-footer border-top p-9 mb-15">
+                        @if ($datainfo->status != 1 && $datainfo->status != 2 && $datainfo->status != 3 && $datainfo->status != 4)
+                        <form method="POST" action="/infotransaksi/autorisasi/{{ $datainfo->id }}">
+                            {{ csrf_field() }}
+                            {{ method_field('put') }}
                             <div class="d-flex flex-row-reverse mt-10">
                                 <!-- Submit button -->
                                 <hr>
-                                <a href="/cetakmutasi/{{ $datainfo->id }}" target="_blank" class="btn btn-success mb-2 p-5 mx-2 ">Cetak Mutasi</a>
-                                <input type="button" onclick="history.back();" class="btn btn-secondary mb-2 p-5 mx-2 "
-                                    value="Kembali">
+                                <input name="verif" type="submit" class="btn btn-success text-light mb-2 p-5 mx-2"
+                                    value="Verified">
+                                <input name="reject "type="submit" class="btn btn-danger text-light mb-2 p-5 mx-2"
+                                    value="Reject">
+                                <input type="button" class="btn btn-secondary mb-2 p-5 mx-2 " value="Kembali"
+                                    onclick="history.back();">
                             </div>
-                    @endif
-                </div>
-                <!--end::Card body-->
-            </div>
-            <!--end::Card-->
-        </div>
-        <!--end::Content container-->
-    </div>
-    <!--end::Content-->
-    <div class="modal fade" id="kt_modal_view_users" tabindex="-1" aria-hidden="true">
-        <!--begin::Modal dialog-->
-        <div class="modal-dialog mw-650px">
-            <!--begin::Modal content-->
-            <div class="modal-content">
-                <!--begin::Modal header-->
-                <div class="modal-header pb-0 border-0 justify-content-end">
-                    <!--begin::Close-->
-                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-                        <span class="svg-icon svg-icon-1">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
-                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
-                            </svg>
-                        </span>
-                        <!--end::Svg Icon-->
-                    </div>
-                    <!--end::Close-->
-                </div>
-                <!--begin::Modal header-->
-                <!--begin::Modal body-->
-                <div class="modal-body scroll-y mx-5 mx-xl-18 pt-0 pb-4">
-                    <!--begin::Heading-->
-                    <div class="text-center mb-10">
-                        <!--begin::Title-->
-                        <h1 class="mb-3">Bukti Transfer</h1>
-                        <!--end::Title-->
-                        <!--begin::Description-->
-                        <div class="text-muted fw-semibold fs-5">Bukti Transfer Untuk Transaksi</div>
-                        <!--end::Description-->
-                    </div>
-                    <!--end::Heading-->
-                    <!--begin::Users-->
-                    <div class="mb-10">
-                        <!--begin::List-->
-                        <div class="mh-375px scroll-y me-n7 pe-7">
-                            <img class="d-block mx-auto " src="{{ $datainfo->imageUrl }}" height="500" width="auto">
+                        </form>
+                    @else
+                        <div class="d-flex flex-row-reverse mt-10">
+                            <!-- Submit button -->
+                            <hr>
+                            <a href="/cetakmutasi/{{ $datainfo->id }}" target="_blank"
+                                class="btn btn-success mb-2 p-5 mx-2 ">Cetak Mutasi</a>
+                            <input type="button" onclick="history.back();" class="btn btn-secondary mb-2 p-5 mx-2 "
+                                value="Kembali">
                         </div>
-                        <!--end::List-->
+                    @endif
                     </div>
-                    <!--end::Users-->
                 </div>
-                <!--end::Modal body-->
+
             </div>
-            <!--end::Modal content-->
+            <!--end::Tables widget 14-->
         </div>
-        <!--end::Modal dialog-->
+        <!--end::Col-->
+
     </div>
 
+    <!--end::Row-->
+
+</div>
+<!--end::Content wrapper-->
+<div class="modal fade" id="kt_modal_view_users" tabindex="-1" aria-hidden="true">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog mw-650px">
+        <!--begin::Modal content-->
+        <div class="modal-content">
+            <!--begin::Modal header-->
+            <div class="modal-header pb-0 border-0 justify-content-end">
+                <!--begin::Close-->
+                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                    <span class="svg-icon svg-icon-1">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
+                                rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                transform="rotate(45 7.41422 6)" fill="currentColor" />
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                </div>
+                <!--end::Close-->
+            </div>
+            <!--begin::Modal header-->
+            <!--begin::Modal body-->
+            <div class="modal-body scroll-y mx-5 mx-xl-18 pt-0 pb-4">
+                <!--begin::Heading-->
+                <div class="text-center mb-10">
+                    <!--begin::Title-->
+                    <h1 class="mb-3">Bukti Transfer</h1>
+                    <!--end::Title-->
+                    <!--begin::Description-->
+                    <div class="text-muted fw-semibold fs-5">Bukti Transfer Untuk Transaksi</div>
+                    <!--end::Description-->
+                </div>
+                <!--end::Heading-->
+                <!--begin::Users-->
+                <div class="mb-10">
+                    <!--begin::List-->
+                    <div class="mh-375px scroll-y me-n7 pe-7">
+                        <img class="d-block mx-auto " src="{{ $datainfo->imageUrl }}" height="500"
+                            width="auto">
+                    </div>
+                    <!--end::List-->
+                </div>
+                <!--end::Users-->
+            </div>
+            <!--end::Modal body-->
+        </div>
+        <!--end::Modal content-->
+    </div>
+    <!--end::Modal dialog-->
+</div>
+
 @endsection
+
 
 @section('script')
 
@@ -229,7 +264,7 @@
         $(document).ready(function() {
             $('.table-mutasi').DataTable({
                 "dom": "<t> ",
-                    // < row'<'col pull-left'f>><' row'<'col col-lg-2 py-3'i><'col-md-auto'l><'col'p>>
+                // < row'<'col pull-left'f>><' row'<'col col-lg-2 py-3'i><'col-md-auto'l><'col'p>>
             });
         });
     </script>
