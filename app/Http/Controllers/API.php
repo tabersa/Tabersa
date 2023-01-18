@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use CURLFile;
+use GuzzleHttp\Client;
+use GuzzleHttp\Utils;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 //////////////////////////////////////////////////////////////////////////////////////////////// ////////////////////////////////////////////////////////////////////////////////////////////////////
 // DATA TOKEN
@@ -742,18 +746,21 @@ function addNews(Request $request)
     $waktu = $request->tanggal;
     $headline = $request->headline;
     $text = $request->text;
-    $file = $request->file;
+    $file = $request->file('file');
+    if ($request->hasFile('file')) {
+        $file = $request->file('file');
+        $photo = $request->file('file')->getClientOriginalName();
+        $destination = base_path() . '/public/uploads';
+        $request->file('file')->move($destination, $photo);
+        
+    }
+    $filepath = public_path("uploads/".$photo);
 
-    $fileawal = (object) @$_FILES['file'];
 
     
-    
 
 
-
-    // dd($fileawal);
     $api = config('properties.api');
-
     $curl = curl_init();
     curl_setopt_array(
         $curl,
@@ -766,8 +773,8 @@ function addNews(Request $request)
             CURLOPT_FOLLOWLOCATION => false,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => array('file' => new CURLFILE($file)),
-            
+            CURLOPT_POSTFIELDS => array('file' => new CURLFILE($filepath)),
+
             CURLOPT_HTTPHEADER => array(
                 'Authorization: Bearer ' . $token,
             ),
@@ -777,7 +784,7 @@ function addNews(Request $request)
     $response = curl_exec($curl);
     curl_close($curl);
     $fileimage = json_decode($response);
-    dd($fileimage);
+    // dd($fileimage);
     $link = $fileimage->data;
 
 
