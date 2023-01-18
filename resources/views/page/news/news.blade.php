@@ -28,7 +28,7 @@
                                 </h3>
                                 <!--end::Title-->
                                 <div class="card-toolbar">
-                                    <a href="#" class="btn btn-success">Tambah data</a>
+                                    <a href="{{ route('news.formAdd') }}" class="btn btn-success">Tambah data</a>
                                 </div>
                             </div>
                             <!--end::Header-->

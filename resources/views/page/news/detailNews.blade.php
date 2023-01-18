@@ -53,7 +53,7 @@
                                                         </span>
                                                         <!--end::Label-->
                                                     </div>
-                                                    <a class="btn btn-success right-0" href="/news/input/{{ $detail->data->id }}">Update News</a>
+                                                    <a class="btn btn-success right-0" href="/news/formupdate/{{ $detail->data->id }}">Update News</a>
                                                     <!--end::Item-->
                                                 </div>
                                                 <!--end::Info-->

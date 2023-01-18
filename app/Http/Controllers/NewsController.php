@@ -27,16 +27,16 @@ class NewsController extends Controller
         return view('page.news.detailNews', compact('bank','profile', 'detail','dataNews'));
     }
 
-    public function input(Request $request,$id){
+    public function formUpdate(Request $request,$id){
         $token = $request->session()->get('token');
         $profile = getProfile($token);
         $bank = getDataBank($token);
         $detail = getDetailNews($token, $id);
         // dd($profile->data->firstName . $profile->data->lastName);
-        return view('page.news.addNews', compact('bank','profile','detail'));
+        return view('page.news.updateNews', compact('bank','profile','detail'));
     }
 
-    public function add(Request $request){
+    public function update(Request $request){
         $token = $request->session()->get('token');
         $profile = getProfile($token);
         list($dataAdd, $httpcode) = addNews($request);
@@ -52,5 +52,12 @@ class NewsController extends Controller
             Alert::error('Error', 'Periksa Kembali News');
             return redirect()->route('news');
         }
+    }
+
+    public function formAdd(Request $request){
+        $token = $request->session()->get('token');
+        $profile = getProfile($token);
+        $bank = getDataBank($token);
+        return view('page.news.addNews', compact('bank','profile'));
     }
 }
