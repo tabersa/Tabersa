@@ -36,7 +36,7 @@
                         <!--begin::Header-->
                         <div class="card-header border-0 pt-5">
                             <!--begin::Title-->
-                            <h3 class="card-title align-items-start flex-column">
+                            <h3 class="card-title align-items-start flex-column text-uppercase">
                                 <span class="card-label fs-1 fw-bold text-gray-800 mb-4"><br>Customer Information
                                     Page</span>
                                 <span class="text-gray-400 fw-semibold fs-6">Periksa Informasi Customer Anda Disini</span>

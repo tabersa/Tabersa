@@ -302,23 +302,7 @@ function getSaving($token)
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => '{
-"advancedSearch": {
-"fields": [
-],
-"keyword": ""
-},
-"keyword": "",
-"pageNumber": 0,
-"pageSize": 100,
-"orderBy": [
-"CreatedOn DESC"
-],
-"branchId": "001",
-"accountNumber": "",
-"savingAccountType": "",
-"savingProductId": "8cbf60d6-ea1c-4fbc-bde5-0449d183bf02"
-}',
+            CURLOPT_POSTFIELDS => config('properties.savingbody'),
             CURLOPT_HTTPHEADER => array(
                 'Content-Type: application/json',
                 'Authorization: Bearer ' . $token

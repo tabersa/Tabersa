@@ -23,16 +23,14 @@
                 <!--begin::Wrapper-->
                 <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
 
-                    <ol class="breadcrumb breadcrumb-dot text-muted fs-6 fw-bold mb-10">
-                        @include('dashboard.layout.toolbar')
-                    </ol>
+                    
                     
 
                     <!--begin::Main-->
                     <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
-
+                        
                         @include('dashboard.layout.sidebar')
-
+                        @include('dashboard.layout.toolbar')
                         @yield('content')
 
                         @include('dashboard.layout.footer')

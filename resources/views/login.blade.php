@@ -105,36 +105,39 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Title-->
                             </div>
                             
-                            <div class="fv-row mb-3">
+                            <div class="form-floating mb-7">
                                 <!--begin::Email-->
-                                <span class="fw-bold"> Tenant</span>
-                                <input id="tenant" type="text"
+                                
+                                <input id="floatingInput" type="text"
                                     class=" bg-transparent mt-4 form-control @error('tenant') is-invalid @enderror"
                                     name="tenant" required autofocus
                                     value="601687" 
                                     />
+                                    <label for="floatingInput"> Tenant</label>
                                 <!--end::Email-->
                             </div>
-                            <div class="fv-row mb-3">
+                            <div class="form-floating mb-7">
                                 <!--begin::Email-->
-                                <span class="fw-bold"> Username</span>
-                                <input id="username" type="text"
+                                
+                                <input id="floatingInput" type="text"
                                     class=" bg-transparent mt-4 form-control @error('username') is-invalid @enderror"
                                     name="username"  required
                                     autofocus
                                     value="bpr.demo"
                                     />
+                                    <label for="floatingInput"> Username</label>
                                 <!--end::Email-->
                             </div>
                             <!--end::Input group=-->
-                            <div class="fv-row mb-14">
+                            <div class="form-floating mb-14">
                                 <!--begin::Password-->
-                                <span class="fw-bold">Password</span>
-                                <input id="password" type="password"
+                                
+                                <input id="floatingInput" type="password"
                                     class="bg-transparent mt-4 form-control @error('password') is-invalid @enderror"
                                     name="password" required 
                                     value="Taber54!" 
                                     />
+                                    <label for="floatingInput">Password</label>
                                 <!--end::Password-->
                             </div>
                             <!--end::Input group=-->
