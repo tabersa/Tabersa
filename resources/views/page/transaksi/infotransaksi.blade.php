@@ -104,7 +104,7 @@
 
                                 </div>
                                 <!--begin::Table-->
-                                <table class="table align-middle table-row-dashed gy-5 table-mutasi">
+                                <table class="table align-middle table-row-dashed gy-5">
                                     <!--begin::Table head-->
                                     <thead class="border-bottom border-gray-200 fs-7 fw-bold">
                                         <!--begin::Table row-->
@@ -160,6 +160,8 @@
                                     </tbody>
                                     <!--end::Table body-->
                                 </table>
+                                
+                                <div class="divider"><hr></div>
                                 <div id="kt_scrolltop" class="scrolltop mb-10" data-kt-scrolltop="true">
                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
                                     <span class="svg-icon">

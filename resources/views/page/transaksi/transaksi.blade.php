@@ -47,7 +47,7 @@
                                     <th class="min-w-140px text-start">TANGGAL TRANSAKSI</th>
                                     <th class="min-w-125px text-start">TIPE</th>
                                     <th class="min-w-130px text-start">KETERANGAN</th>
-                                    <th class="min-w-100px text-start">NOMINAL</th>
+                                    <th class="min-w-100px text-end">NOMINAL</th>
                                     <th class="text-center min-w-100px">STATUS</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -79,7 +79,7 @@
                                         <td class="text-start">
                                             <span class=" fs-6">{{ $datatransaksi->description }}</span>
                                         </td>
-                                        <td class="text-start">
+                                        <td class="text-end">
                                             {{-- <div id="kt_table_widget_14_chart_1" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div> --}}
                                             <span class=" fs-6">Rp
                                                 {{ number_format($datatransaksi->totalAmount, 0, ',', ',') }}</span>

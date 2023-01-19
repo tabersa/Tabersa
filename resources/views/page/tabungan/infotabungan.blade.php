@@ -31,8 +31,8 @@
                     <div class="card-header border-0 pt-5">
                         <!--begin::Title-->
                         <h3 class="card-title align-items-start flex-column text-uppercase">
-                            <span class="card-label fs-1 fw-bold text-gray-800 mb-4"><br>Autorisasi Data Tabungan</span>
-                            <span class="text-gray-400 fw-semibold fs-6">Autorisasi Data dari {{ $datacif->fullName }}</span>
+                            <span class="card-label fs-1 fw-bold text-gray-800 mb-4"><br>Informasi Tabungan</span>
+                            <span class="text-gray-400 fw-semibold fs-6">Informasi Data dari {{ $datacif->fullName }}</span>
                         </h3>
                         <!--end::Title-->
 
@@ -137,7 +137,7 @@
                             <div class="d-flex justify-content-start flex-column">
                                 <a href="{{ url('infocif') }}" class="text-dark fw-bold text-hover-primary mb-1 fs-6">Saldo
                                     Akhir</a>
-                                <span class="text-dark fw-semibold d-block fs-7">Rp. {{ $datainfo->endBalance }}</span>
+                                <span class="text-dark fw-semibold d-block fs-7">Rp. {{ number_format($datainfo->endBalance, 0, ',', ',') }}</span>
                             </div>
                         </div>
                         <div class="p-6">
@@ -163,7 +163,7 @@
                         </thead>
                         <!--end::Table head-->
                         <!--begin::Table body-->
-                        <tbody class="fs-6 fw-semibold text-gray-600">
+                        <tbody class="fs-6 fw-semibold">
                             <!--begin::Table row-->
                             @forelse ($trs as $data)
                                 <tr>
@@ -203,7 +203,17 @@
                         </tbody>
                         <!--end::Table body-->
                     </table>
+                    <div class="divider bg-active-dark"><hr></div>
+                    <div class="row">
+                        <div class="col fs-4 fw-bold text-start text-uppercase">
+                            Saldo Akhir
+                        </div>
+                        <div class="col-lg-4 fs-4 fw-bold text-end">
+                            Rp {{ number_format($datainfo->endBalance, 0, ',', ',') }}
+                        </div>
                     </div>
+                    </div>
+                    {{-- <div class="divider bg-active-dark"><hr></div> --}}
                     <!--end::Table-->
                     <div id="kt_scrolltop" class="scrolltop mb-10" data-kt-scrolltop="true">
                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
