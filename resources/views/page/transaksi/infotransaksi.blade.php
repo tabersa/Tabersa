@@ -338,14 +338,22 @@
                                         </div>
                                     </form>
                                 @else
-                                    <div class="d-flex flex-row-reverse mt-10">
-                                        <!-- Submit button -->
-                                        <hr>
-                                        <a href="/cetakmutasi/{{ $datainfo->id }}" target="_blank"
-                                            class="btn btn-success mb-2 p-5 mx-2 ">Cetak Mutasi</a>
-                                        <input type="button" onclick="history.back();"
-                                            class="btn btn-secondary mb-2 p-5 mx-2 " value="Kembali">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        &nbsp;
                                     </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="button" class="btn btn-secondary w-100 ls-3 text-uppercase"
+                                            value="Kembali" onclick="history.back();">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="/cetakmutasi/{{ $datainfo->id }}" target="_blank" class="btn btn-success w-100 ls-3 text-uppercase">Cetak Mutasi</a>
+                                    </div>
+                                </div>
+                                </div>
+                                    
                                 @endif
                             </div>
                         </div>

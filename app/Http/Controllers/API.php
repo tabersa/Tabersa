@@ -443,7 +443,7 @@ function getTransaksi($token)
               },
               "keyword": "",
               "pageNumber": 0,
-              "pageSize": 10,
+              "pageSize": 100,
               "orderBy": [
                 "transactionDate DESC"
               ],

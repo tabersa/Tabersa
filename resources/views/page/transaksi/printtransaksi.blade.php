@@ -240,8 +240,8 @@
 </body>
 
 <script>
-    window.onafterprint = window.close;
     window.print();
+    window.onafterprint = window.close;
 </script>
 @php
     function penyebut($nilai) {

@@ -27,7 +27,7 @@ $my_config = array(
       },
       "keyword": "",
       "pageNumber": 0,
-      "pageSize": 10,
+      "pageSize": 100,
       "orderBy": [
         "createdOn DESC"
       ],

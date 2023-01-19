@@ -21,13 +21,9 @@
                 @include('dashboard.layout.header')
                 <!--end::Header-->
                 <!--begin::Wrapper-->
-                <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
-
-                    
-                    
-
+                <div class="app-wrapper flex-column" id="kt_app_wrapper">
                     <!--begin::Main-->
-                    <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+                    <div class="app-main flex-column" id="kt_app_main">
                         
                         @include('dashboard.layout.sidebar')
                         @include('dashboard.layout.toolbar')
