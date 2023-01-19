@@ -865,37 +865,60 @@
 
                                 <!--end: Card Body-->
                                 <div class="card-footer border-top p-9 mb-10">
+                                    
                                     @if ($datainfo->cifNumber === null)
-                                        <div class="d-flex flex-row-reverse mt-10">
-                                            <!-- Submit button -->
-                                            <hr>
-                                            <a href="#" class="btn btn-success text-light mb-2 p-5 mx-2" data-bs-toggle="modal"
-                                            data-bs-target="#verifmodal">Verified</a>
-                                            <a href="#" class="btn btn-danger text-light mb-2 p-5 mx-2" data-bs-toggle="modal"
-                                            data-bs-target="#rejectmodal">Reject</a>
-                                            <input type="button" class="btn btn-secondary mb-2 p-5 mx-2 "
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            &nbsp;
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="button" class="btn btn-secondary w-100 ls-3 text-uppercase"
                                                 value="Kembali" onclick="history.back();">
                                         </div>
+                                        <div class="col-md-2">
+                                            <a href="#" class="btn btn-danger w-100 ls-3 text-uppercase" data-bs-toggle="modal"
+                                            data-bs-target="#rejectmodal">Tolak</a>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <a href="#" class="btn btn-success w-100 ls-3 text-uppercase" data-bs-toggle="modal"
+                                            data-bs-target="#verifmodal">Verifikasi</a>
+                                        </div>
+                                    </div>
+                                    </div>
                                     @elseif ($newdata->status != 1 && $newdata->status != 2)
-                                        <div class="d-flex flex-row-reverse mt-10">
-                                            <!-- Submit button -->
-                                            <hr>
-                                            <a href="#" class="btn btn-success text-light mb-2 p-5 mx-2" data-bs-toggle="modal"
-                                            data-bs-target="#verifmodal">Verified</a>
-                                            <a href="#" class="btn btn-danger text-light mb-2 p-5 mx-2" data-bs-toggle="modal"
-                                            data-bs-target="#rejectmodal">Reject</a>
-
-                                            <input type="button" class="btn btn-secondary mb-2 p-5 mx-2 "
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            &nbsp;
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="button" class="btn btn-secondary w-100 ls-3 text-uppercase"
                                                 value="Kembali" onclick="history.back();">
                                         </div>
-                                    @else
-                                        <div class="d-flex flex-row-reverse mt-10">
-                                            <!-- Submit button -->
-                                            <hr>
-
-                                            <input type="button" onclick="history.back();"
-                                                class="btn btn-secondary mb-2 p-5 mx-2 " value="Kembali">
+                                        <div class="col-md-2">
+                                            <a href="#" class="btn btn-danger w-100 ls-3 text-uppercase" data-bs-toggle="modal"
+                                            data-bs-target="#rejectmodal">Tolak</a>
                                         </div>
+                                        <div class="col-md-2">
+                                            <a href="#" class="btn btn-success w-100 ls-3 text-uppercase" data-bs-toggle="modal"
+                                            data-bs-target="#verifmodal">Verifikasi</a>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    @else
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            &nbsp;
+                                        </div>
+                                        <div class="col-md-2">
+                                        </div>
+                                        <div class="col-md-2">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="button" class="btn btn-secondary w-100 ls-3 text-uppercase"
+                                                value="Kembali" onclick="history.back();">
+                                        </div>
+                                    </div>
+                                    </div>
                                     @endif
                                 </div>
                             </div>
@@ -945,8 +968,8 @@
                                         </div>
                                         <!--end::Modal body-->
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger text-light" data-bs-dismiss="modal">Tidak</button>
-                                            <input type="submit" name="verif" value="Ya" class="btn btn-success text-light ">
+                                            <button type="button" class="btn btn-danger text-light w-40 ls-3 text-uppercase" data-bs-dismiss="modal">Tidak</button>
+                                            <input type="submit" name="verif" value="Ya" class="btn btn-success text-light w-40 ls-3 text-uppercase">
                                         </div>
                                     </div>
                                     <!--end::Modal content-->
@@ -984,8 +1007,8 @@
                                         </div>
                                         <!--end::Modal body-->
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger text-light" data-bs-dismiss="modal">Tidak</button>
-                                            <input type="submit" name="reject" value="Ya" class="btn btn-success text-light ">
+                                            <button type="button" class="btn btn-danger text-light w-40 ls-3 text-uppercase" data-bs-dismiss="modal">Tidak</button>
+                                            <input type="submit" name="verif" value="Ya" class="btn btn-success text-light w-40 ls-3 text-uppercase">
                                         </div>
                                     </div>
                                     <!--end::Modal content-->

@@ -155,11 +155,21 @@
                     </div>
                     <!--end: Card Body-->
                     <div class="card-footer border-top p-9 mb-10">
-                        <div class="d-flex flex-row-reverse my-10 ">
-                            <!--begin::Button-->
-                            <a href="#" class="btn btn-success text-light mb-2 p-5 mx-2" data-bs-toggle="modal"
-                                        data-bs-target="#updateModal">Save Changes</a>
-                            <!--end::Button-->
+                        <div class="row">
+                            <div class="col-md-6">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="button" class="btn btn-secondary w-100 ls-3 text-uppercase"
+                                    value="Kembali" onclick="history.back();">
+                            </div>
+                            <div class="col-md-2">
+                                <a href="#" class="btn btn-success w-100 ls-3 text-uppercase" data-bs-toggle="modal"
+                                data-bs-target="#updatemodal">Simpan</a>
+                            </div>
+                        </div>
                         </div>
                     </div>
                     <div class="modal fade" id="updateModal" tabindex="-1" aria-hidden="true" role="dialog">
@@ -193,8 +203,8 @@
                                 </div>
                                 <!--end::Modal body-->
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger text-light" data-bs-dismiss="modal">Tidak</button>
-                                    <input type="submit" name="reject" value="Ya" class="btn btn-success text-light ">
+                                    <button type="button" class="btn btn-danger text-light w-40 ls-3 text-uppercase" data-bs-dismiss="modal">Tidak</button>
+                                    <input type="submit" name="verif" value="Ya" class="btn btn-success text-light w-40 ls-3 text-uppercase">
                                 </div>
                             </div>
                             <!--end::Modal content-->
