@@ -61,7 +61,7 @@
                                     <div class="col">
                                         <div class="d-flex justify-content-start flex-column">
                                             <a href="{{ url('infocif') }}"
-                                                class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{ $datacif->fullName }}</a>
+                                                class="text-dark fw-bold  mb-1 fs-6">{{ $datacif->fullName }}</a>
                                             <span class="text-dark fw-semibold d-block fs-7">CIF ID
                                                 {{ $datacif->cifNumber }}</span>
                                         </div>
@@ -71,8 +71,8 @@
                             </div>
                             <div class="p-6">
                                 <div class="d-flex justify-content-start flex-column">
-                                    <a href="{{ url('infocif') }}"
-                                        class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{ $dataproduct->productName }}</a>
+                                    <span
+                                        class="text-dark fw-bold mb-1 fs-6">{{ $dataproduct->productName }}</span>
                                     @foreach ($dataakun->data as $akun)
                                         @if ($datainfo->savingAccountType == $akun->value)
                                         <span class="text-dark fw-semibold d-block fs-7">{{ $akun->label }}</span>
@@ -105,8 +105,8 @@
                                 <!--begin::User details-->
                                 <div class="col">
                                     <div class="d-flex justify-content-start flex-column">
-                                        <a href="{{ url('infocif') }}"
-                                            class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{ $datacif->fullName }}</a>
+                                        <span
+                                            class="text-dark fw-bold  mb-1 fs-6">{{ $datacif->fullName }}</span>
                                         <span class="text-dark fw-semibold d-block fs-7">CIF ID
                                             {{ $datacif->cifNumber }}</span>
                                     </div>
@@ -116,15 +116,15 @@
                         </div>
                         <div class="p-6">
                             <div class="d-flex justify-content-start flex-column">
-                                <a href="{{ url('infocif') }}"
-                                    class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{ $datainfo->accountNumber }}</a>
+                                <span
+                                    class="text-dark fw-bold mb-1 fs-6">{{ $datainfo->accountNumber }}</span>
                                 <span class="text-dark fw-bold d-block fs-7">VA {{ $datainfo->virtualAccountNumber }}</span>
                             </div>
                         </div>
                         <div class="p-6">
                             <div class="d-flex justify-content-start flex-column">
-                                <a href="{{ url('infocif') }}"
-                                    class="text-dark fw-bold text-hover-primary mb-1 fs-6">{{ $dataproduct->productName }}</a>
+                                <span
+                                    class="text-dark fw-bold mb-1 fs-6">{{ $dataproduct->productName }}</span>
                                 @foreach ($dataakun->data as $akun)
                                     @if ($datainfo->savingAccountType == $akun->value)
                                     <span class="text-dark fw-semibold d-block fs-7">{{ $akun->label }}</span>
@@ -135,8 +135,8 @@
                         </div>
                         <div class="p-6">
                             <div class="d-flex justify-content-start flex-column">
-                                <a href="{{ url('infocif') }}" class="text-dark fw-bold text-hover-primary mb-1 fs-6">Saldo
-                                    Akhir</a>
+                                <span class="text-dark fw-bold mb-1 fs-6">Saldo
+                                    Akhir</span>
                                 <span class="text-dark fw-semibold d-block fs-7">Rp. {{ number_format($datainfo->endBalance, 0, ',', ',') }}</span>
                             </div>
                         </div>
