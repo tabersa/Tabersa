@@ -204,14 +204,14 @@
                         <!--end::Table body-->
                     </table>
                     <div class="divider bg-active-dark"><hr></div>
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col fs-4 fw-bold text-start text-uppercase">
                             Saldo Akhir
                         </div>
                         <div class="col-lg-4 fs-4 fw-bold text-end">
                             Rp {{ number_format($datainfo->endBalance, 0, ',', ',') }}
                         </div>
-                    </div>
+                    </div> --}}
                     </div>
                     {{-- <div class="divider bg-active-dark"><hr></div> --}}
                     <!--end::Table-->
@@ -229,7 +229,7 @@
                 <!--end::Card body-->
                     @endif
                     <!--end: Card Body-->
-                    <div class="card-footer border-top p-9 mb-15">
+                    <div class="card-footer border-top p-9">
                         
                     </div>
                 </div>
