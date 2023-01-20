@@ -45,7 +45,6 @@
                             <div class=" col px-8 fv-row mb-2">
                                 <!--begin::Dropzone-->
                                 <label class="custom-file-upload">
-                                    <input type="file" />
                                     <div class="svg">
                                         <svg height="50px" width="auto" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 384 512">
@@ -56,9 +55,9 @@
                                     </div>
                                     <br>
                                     <div class="d-flex flex-column justify-content-center">
-                                        <span class="p-2 fs-4 text-center">
-                                            <b>Download Template</b><br>
-                                            Tabungan
+                                        <span class="p-2 fs-4 text-center fw-bold">
+                                            <a class="text-dark" href="{{ route('download') }}">Download Template <br>Tabungan</a>
+                                            
                                         </span>
                                     </div>
                                 </label>
@@ -78,9 +77,8 @@
                                     </div>
                                     <br>
                                     <div class="d-flex flex-column justify-content-center">
-                                        <span class="p-2 fs-4 text-center">
-                                            <b>Download Template</b><br>
-                                            Tabungan
+                                        <span class="p-2 fs-4 text-center fw-bold">
+                                            <a class="text-dark" href="{{ route('download') }}">Download Template <br>Tabungan</a>
                                         </span>
                                     </div>
                                 </label>

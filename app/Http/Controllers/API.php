@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use CURLFile;
+use DateTime;
 use GuzzleHttp\Client;
 use GuzzleHttp\Utils;
 use Illuminate\Http\Request;
@@ -722,7 +723,7 @@ function getDetailNews($token, $id)
 
 }
 
-function addNews(Request $request)
+function updateNews(Request $request)
 {
     $token = $request->session()->get('token');
     $author = $request->pembuat;
@@ -736,13 +737,9 @@ function addNews(Request $request)
         $photo = $request->file('file')->getClientOriginalName();
         $destination = base_path() . '/public/uploads';
         $request->file('file')->move($destination, $photo);
-        
+
     }
-    $filepath = public_path("uploads/".$photo);
-
-
-    
-
+    $filepath = public_path("uploads/" . $photo);
 
     $api = config('properties.api');
     $curl = curl_init();
@@ -800,12 +797,101 @@ function addNews(Request $request)
     );
 
     $response = curl_exec($curl);
-    $dataAdd = json_decode($response);
+    $dataUpdate = json_decode($response);
     // dd($dataAdd);
     $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     curl_close($curl);
-    return array($dataAdd, $httpcode);
+    return array($dataUpdate, $httpcode);
 
+
+}
+
+function addNews(Request $request)
+{
+    $token = $request->session()->get('token');
+    $author = $request->pembuat;
+    $id = $request->id;
+    $waktu = date('Y-m-d\TH:i:s.000') . 'Z';
+    // $waktu = date(DATE_ISO8601);
+    $headline = $request->headline;
+    $text = $request->text;
+    $file = $request->file('file');
+    if ($request->hasFile('file')) {
+        $file = $request->file('file');
+        $photo = $request->file('file')->getClientOriginalName();
+        $destination = base_path() . '/public/uploads';
+        $request->file('file')->move($destination, $photo);
+
+    }
+    $filepath = public_path("uploads/" . $photo);
+
+    $api = config('properties.api');
+    $curl = curl_init();
+    curl_setopt_array(
+        $curl,
+        array(
+            CURLOPT_URL => $api . 'v1/reference/upload-file/news',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => false,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => array('file' => new CURLFILE($filepath)),
+
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $token,
+            ),
+        )
+    );
+
+    $response = curl_exec($curl);
+    curl_close($curl);
+    $fileimage = json_decode($response);
+    // dd($fileimage);
+    $link = $fileimage->data;
+
+    $curl = curl_init();
+    curl_setopt_array(
+        $curl,
+        array(
+            CURLOPT_URL => $api . 'v1/news',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS =>'{
+                "headline": "",
+                "text": "",
+                "publishedBy": "",
+                "publishedOn": "",
+                "imageUrl": ""
+              }',
+            CURLOPT_POSTFIELDS => '{
+            "headline": "' . (string) $headline . '",
+            "text":  "' . (string) $text . '",
+            "publishedBy":  "' . (string) $author . '",
+            "publishedOn":  "' . (string) $waktu . '",
+            "imageUrl":  "' . (string) $link . '"
+}',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $token,
+                'Content-Type: application/json'
+            ),
+        )
+    );
+    // 2023-01-11T06:12:38.580Z 
+    // "publishedOn":  "' .date("Y-m-d").'.T'.date("H:i:s").'.672Z",
+    $response = curl_exec($curl);
+    $dataAdd = json_decode($response);
+    dd($dataAdd);
+    $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    curl_close($curl);
+    return array($dataAdd, $httpcode);
 
 }
 

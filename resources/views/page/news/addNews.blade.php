@@ -8,7 +8,6 @@
 
 
 @section('content')
-
     <!--begin::Content wrapper-->
     <div id="kt_app_content" class="content d-flex flex-column flex-column-fluid">
         <!--begin::Content container-->
@@ -39,23 +38,20 @@
                     <!--end::Header-->
                     <!--begin::Body-->
                     <div class="card-body py-3">
-                        <form method="POST" action="#" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('news.add') }}" enctype="multipart/form-data">
                             {{ csrf_field() }}
-                            {{ method_field('put') }}
+                            {{-- {{ method_field('post') }} --}}
                             <div class="row">
                                 <div class="col">
-                                    <input readonly type="hidden" name="id" id="form6Example3"
-                                        class="form-control" value="" />
                                     <div class="form-outline mb-4">
                                         {{-- <label class="form-label fw-bold" for="form6Example1">Author</label> --}}
                                         <input readonly type="hidden" name="pembuat" id="form6Example3"
-                                            class="form-control" value="" />
+                                            class="form-control" value="{{ $profile->data->firstName . $profile->data->lastName }}" />
                                     </div>
 
                                     <div class="form-outline mb-4">
                                         {{-- <label class="form-label fw-bold" for="form6Example1">Waktu</label> --}}
-                                        <input readonly type="hidden" name="tanggal" id="form6Example3"
-                                            class="form-control " value="" />
+                                        
                                     </div>
 
                                     <!-- nama -->
@@ -78,7 +74,7 @@
                                     <!-- Message input -->
                                     <div class="form-outline mb-4">
                                         <label class="form-label fw-bold" for="form6Example7">Teks</label>
-                                        <textarea class="form-control" id="form6Example7" rows="12" name="text"></textarea>
+                                        <textarea class="form-control" id="form6Example7" rows="12" id="text" name="text"></textarea>
                                     </div>
                                     <div id="kt_scrolltop" class="scrolltop mb-10" data-kt-scrolltop="true">
                                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
@@ -176,6 +172,22 @@
 
 
 @section('script')
+
+{{-- <script>
+    ClassicEditor
+        .create( document.querySelector( '#text' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script> --}}
+
+<script>
+    InlineEditor
+        .create( document.querySelector( '#text' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
 
 <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
 <script>

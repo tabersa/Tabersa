@@ -52,4 +52,8 @@
     <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
+    
+    <script src="{{ asset('ckbox/ckbox.js') }}"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/inline/ckeditor.js"></script>
 </head>

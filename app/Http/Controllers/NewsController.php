@@ -39,7 +39,7 @@ class NewsController extends Controller
     public function update(Request $request){
         $token = $request->session()->get('token');
         $profile = getProfile($token);
-        list($dataAdd, $httpcode) = addNews($request);
+        list($dataUpdate, $httpcode) = updateNews($request);
         $bank = getDataBank($token);
         
         
@@ -59,5 +59,21 @@ class NewsController extends Controller
         $profile = getProfile($token);
         $bank = getDataBank($token);
         return view('page.news.addNews', compact('bank','profile'));
+    }
+
+    public function add(Request $request){
+        $token = $request->session()->get('token');
+        $profile = getProfile($token);
+        list($dataAdd, $httpcode) = addNews($request);
+        $bank = getDataBank($token);
+        // return view('page.news.addNews', compact('bank','profile','dataAdd','httpcode'));
+
+        if ($httpcode == 200) {
+            Alert::success('Selamat', 'News Telah di Tambahkan');
+            return redirect()->route('news');
+        }  else {
+            Alert::error('Error', 'Periksa Kembali News');
+            return redirect()->route('news');
+        }
     }
 }

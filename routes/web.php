@@ -13,6 +13,8 @@ use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\infoTransaksiController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\DownloadController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -65,8 +67,10 @@ Route::get('/news/show/{id}', [NewsController::class, 'show'])->name('news.show'
 Route::get('/news/formupdate/{id}', [NewsController::class, 'formUpdate'])->name('news.formupdate');
 Route::put('/news/update', [NewsController::class, 'update'])->name('news.update');
 Route::get('/news/formadd', [NewsController::class, 'formAdd'])->name('news.formAdd');
+Route::post('/news/add', [NewsController::class, 'add'])->name('news.add');
 
 
+Route::get('/downloadpdf', [DownloadController::class, 'getDownload'])->name('download');
 
 
 
