@@ -726,51 +726,83 @@ function getDetailNews($token, $id)
 function updateNews(Request $request)
 {
     $token = $request->session()->get('token');
+    $api = config('properties.api');
     $author = $request->pembuat;
     $id = $request->id;
     $waktu = date('Y-m-d\TH:i:s.000') . 'Z';
     $headline = $request->headline;
     $textawal = $request->text;
-    $text = str_replace("\"","'",$textawal);
+    $text = str_replace("\"", "'", $textawal);
     // dd($text);
     $file = $request->file('file');
+
     if ($request->hasFile('file')) {
         $file = $request->file('file');
         $photo = $request->file('file')->getClientOriginalName();
         $destination = base_path() . '/public/uploads';
         $request->file('file')->move($destination, $photo);
+        $filepath = public_path("uploads/" . $photo);
 
+        $curl = curl_init();
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => $api . 'v1/reference/upload-file/news',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => false,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => array('file' => new CURLFILE($filepath)),
+
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: Bearer ' . $token,
+                ),
+            )
+        );
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $fileimage = json_decode($response);
+        // dd($fileimage);
+        $link = $fileimage->data;
+        $curl = curl_init();
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => $api . 'v1/news/' . $id,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'PUT',
+                CURLOPT_POSTFIELDS => '{
+                "headline": "' . $request->headline . '",
+                "text":  "' . $text . '",
+                "publishedBy":  "' . (string) $author . '",
+                "publishedOn":  "' . (string) $waktu . '",
+                "imageUrl":  "' . (string) $link . '",
+                "status": 0
+            }',
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: Bearer ' . $token,
+                    'Content-Type: application/json'
+                ),
+            )
+        );
+
+        $response = curl_exec($curl);
+        $dataUpdate = json_decode($response);
+        // dd($dataUpdate);
+        $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+        return array($dataUpdate, $httpcode);
     }
-    $filepath = public_path("uploads/" . $photo);
-
-    $api = config('properties.api');
-    $curl = curl_init();
-    curl_setopt_array(
-        $curl,
-        array(
-            CURLOPT_URL => $api . 'v1/reference/upload-file/news',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => false,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => array('file' => new CURLFILE($filepath)),
-
-            CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer ' . $token,
-            ),
-        )
-    );
-
-    $response = curl_exec($curl);
-    curl_close($curl);
-    $fileimage = json_decode($response);
-    // dd($fileimage);
-    $link = $fileimage->data;
-
-
+    else {
     $curl = curl_init();
     curl_setopt_array(
         $curl,
@@ -784,11 +816,11 @@ function updateNews(Request $request)
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'PUT',
             CURLOPT_POSTFIELDS => '{
-                "headline": "' .$request->headline . '",
-                "text":  "' .$text . '",
+                "headline": "' . $request->headline . '",
+                "text":  "' . $text . '",
                 "publishedBy":  "' . (string) $author . '",
-                "publishedOn":  "' .(string)$waktu.'",
-                "imageUrl":  "' . (string) $link . '",
+                "publishedOn":  "' . (string) $waktu . '",
+                "imageUrl":  "",
                 "status": 0
             }',
             CURLOPT_HTTPHEADER => array(
@@ -804,7 +836,7 @@ function updateNews(Request $request)
     $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     curl_close($curl);
     return array($dataUpdate, $httpcode);
-
+}
 
 }
 
@@ -817,7 +849,7 @@ function addNews(Request $request)
     // $waktu = date(DATE_ISO8601);
     $headline = $request->headline;
     $textawal = $request->text;
-    $text = str_replace("\"","'",$textawal);
+    $text = str_replace("\"", "'", $textawal);
     $file = $request->file('file');
     if ($request->hasFile('file')) {
         $file = $request->file('file');
@@ -868,8 +900,8 @@ function addNews(Request $request)
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => '{
-            "headline": "' .$request->headline. '",
-            "text":  "' .$text. '",
+            "headline": "' . $request->headline . '",
+            "text":  "' . $text . '",
             "publishedBy":  "' . (string) $author . '",
             "publishedOn":  "' . (string) $waktu . '",
             "imageUrl":  "' . (string) $link . '"

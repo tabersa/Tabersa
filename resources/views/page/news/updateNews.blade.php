@@ -71,7 +71,7 @@
                                     style="background-image: url(/assets/media/svg/avatars/blank.svg)">
                                     <!--begin::Image preview wrapper-->
                                     <div class="image-input-wrapper w-250px h-250px"
-                                        style="background-image: url(/assets/media/avatars/150-2.jpg)"></div>
+                                        style="background-image: url({{ $detail->data->imageUrl }})"></div>
                                     <!--end::Image preview wrapper-->
 
                                     <!--begin::Edit button-->

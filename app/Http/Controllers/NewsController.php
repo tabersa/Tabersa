@@ -45,10 +45,14 @@ class NewsController extends Controller
         
         // return view('page.news.addNews', compact('bank','profile','dataAdd','httpcode'));
 
-        if ($httpcode == 200) {
-            Alert::success('Selamat', 'News Telah di Tambahkan');
+        if ($httpcode === 200) {
+            Alert::success('Selamat', 'News Telah di Update');
             return redirect()->route('news');
-        }  else {
+        } else if ($httpcode === null) {
+            Alert::success('Selamat', 'News Telah di Update');
+            return redirect()->route('news');
+        }  
+        else {
             Alert::error('Error', 'Periksa Kembali News');
             return redirect()->route('news');
         }
@@ -68,7 +72,7 @@ class NewsController extends Controller
         $bank = getDataBank($token);
         // return view('page.news.addNews', compact('bank','profile','dataAdd','httpcode'));
 
-        if ($httpcode == 200) {
+        if ($httpcode === 200) {
             Alert::success('Selamat', 'News Telah di Tambahkan');
             return redirect()->route('news');
         }  else {
