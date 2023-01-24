@@ -728,9 +728,11 @@ function updateNews(Request $request)
     $token = $request->session()->get('token');
     $author = $request->pembuat;
     $id = $request->id;
-    $waktu = $request->tanggal;
+    $waktu = date('Y-m-d\TH:i:s.000') . 'Z';
     $headline = $request->headline;
-    $text = $request->text;
+    $textawal = $request->text;
+    $text = str_replace("\"","'",$textawal);
+    // dd($text);
     $file = $request->file('file');
     if ($request->hasFile('file')) {
         $file = $request->file('file');
@@ -782,10 +784,10 @@ function updateNews(Request $request)
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'PUT',
             CURLOPT_POSTFIELDS => '{
-                "headline": "' . (string) $headline . '",
-                "text":  "' . (string) $text . '",
+                "headline": "' .$request->headline . '",
+                "text":  "' .$text . '",
                 "publishedBy":  "' . (string) $author . '",
-                "publishedOn":  "' . date("Y-m-d") . '.T' . date("H:i:s") . '.672Z",
+                "publishedOn":  "' .(string)$waktu.'",
                 "imageUrl":  "' . (string) $link . '",
                 "status": 0
             }',
@@ -798,7 +800,7 @@ function updateNews(Request $request)
 
     $response = curl_exec($curl);
     $dataUpdate = json_decode($response);
-    // dd($dataAdd);
+    // dd($dataUpdate);
     $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     curl_close($curl);
     return array($dataUpdate, $httpcode);
@@ -864,16 +866,9 @@ function addNews(Request $request)
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS =>'{
-                "headline": "",
-                "text": "",
-                "publishedBy": "",
-                "publishedOn": "",
-                "imageUrl": ""
-              }',
             CURLOPT_POSTFIELDS => '{
-            "headline": "' . (string) $headline . '",
-            "text":  "' . (string) $text . '",
+            "headline": "' .$request->headline. '",
+            "text":  "' .$request->text. '",
             "publishedBy":  "' . (string) $author . '",
             "publishedOn":  "' . (string) $waktu . '",
             "imageUrl":  "' . (string) $link . '"
@@ -888,7 +883,7 @@ function addNews(Request $request)
     // "publishedOn":  "' .date("Y-m-d").'.T'.date("H:i:s").'.672Z",
     $response = curl_exec($curl);
     $dataAdd = json_decode($response);
-    dd($dataAdd);
+    // dd($dataAdd);
     $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     curl_close($curl);
     return array($dataAdd, $httpcode);

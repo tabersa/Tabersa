@@ -53,7 +53,8 @@
                                                         <div class="fs-8 mb-8">by {{ $news->publishedBy }}</div>
 
                                                         <div class="fs-6">
-                                                            {{ $news->text }}
+                                                            {!! substr(strip_tags($news->text),0,80) !!}
+                                                            {{-- {!! substr(strip_tags($news->text), 0, 80) !!} --}}
                                                         </div>
                                                         <div class="fs-8 mt-4 text-gray-400 text-end">
                                                             {{ date('d F Y', strtotime(substr($news->publishedOn, 0, 10))) }}

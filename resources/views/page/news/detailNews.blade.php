@@ -33,12 +33,12 @@
                 <!--begin::Tables widget 14-->
                 <div class="card shadow-lg">
                     <!--begin::Header-->
-                    <div class="card-header border-0 pt-5">
+                    {{-- <div class="card-header border-0 pt-">
                         
-                    </div>
+                    </div> --}}
                     <!--end::Header-->
                     <!--begin::Body-->
-                    <div class="card-body py-3">
+                    <div class="card-body py-5">
                         <!--begin::Layout-->
                         <div class="d-flex flex-column flex-xl-row">
                             <!--begin::Content-->
@@ -89,10 +89,10 @@
                                     </div>
                                     <!--end::Wrapper-->
                                     <!--begin::Description-->
-                                    <div class="fs-5 fw-semibold text-gray-600">
+                                    <div class="fs-5 fw-semibold ">
                                         <!--begin::Text-->
                                         <p class="mb-8">
-                                            {{ $detail->data->text }}
+                                            {!! ($detail->data->text) !!}
                                         </p>
                                         <!--end::Text-->
 

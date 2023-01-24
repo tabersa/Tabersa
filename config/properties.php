@@ -1,7 +1,7 @@
 <?php
 
 $my_config = array(
-    'api' => "http://34.87.120.237/api/",
+    'api' => "http://35.240.207.130/api/",
     'cifbody' => '{
         "advancedSearch": {
           "fields": [
