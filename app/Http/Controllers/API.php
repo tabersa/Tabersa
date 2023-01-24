@@ -816,7 +816,8 @@ function addNews(Request $request)
     $waktu = date('Y-m-d\TH:i:s.000') . 'Z';
     // $waktu = date(DATE_ISO8601);
     $headline = $request->headline;
-    $text = $request->text;
+    $textawal = $request->text;
+    $text = str_replace("\"","'",$textawal);
     $file = $request->file('file');
     if ($request->hasFile('file')) {
         $file = $request->file('file');
@@ -868,7 +869,7 @@ function addNews(Request $request)
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => '{
             "headline": "' .$request->headline. '",
-            "text":  "' .$request->text. '",
+            "text":  "' .$text. '",
             "publishedBy":  "' . (string) $author . '",
             "publishedOn":  "' . (string) $waktu . '",
             "imageUrl":  "' . (string) $link . '"

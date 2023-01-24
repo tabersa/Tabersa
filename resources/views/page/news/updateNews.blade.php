@@ -64,8 +64,49 @@
 
                             <!-- Text input -->
                             <div class="form-outline mb-4">
-                                <label class="form-label fw-bold" for="form6Example3">Gambar</label>
-                                <input type="file" name="file" class="form-control" required />
+                                <label class="form-label fw-bold" for="form6Example3">Gambar</label><br>
+                                {{-- <input type="file" name="file" class="form-control" required /> --}}
+                                <!--begin::Image input-->
+                                <div class="image-input image-input-outline" data-kt-image-input="true"
+                                    style="background-image: url(/assets/media/svg/avatars/blank.svg)">
+                                    <!--begin::Image preview wrapper-->
+                                    <div class="image-input-wrapper w-250px h-250px"
+                                        style="background-image: url(/assets/media/avatars/150-2.jpg)"></div>
+                                    <!--end::Image preview wrapper-->
+
+                                    <!--begin::Edit button-->
+                                    <label
+                                        class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                        data-kt-image-input-action="change" data-bs-toggle="tooltip"
+                                        data-bs-dismiss="click" title="Change avatar">
+                                        <i class="bi bi-pencil-fill fs-7"></i>
+
+                                        <!--begin::Inputs-->
+                                        <input type="file" name="file" accept=".png, .jpg, .jpeg" />
+                                        <input type="hidden" name="avatar_remove" />
+                                        <!--end::Inputs-->
+                                    </label>
+                                    <!--end::Edit button-->
+
+                                    <!--begin::Cancel button-->
+                                    <span
+                                        class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                        data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
+                                        data-bs-dismiss="click" title="Cancel avatar">
+                                        <i class="bi bi-x fs-2"></i>
+                                    </span>
+                                    <!--end::Cancel button-->
+
+                                    <!--begin::Remove button-->
+                                    <span
+                                        class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                        data-kt-image-input-action="remove" data-bs-toggle="tooltip"
+                                        data-bs-dismiss="click" title="Remove avatar">
+                                        <i class="bi bi-x fs-2"></i>
+                                    </span>
+                                    <!--end::Remove button-->
+                                </div>
+                                <!--end::Image input-->
                             </div>
 
                             {{-- ////////////////////// --}}
