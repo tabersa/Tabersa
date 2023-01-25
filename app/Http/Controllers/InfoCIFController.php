@@ -7,7 +7,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 require 'API.php';
 
-class infoCIFController extends Controller
+class InfoCIFController extends Controller
 {
     /**
      * Display a listing of the resource.

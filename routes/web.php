@@ -5,7 +5,7 @@ use App\Http\Controllers\DashboardController;
 // use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CIFController;
-use App\Http\Controllers\infoCIFController;
+use App\Http\Controllers\InfoCIFController;
 use App\Http\Controllers\SavingController;
 use App\Http\Controllers\infoSavingController;
 use App\Http\Controllers\SinkronController;
@@ -39,11 +39,11 @@ Route::get('/out', [LoginController::class, 'out'])->name('out');
 Route::get('/dashboard', [DashboardController::class, 'Profile'])->name('dashboard');
 
 Route::get('/cif', [CIFController::class, 'index'])->name('cif');
-Route::get('/infocif/cif/{id}', [infoCIFController::class, 'index'])->name('cif.cif');
-Route::get('/infocif/tabungan/{id}', [infoCIFController::class, 'tabungan'])->name('cif.tabungan');
-Route::get('/infocif/deposito/{id}', [infoCIFController::class, 'deposito'])->name('cif.deposito');
-Route::get('/infocif/kredit/{id}', [infoCIFController::class, 'kredit'])->name('cif.kredit');
-Route::put('/infocif/autorisasi/{id}', [infoCIFController::class, 'autorisasi'])->name('autorisasi');
+Route::get('/infocif/cif/{id}', [InfoCIFController::class, 'index'])->name('cif.cif');
+Route::get('/infocif/tabungan/{id}', [InfoCIFController::class, 'tabungan'])->name('cif.tabungan');
+Route::get('/infocif/deposito/{id}', [InfoCIFController::class, 'deposito'])->name('cif.deposito');
+Route::get('/infocif/kredit/{id}', [InfoCIFController::class, 'kredit'])->name('cif.kredit');
+Route::put('/infocif/autorisasi/{id}', [InfoCIFController::class, 'autorisasi'])->name('autorisasi');
 
 Route::get('/tabungan', [SavingController::class, 'index'])->name('tabungan');
 Route::get('/infotabungan/show/{id}', [infoSavingController::class, 'index'])->name('tabungan.show');
