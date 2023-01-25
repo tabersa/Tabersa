@@ -46,6 +46,7 @@ function getTokenData(Request $request)
     $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     curl_close($curl);
     $data = json_decode($response);
+    // dd($data);
     return array($data, $httpcode);
 }
 function refreshToken($token, $refresh)
@@ -232,6 +233,7 @@ function authCIf($request, $id)
     );
     $response = curl_exec($curl);
     $new = json_decode($response);
+    // dd($new);
     $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     curl_close($curl);
     return array($new, $httpcode);

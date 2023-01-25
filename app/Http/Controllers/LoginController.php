@@ -48,32 +48,25 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-    $this->validate($request, [
-        'tenant' => 'required',
-        'username' => 'required',
-        'password' => 'required',
-    ]);
-    list($data, $httpcode) = getTokenData($request);
+        $this->validate($request, [
+            'tenant' => 'required',
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+        list($data, $httpcode) = getTokenData($request);
 
-    if ($httpcode == 200) {
-        $refresh = RefreshToken($data->data->token,$data->data->refreshToken );
-        $token = $data->data->token;
-        Session::put('token', $token);
-        Session::put('tenant', $request->tenant);
-        // $request->session()->put('token', $token);
-
-        if ($request->session()->has('token')) {
-            // dd($request->session());
-            Alert::success('Selamat', 'Anda Berhasil Login');
-            return redirect()->route('dashboard');
-        } else {
-            Alert::error('Error', 'Username atau Kata Sandi Anda Salah');
-            return redirect()->route('back');
-        }
-    } else {
-        Alert::error('Error', 'Periksa Kembali Data');
-        return redirect()->route('back');
-    }
+            if ($data->succeeded === true) {
+                // dd($request->session());
+                $refresh = RefreshToken($data->data->token, $data->data->refreshToken);
+                $token = $data->data->token;
+                Session::put('token', $token);
+                Session::put('tenant', $request->tenant);
+                Alert::success('Selamat', 'Anda Berhasil Login');
+                return redirect()->route('dashboard');
+            } else {
+                Alert::error('Error', 'Username atau Kata Sandi Anda Salah');
+                return redirect()->route('back');
+            }
     }
 
     public function out(Request $request)
@@ -86,6 +79,6 @@ class LoginController extends Controller
     public function back()
     {
         return view('login');
-        
+
     }
 }

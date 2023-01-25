@@ -30,10 +30,7 @@ class infoTransaksiController extends Controller
     {
         $token = $request->session()->get('token');
         list($new, $httpcode) = authTransaksi($token, $id);
-        if ($httpcode == 200) {
-            Alert::success('Selamat', 'Data Telah di Autorisasi');
-            return redirect()->route('transaksi');
-        } else if ($httpcode == 406) {
+        if ($new->succeeded === true) {
             Alert::success('Selamat', 'Data Telah di Autorisasi');
             return redirect()->route('transaksi');
         } else {
@@ -41,7 +38,10 @@ class infoTransaksiController extends Controller
             return redirect()->route('transaksi');
         }
         curl_close($curl);
-
+        // else if ($httpcode == 406) {
+        //     Alert::success('Selamat', 'Data Telah di Autorisasi');
+        //     return redirect()->route('transaksi');
+        // }
     }
 
     public function cetak(Request $request, $id)

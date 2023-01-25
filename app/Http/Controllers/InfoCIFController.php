@@ -108,7 +108,7 @@ class InfoCIFController extends Controller
     public function autorisasi(Request $request, $id)
     {
         list($new, $httpcode) = authCif($request, $id);
-        if ($httpcode == 200) {
+        if ($new->succeeded === true) {
             Alert::success('Selamat', 'Data Telah di Autorisasi');
             return redirect()->route('cif');
         } else {

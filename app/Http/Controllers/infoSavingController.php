@@ -103,7 +103,7 @@ class infoSavingController extends Controller
         
         list($new, $httpcode) = authSaving($request, $id);
         
-        if ($httpcode == 200) {
+        if ($new->succeeded === true) {
             Alert::success('Selamat', 'Data Telah di Autorisasi');
             return redirect()->route('tabungan');
         } else {
