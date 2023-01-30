@@ -91,23 +91,96 @@
             return substr($string, 0, $visibleCount) . str_repeat('*', $hiddenCount) . substr($string, $visibleCount * -1, $visibleCount);
         }
     @endphp
-    <div class="row mt-20">
-        <div class="col-8">
-            <img alt="Logo" src="{{ asset('assets/media/tabersa/logohorizontal.png') }}" height="130px"
-                width="430px" />
+    <div class="d-flex flex-row mt-20">
+        <div class="p-8 align-content-center">
+            <img alt="Logo" src="{{ $bank->data->imageUrl }}" height="130px" width="430px" />
         </div>
-        <div class="col-auto mt-20 end-0 fs-6">
-            <div class="col ">
-                <span><b>Tanggal &emsp;:</b> <?php echo date('l, d-m-Y '); ?></span>
-            </div>
-            <div class="col ">
-                <span><b>Pukul &emsp;&emsp;:</b> <?php echo date('H:i:s'); ?></span>
-            </div>
+        <div class="p-8 fw-bold">
+                {{ $bank->data->bankName }} <br>
+                {{ $bank->data->address }}
         </div>
+    </div>
     </div>
 
     <div class="mt-10">
-        <table class="table table-responsive table-striped align-content-center">
+        <table class="table table-responsive">
+            <tbody>
+                <tr style="line-height:5px ;">
+                    <td class="text-start">
+                        CIF
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td class="text-start " style="padding-right: 200px">
+                        {{ $datacif->cifNumber }}
+                    </td>
+                    <td class="text-start">
+                        Nama Produk
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td class="text-start">
+                        {{ $dataproduct->productName }}
+                    </td>
+                </tr>
+                <tr style="line-height:5px ;">
+                    <td class="text-start">
+                        No. Rekening
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td class="text-start">
+                        {{ $datainfo->accountNumber }}
+                    </td>
+                    <td class="text-start">
+                        Tanggal Buka
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td class="text-start">
+
+                        {{ date('d  F  Y', strtotime(substr($datainfo->openDate, 0, 10))) }}
+                    </td>
+                </tr>
+                <tr style="line-height:5px ;">
+                    <td class="text-start">
+                        Nama
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td class="text-start">
+                        {{ $datacif->fullName }}
+                    </td>
+                    <td class="text-start">
+                        Saldo Akhir
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td class="text-start">
+                        Rp {{ number_format($datainfo->endBalance, 0, ',', ',') }}
+                    </td>
+                </tr>
+                <tr style="line-height:5px ;">
+                    <td class="text-start">
+                        Alamat
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td class="text-start" colspan="4">
+                        {{ $address->identityAddress . ',' . $address->identitySubDistrict }}
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table align-content-center" style="border-collapse: collapse;">
             <thead class="fw-bold" style="background-color: #54cc58; color: #fff">
                 <tr>
                     <th>Tanggal</th>
@@ -117,12 +190,13 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($datasearch->data as $data)
-                    <td colspan="4" class="text-start fw-bold">
+                @foreach ($datasearch->data as $data)
+                    <td colspan="4" class="text-start fw-bold" style="border-bottom: 2pt solid black;">
                         {{ date('d  F  Y', strtotime(substr($data->date, 0, 10))) }}</td>
                     @foreach ($data->transaction as $datatransaksi)
-                        <tr>
-                            <td class="text-center align-middle">{{ substr($datatransaksi->transactionDate, 11, 8) }}</td>
+                        <tr style="border-bottom: 1pt solid black;">
+                            <td class="text-center align-middle">{{ substr($datatransaksi->transactionDate, 11, 8) }}
+                            </td>
                             <td class="text-start align-middle">
                                 <p>
                                     {{ $datatransaksi->transactionGroupName }}
@@ -135,23 +209,21 @@
                             <td class="text-start align-middle">
                                 {{ $datatransaksi->description }}
                             </td>
-                        @if ($datatransaksi->dc == 'C')
-                            <td class="text-end align-middle">
-                                - Rp . {{ number_format($datatransaksi->amount, 0, ',', '.') }}
-                            </td>
-                            <!--end::Amount=-->
-                        @else
-                            <!--begin::Amount=-->
-                            <td class="text-end">
-                                + Rp . {{ number_format($datatransaksi->amount, 0, ',', '.') }}
-                            </td>
-                    @endif
-                    </tr>
+                            @if ($datatransaksi->dc == 'C')
+                                <td class="text-end align-middle">
+                                    + Rp . {{ number_format($datatransaksi->amount, 0, ',', '.') }}
+                                </td>
+                                <!--end::Amount=-->
+                            @else
+                                <!--begin::Amount=-->
+                                <td class="text-end">
+                                    - Rp . {{ number_format($datatransaksi->amount, 0, ',', '.') }}
+                                </td>
+                            @endif
+                        </tr>
+                    @endforeach
+
                 @endforeach
-
-            @empty
-
-                @endforelse
 
 
             </tbody>
@@ -228,6 +300,16 @@
     </table> --}}
     <!--end::Table-->
 
+    <footer>
+        <div class="col-auto mt-20 end-0 fs-6 fixed-bottom">
+            <div class="col ">
+                <span><b>Tanggal &emsp;:</b> <?php echo date('l, d-m-Y '); ?></span>
+            </div>
+            <div class="col ">
+                <span><b>Pukul &emsp;&emsp;:</b> <?php echo date('H:i'); ?></span>
+            </div>
+        </div>
+    </footer>
 </body>
 
 <script>

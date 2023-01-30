@@ -114,12 +114,19 @@ class infoSavingController extends Controller
         }
     }
 
-    public function search(Request $request)
+    public function search(Request $request,$id)
     {
         $token = $request->session()->get('token');
         $datasearch = getTransaksiSearch($request);
+        $bank = getDataBank($token);
+        $saving = getSavingID($token, $id);
+        $datainfo = $saving->data;
+        $datacif = $saving->data->cif;
+        $dataproduct = $saving->data->savingProduct;
+        $dataaddress = getCifID($token, $datacif->id);
+        $address = $dataaddress[1];
         if (!empty($datasearch->data)) {
-            return view('page.tabungan.printsearch', compact('datasearch'));
+            return view('page.tabungan.printsearch', compact('datasearch','bank','datainfo', 'datacif', 'dataproduct','address'));
             
         } else {
             Alert::error('Error', 'Tidak Ada Transaksi Pada Waktu Ini');

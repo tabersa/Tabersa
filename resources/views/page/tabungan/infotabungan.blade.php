@@ -279,11 +279,15 @@
                                             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                                                 <!--begin::Form-->
                                                 <form id="kt_modal_new_card_form" class="form" method="POST"
-                                                    action="{{ route('search') }}" >
+                                                    action="/infotabungan/search/{{ $datainfo->id }}">
                                                     <input hidden name="accountNumber" type="text"
                                                         value="{{ $datainfo->accountNumber }}">
+                                                    <input hidden name="id" type="text"
+                                                        value="{{ $datainfo->id }}">
+
                                                     <!--begin::Label-->
-                                                    @csrf <!-- {{ csrf_field() }} -->
+                                                    @csrf
+                                                    <!-- {{ csrf_field() }} -->
                                                     {{-- <label class="required fs-6 fw-semibold form-label mb-2">
                                                         Waktu Filter
                                                     </label> --}}
