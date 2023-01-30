@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 //////////////////////////////////////////////////////////////////////////////////////////////// ////////////////////////////////////////////////////////////////////////////////////////////////////
 // DATA TOKEN
@@ -550,6 +551,46 @@ function getTransaksiCif($token, $transaksi)
     return $datacif;
 }
 
+function getTransaksiSearch($request)
+{
+    $token = $request->session()->get('token');
+    $ts = strtotime($request->tahun." ".$request->bulan);
+    $last = date('t', $ts);
+    $body = array(
+        "accountNumber"=> $request->accountNumber,
+        "startDate"=> $request->tahun."-".$request->bulan."-01",
+        "endDate"=>  $request->tahun."-".$request->bulan."-".$last,
+        "transactionGroup"=>""
+    );
+    $api = config('properties.api');
+
+    $curl = curl_init();
+    curl_setopt_array(
+        $curl,
+        array(
+            CURLOPT_URL => $api . 'v1/transaction/history-group-by-date',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => json_encode($body),
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . $token,
+                'Content-Type: application/json'
+            ),
+        )
+    );
+    $response = curl_exec($curl);
+    $datasearch = json_decode($response);
+    curl_close($curl);
+    // dd($body);
+    return $datasearch;
+}
+
+
 function authTransaksi($token, $id)
 {
     if (isset($_POST['verif'])) {
@@ -803,21 +844,20 @@ function updateNews(Request $request)
         $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
         return array($dataUpdate, $httpcode);
-    }
-    else {
-    $curl = curl_init();
-    curl_setopt_array(
-        $curl,
-        array(
-            CURLOPT_URL => $api . 'v1/news/' . $id,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'PUT',
-            CURLOPT_POSTFIELDS => '{
+    } else {
+        $curl = curl_init();
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => $api . 'v1/news/' . $id,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'PUT',
+                CURLOPT_POSTFIELDS => '{
                 "headline": "' . $request->headline . '",
                 "text":  "' . $text . '",
                 "publishedBy":  "' . (string) $author . '",
@@ -825,20 +865,20 @@ function updateNews(Request $request)
                 "imageUrl":  "",
                 "status": 0
             }',
-            CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer ' . $token,
-                'Content-Type: application/json'
-            ),
-        )
-    );
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: Bearer ' . $token,
+                    'Content-Type: application/json'
+                ),
+            )
+        );
 
-    $response = curl_exec($curl);
-    $dataUpdate = json_decode($response);
-    // dd($dataUpdate);
-    $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-    curl_close($curl);
-    return array($dataUpdate, $httpcode);
-}
+        $response = curl_exec($curl);
+        $dataUpdate = json_decode($response);
+        // dd($dataUpdate);
+        $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+        return array($dataUpdate, $httpcode);
+    }
 
 }
 

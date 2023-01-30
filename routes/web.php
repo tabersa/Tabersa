@@ -48,6 +48,7 @@ Route::put('/infocif/autorisasi/{id}', [InfoCIFController::class, 'autorisasi'])
 Route::get('/tabungan', [SavingController::class, 'index'])->name('tabungan');
 Route::get('/infotabungan/show/{id}', [infoSavingController::class, 'index'])->name('tabungan.show');
 Route::put('/infotabungan/autorisasi/{id}', [infoSavingController::class, 'autorisasi'])->name('autorisasi');
+Route::post('/infotabungan/search', [infoSavingController::class, 'search'])->name('search');
 
 Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi');
 Route::get('/infotransaksi/show/{id}', [infoTransaksiController::class, 'index'])->name('transaksi.show');
