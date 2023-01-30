@@ -195,7 +195,8 @@
                         {{ date('d  F  Y', strtotime(substr($data->date, 0, 10))) }}</td>
                     @foreach ($data->transaction as $datatransaksi)
                         <tr style="border-bottom: 1pt solid black;">
-                            <td class="text-center align-middle">{{ substr($datatransaksi->transactionDate, 11, 8) }}
+                            <td class="text-center align-middle">
+                                {{ date('H:i', strtotime(substr($datatransaksi->transactionDate, 11, 8))) }}
                             </td>
                             <td class="text-start align-middle">
                                 <p>
@@ -300,14 +301,10 @@
     </table> --}}
     <!--end::Table-->
 
-    <footer>
-        <div class="col-auto mt-20 end-0 fs-6 fixed-bottom">
-            <div class="col ">
-                <span><b>Tanggal &emsp;:</b> <?php echo date('l, d-m-Y '); ?></span>
-            </div>
-            <div class="col ">
-                <span><b>Pukul &emsp;&emsp;:</b> <?php echo date('H:i'); ?></span>
-            </div>
+    <footer class="position-fixed bottom-0" style="right: 0;">
+        <div >
+        <?php echo date('l, d-m-Y ') ?> &nbsp; :  &nbsp; <?php echo date('H:i'); ?>
+            
         </div>
     </footer>
 </body>
