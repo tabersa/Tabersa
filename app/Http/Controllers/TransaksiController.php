@@ -17,11 +17,22 @@ class TransaksiController extends Controller
             $profile = getProfile($token);
             $transaksi = getTransaksi($token);
             $bank = getDataBank($token);
-            foreach ($transaksi->data as $key) {
-                $datacif = getTransaksiID($token, $key->cifId);
+            if (!$transaksi->data === 0) {
+                Alert::error('Error Title', 'Data Cif Masih Kosong')->width('1000px');
+                return redirect()->route('/');
+            } else {
+                foreach ($transaksi->data as $key) {
+                    $datacif = getTransaksiID($token, $key->cifId);
+                }
+                if ($value = !empty($_POST['datacif'])) {
+                    return view('page.transaksi.transaksi', compact('bank', 'profile', 'transaksi', 'datacif'));
+                    
+                } else {
+                    Alert::error('Error Title', 'Data Cif Masih Kosong')->width('1000px');
+                    return redirect()->route('cif');
+                }
             }
 
-            return view('page.transaksi.transaksi', compact('bank','profile', 'transaksi','datacif'));
         } else {
             Alert::error('Error Title', 'Error Message')->width('1000px');
             return redirect()->route('/');

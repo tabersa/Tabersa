@@ -149,7 +149,11 @@
                                     </tr>
                                     <!--end::Table row-->
                                 @empty
-                                    <span>Data Kosong</span>
+                                    <tr>
+                                        <td colspan="5">
+                                            Data Masih Kosong
+                                        </td>
+                                    </tr>
                                 @endforelse
 
                             </tbody>
