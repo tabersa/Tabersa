@@ -28,8 +28,7 @@ class TransaksiController extends Controller
                     return view('page.transaksi.transaksi', compact('bank', 'profile', 'transaksi', 'datacif'));
                     
                 } else {
-                    Alert::error('Error Title', 'Data Cif Masih Kosong')->width('1000px');
-                    return redirect()->route('cif');
+                    return view('page.transaksi.transaksi', compact('bank', 'profile', 'transaksi'));
                 }
             }
 
