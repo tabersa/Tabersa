@@ -38,6 +38,7 @@ class InfoCIFController extends Controller
             $kawin = getRefMarital($token);
             $residensial = getResidensialStatus($token);
             
+            
 
             if($profile === null) {
                 return redirect()->route('landing');

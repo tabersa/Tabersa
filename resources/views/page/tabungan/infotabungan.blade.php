@@ -145,14 +145,11 @@
                                                 {{ number_format($datainfo->endBalance, 0, ',', ',') }}</span>
                                         </div>
                                     </div>
-                                    <div class="p-6">
-                                        <input type="date" class="form-control" id="inputDateEvent" name='dateevent'
-                                            placeholder="Enter the event start date..." required>
-                                    </div>
+
                                     <div class="p-6">
                                         <div class="d-flex justify-content-start flex-column">
                                             <a href="#" class="btn btn-success fs-6 px-8 " data-bs-toggle="modal"
-                                                data-bs-target="#kt_modal_view_users">Cari</a>
+                                                data-bs-target="#kt_modal_view_users">Rekening Koran</a>
                                         </div>
                                     </div>
 
@@ -235,9 +232,8 @@
                                     <span class="svg-icon">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
-                                            <rect opacity="0.5" x="13" y="6" width="13"
-                                                height="2" rx="1" transform="rotate(90 13 6)"
-                                                fill="currentColor" />
+                                            <rect opacity="0.5" x="13" y="6" width="13" height="2"
+                                                rx="1" transform="rotate(90 13 6)" fill="currentColor" />
                                             <path
                                                 d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
                                                 fill="currentColor" />
@@ -296,28 +292,66 @@
                                                     <div class="row fv-row">
                                                         <!--begin::Col-->
                                                         <div class="col-6">
+                                                            @php
+                                                                $month = date('m');
+                                                            @endphp
                                                             <select name="bulan" class="form-select form-select-solid"
                                                                 data-control="select2" data-hide-search="true"
                                                                 data-placeholder="Bulan" required>
                                                                 <option></option>
-                                                                <option value=01>Januari</option>
-                                                                <option value=02>Februari</option>
-                                                                <option value=03>Maret</option>
-                                                                <option value=04>April</option>
-                                                                <option value=05>Mei</option>
-                                                                <option value=06>Juni</option>
-                                                                <option value=07>Juli</option>
-                                                                <option value=08>Agustus</option>
-                                                                <option value=09>September</option>
-                                                                <option value=10>Oktober</option>
-                                                                <option value=11>November</option>
-                                                                <option value=12>Desember</option>
+                                                                <option value=01 <?php if ($month == '01') {
+                                                                    echo 'selected="selected"';
+                                                                } ?>>Januari</option>
+                                                                <option value=02 <?php if ($month == '02') {
+                                                                    echo 'selected="selected"';
+                                                                } ?>>Februari</option>
+                                                                <option value=03 <?php if ($month == '03') {
+                                                                    echo 'selected="selected"';
+                                                                } ?>>Maret</option>
+                                                                <option value=04 <?php if ($month == '04') {
+                                                                    echo 'selected="selected"';
+                                                                } ?>>April</option>
+                                                                <option value=05 <?php if ($month == '06') {
+                                                                    echo 'selected="selected"';
+                                                                } ?>>Mei</option>
+                                                                <option value=06 <?php if ($month == '06') {
+                                                                    echo 'selected="selected"';
+                                                                } ?>>Juni</option>
+                                                                <option value=07 <?php if ($month == '07') {
+                                                                    echo 'selected="selected"';
+                                                                } ?>>Juli</option>
+                                                                <option value=08 <?php if ($month == '08') {
+                                                                    echo 'selected="selected"';
+                                                                } ?>>Agustus</option>
+                                                                <option value=09 <?php if ($month == '09') {
+                                                                    echo 'selected="selected"';
+                                                                } ?>>September</option>
+                                                                <option value=10 <?php if ($month == '10') {
+                                                                    echo 'selected="selected"';
+                                                                } ?>>Oktober</option>
+                                                                <option value=11 <?php if ($month == '11') {
+                                                                    echo 'selected="selected"';
+                                                                } ?>>November</option>
+                                                                <option value=12 <?php if ($month == '12') {
+                                                                    echo 'selected="selected"';
+                                                                } ?>>Desember</option>
                                                             </select>
                                                         </div>
                                                         <!--end::Col-->
                                                         <!--begin::Col-->
                                                         <div class="col-6">
-                                                            <select name="tahun" class="form-select form-select-solid"
+                                                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+                                                            <script>
+                                                                $(function() {
+                                                                    $("input[name='tahun']").on('input', function(e) {
+                                                                        $(this).val($(this).val().replace(/[^0-9]/g, ''));
+                                                                    });
+                                                                });
+                                                            </script>
+                                                            <input type="text" maxlength=4 minlength=4 name="tahun"
+                                                                class="form-control form-control-lg form-control-solid"
+                                                                placeholder="Tahun">
+                                                            {{-- <select name="tahun" class="form-select form-select-solid"
                                                                 data-control="select2" data-hide-search="true"
                                                                 data-placeholder="Tahun" required>
                                                                 <option></option>
@@ -332,7 +366,7 @@
                                                                 <option value="2030">2030</option>
                                                                 <option value="2031">2031</option>
                                                                 <option value="2032">2032</option>
-                                                            </select>
+                                                            </select> --}}
                                                         </div>
                                                         <!--end::Col-->
                                                     </div>
