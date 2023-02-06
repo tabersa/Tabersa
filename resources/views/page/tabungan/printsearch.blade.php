@@ -91,11 +91,11 @@
             return substr($string, 0, $visibleCount) . str_repeat('*', $hiddenCount) . substr($string, $visibleCount * -1, $visibleCount);
         }
     @endphp
-    <div class="d-flex flex-row mt-20">
+    <div class="d-flex flex-row align-items-center">
         <div class="p-8 align-content-center">
-            <img alt="Logo" src="{{ $bank->data->imageUrl }}" height="130px" width="430px" />
+            <img alt="Logo" src="{{ $bank->data->imageUrl }}" height="100px" width="auto" />
         </div>
-        <div class="p-8 fw-bold">
+        <div class="p-8 fw-bold fs-1">
                 {{ $bank->data->bankName }} <br>
                 {{ $bank->data->address }}
         </div>

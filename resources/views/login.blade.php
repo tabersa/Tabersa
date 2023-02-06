@@ -123,7 +123,7 @@ License: For each use you must have a valid license purchased only from above li
                                     class=" bg-transparent mt-4 form-control @error('username') is-invalid @enderror"
                                     name="username"  required
                                     autofocus
-                                    value="bpr.demo"
+                                    value=""
                                     />
                                     <label for="floatingInput"> Username</label>
                                 <!--end::Email-->
@@ -135,7 +135,7 @@ License: For each use you must have a valid license purchased only from above li
                                 <input id="floatingInput" type="password"
                                     class="bg-transparent mt-4 form-control @error('password') is-invalid @enderror"
                                     name="password" required 
-                                    value="Taber54!"
+                                    value=""
                                     />
                                     <label for="floatingInput">Password</label>
                                 <!--end::Password-->

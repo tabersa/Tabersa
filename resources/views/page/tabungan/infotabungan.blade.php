@@ -177,7 +177,7 @@
                                                 <tr>
                                                     <!--begin::order=-->
                                                     <td class="text-start">
-                                                        12 Nov 2022
+                                                        {{ date('d F Y', strtotime(substr($data->transactionDate, 0, 10))) }}
                                                     </td>
                                                     <!--end::order=-->
                                                     <!--begin::Status=-->
