@@ -118,39 +118,46 @@
                             <span class="fw-bolder text-success text-uppercase">Lokasi</span>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div class="row mb-2">
                                     <label class="col-form-label text-right col-md-4">Longitude</label>
                                     <div class="col-md-8">
-                                        <input name="ctl00$MainContent$longitude" type="text"
-                                            value="{{ $dataBank->data->longitude }}"
-                                            class="form-control
-                                                id="longitude"
-                                            class="form-control">
+                                        <textarea name="" type="text" id="latitude"
+                                            value=""
+                                            class="form-control"></textarea>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div class="row mb-2">
                                     <label class="col-form-label text-right col-md-4">Latitude</label>
                                     <div class="col-md-8">
-                                        <input name="ctl00$MainContent$latitude" type="text"
-                                            value="{{ $dataBank->data->latitude }}" id="latitude"
-                                            class="form-control">
+                                        <textarea name="" type="text" id="longitude"
+                                            value=""
+                                            class="form-control"></textarea>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-success" id="get-location">Get Location</button>
+                            </div>
+                            
                         </div>
                         <div id="kt_scrolltop" class="scrolltop mb-10" data-kt-scrolltop="true">
-                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
-                                <span class="svg-icon">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1" transform="rotate(90 13 6)" fill="currentColor" />
-                                        <path d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z" fill="currentColor" />
-                                    </svg>
-                                </span>
-                                <!--end::Svg Icon-->
-                            </div>
+                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
+                            <span class="svg-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect opacity="0.5" x="13" y="6" width="13"
+                                        height="2" rx="1" transform="rotate(90 13 6)"
+                                        fill="currentColor" />
+                                    <path
+                                        d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
+                                        fill="currentColor" />
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </div>
                     </div>
                     <!--end: Card Body-->
                     <div class="card-footer border-top p-9 mb-10">
@@ -165,61 +172,66 @@
                                     value="Kembali" onclick="history.back();">
                             </div>
                             <div class="col-md-2">
-                                <a href="#" class="btn btn-success w-100 ls-3 text-uppercase" data-bs-toggle="modal"
-                                data-bs-target="#updatemodal">Simpan</a>
+                                <a href="#" class="btn btn-success w-100 ls-3 text-uppercase"
+                                    data-bs-toggle="modal" data-bs-target="#updatemodal">Simpan</a>
                             </div>
                         </div>
-                        </div>
-                    </div>
-                    <div class="modal fade" id="updateModal" tabindex="-1" aria-hidden="true" role="dialog">
-                        <!--begin::Modal dialog-->
-                        <div class="modal-dialog mw-650px">
-                            <!--begin::Modal content-->
-                            <div class="modal-content">
-                                <!--begin::Modal header-->
-                                <div class="modal-header pb-0 border-0 ">
-                                    <!--begin::Close-->
-                                    <h1 class="mb-3 text-start">Konfirmasi</h1>
-                                    <div class="btn btn-sm btn-icon btn-active-color-primary right-0" data-bs-dismiss="modal">
-                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-                                        <span class="svg-icon svg-icon-1">
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
-                                                    rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
-                                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
-                                                    transform="rotate(45 7.41422 6)" fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                        <!--end::Svg Icon-->
-                                    </div>
-                                    <!--end::Close-->
-                                </div>
-                                <!--begin::Modal header-->
-                                <!--begin::Modal body-->
-                                <div class="modal-body fs-4">
-                                    Simpan Perubahan ?
-                                </div>
-                                <!--end::Modal body-->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger text-light w-40 ls-3 text-uppercase" data-bs-dismiss="modal">Tidak</button>
-                                    <input type="submit" name="verif" value="Ya" class="btn btn-success text-light w-40 ls-3 text-uppercase">
-                                </div>
-                            </div>
-                            <!--end::Modal content-->
-                        </div>
-                        <!--end::Modal dialog-->
                     </div>
                 </div>
-
+                <div class="modal fade" id="updateModal" tabindex="-1" aria-hidden="true" role="dialog">
+                    <!--begin::Modal dialog-->
+                    <div class="modal-dialog mw-650px">
+                        <!--begin::Modal content-->
+                        <div class="modal-content">
+                            <!--begin::Modal header-->
+                            <div class="modal-header pb-0 border-0 ">
+                                <!--begin::Close-->
+                                <h1 class="mb-3 text-start">Konfirmasi</h1>
+                                <div class="btn btn-sm btn-icon btn-active-color-primary right-0"
+                                    data-bs-dismiss="modal">
+                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                                    <span class="svg-icon svg-icon-1">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <rect opacity="0.5" x="6" y="17.3137" width="16"
+                                                height="2" rx="1" transform="rotate(-45 6 17.3137)"
+                                                fill="currentColor" />
+                                            <rect x="7.41422" y="6" width="16" height="2"
+                                                rx="1" transform="rotate(45 7.41422 6)"
+                                                fill="currentColor" />
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                </div>
+                                <!--end::Close-->
+                            </div>
+                            <!--begin::Modal header-->
+                            <!--begin::Modal body-->
+                            <div class="modal-body fs-4">
+                                Simpan Perubahan ?
+                            </div>
+                            <!--end::Modal body-->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger text-light w-40 ls-3 text-uppercase"
+                                    data-bs-dismiss="modal">Tidak</button>
+                                <input type="submit" name="verif" value="Ya"
+                                    class="btn btn-success text-light w-40 ls-3 text-uppercase">
+                            </div>
+                        </div>
+                        <!--end::Modal content-->
+                    </div>
+                    <!--end::Modal dialog-->
+                </div>
             </div>
-            <!--end::Tables widget 14-->
+
         </div>
-        <!--end::Col-->
-
+        <!--end::Tables widget 14-->
     </div>
+    <!--end::Col-->
 
-    <!--end::Row-->
+</div>
+
+<!--end::Row-->
 
 </div>
 <!--end::Content wrapper-->
@@ -231,6 +243,17 @@
 
 
 <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+<script>
+    $("#get-location").click(() => {
+        if (!navigator.geolocation)
+            return alert("Geolocation is not supported.");
+
+        navigator.geolocation.getCurrentPosition((position) => {
+            $("#latitude").html(`${position.coords.latitude}`);
+            $("#longitude").html(`${position.coords.longitude}`);
+        });
+    });
+</script>
 <script>
     var hostUrl = "assets/";
 </script>
