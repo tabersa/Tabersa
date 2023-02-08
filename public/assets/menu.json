@@ -5,7 +5,7 @@
                     "id": "010000",
                     "name": "Dashboard",
                     "description": "Keterangan",
-                    "icon": "bi bi-house-fill fs-2x",
+                    "icon": "bi bi-house-fill text-light fs-1",
 					"url": "dashboard",
                     "hasChild": "0",
                     "subMenu": []
@@ -13,7 +13,7 @@
                     "id": "020000",
                     "name": "Nasabah",
                     "description": "Keterangan",
-                    "icon": "bi bi-person-fill fs-2x",
+                    "icon": "bi bi-person-fill text-light fs-1",
 					"url": "cif",
                     "hasChild": "0",
                     "subMenu": []
@@ -21,7 +21,7 @@
                     "id": "030000",
                     "name": "Tabungan",
                     "description": "Keterangan",
-                    "icon": "bi bi-wallet fs-2x",
+                    "icon": "bi bi-wallet text-light fs-1",
 					"url": "tabungan",
                     "hasChild": "0",
                     "subMenu": []
@@ -29,7 +29,7 @@
                     "id": "040000",
                     "name": "Transaksi",
                     "description": "Keterangan",
-                    "icon": "bi bi-cart-fill fs-2x",
+                    "icon": "bi bi-cart-fill text-light fs-1",
 					"url": "transaksi",
                     "hasChild": "0",
                     "subMenu": []
@@ -37,7 +37,7 @@
                     "id": "050000",
                     "name": "Sinkronisasi",
                     "description": "Keterangan",
-                    "icon": "bi bi-arrow-repeat fs-2x",
+                    "icon": "bi bi-arrow-repeat text-light fs-1",
 					"url": "sinkron",
                     "hasChild": "0",
                     "subMenu": []
@@ -45,14 +45,14 @@
                     "id": "060000",
                     "name": "Pengaturan",
                     "description": "Keterangan",
-                    "icon": "bi bi-gear-fill fs-2x",
+                    "icon": "bi bi-gear-fill text-light fs-1",
 					"url": "",
                     "hasChild": "1",
                     "subMenu": [{
                             "id": "060100",
                             "name": "Profil",
                             "description": "Keterangan",
-                            "icon": "bi bi-bookmarks-fill fs-2x",
+                            "icon": "bi bi-bookmarks-fill text-light fs-1",
 							"url": "profileSetting",
 							"hasChild": "0",
 							"subMenu": []
@@ -61,7 +61,7 @@
                             "id": "060200",
                             "name": "Literasi & Edukasi",
                             "description": "Keterangan",
-                            "icon": "bi bi-bookmarks-fill fs-2x",
+                            "icon": "bi bi-bookmarks-fill text-light fs-1",
 							"url": "news",
 							"hasChild": "0",
 							"subMenu": []
@@ -69,7 +69,7 @@
                             "id": "060300",
                             "name": "Tabungan",
                             "description": "Keterangan",
-                            "icon": "bi bi-bookmarks-fill fs-2x",
+                            "icon": "bi bi-bookmarks-fill text-light fs-1",
 							"url": "tabunganSetting",
 							"hasChild": "0",
 							"subMenu": []
