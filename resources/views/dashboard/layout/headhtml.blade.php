@@ -56,4 +56,5 @@
     <script src="{{ asset('ckbox/ckbox.js') }}"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/inline/ckeditor.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 </head>
