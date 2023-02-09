@@ -122,9 +122,11 @@
                                 <div class="row mb-2">
                                     <label class="col-form-label text-right col-md-4">Longitude</label>
                                     <div class="col-md-8">
-                                        <textarea name="" type="text" id="latitude"
+                                        <input name="ctl00$MainContent$kodepos" type="text" id="longitude"
+                                            class="form-control" />
+                                        {{-- <textarea name="" type="text" id="latitude"
                                             value=""
-                                            class="form-control"></textarea>
+                                            class="form-control"></textarea> --}}
                                     </div>
                                 </div>
                             </div>
@@ -132,9 +134,11 @@
                                 <div class="row mb-2">
                                     <label class="col-form-label text-right col-md-4">Latitude</label>
                                     <div class="col-md-8">
-                                        <textarea name="" type="text" id="longitude"
+                                        <input name="ctl00$MainContent$kodepos" type="text" id="latitude"
+                                            class="form-control" />
+                                        {{-- <textarea name="" type="text" id="longitude"
                                             value=""
-                                            class="form-control"></textarea>
+                                            class="form-control"></textarea> --}}
                                     </div>
                                 </div>
                             </div>
@@ -249,8 +253,8 @@
             return alert("Geolocation is not supported.");
 
         navigator.geolocation.getCurrentPosition((position) => {
-            $("#latitude").html(`${position.coords.latitude}`);
-            $("#longitude").html(`${position.coords.longitude}`);
+            $("#latitude").val(`${position.coords.latitude}`);
+            $("#longitude").val(`${position.coords.longitude}`);
         });
     });
 </script>
