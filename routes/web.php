@@ -44,6 +44,7 @@ Route::get('/infocif/tabungan/{id}', [InfoCIFController::class, 'tabungan'])->na
 Route::get('/infocif/deposito/{id}', [InfoCIFController::class, 'deposito'])->name('cif.deposito');
 Route::get('/infocif/kredit/{id}', [InfoCIFController::class, 'kredit'])->name('cif.kredit');
 Route::put('/infocif/autorisasi/{id}', [InfoCIFController::class, 'autorisasi'])->name('autorisasi');
+Route::get('/print/{id}', [InfoCIFController::class, 'printCIF'])->name('cif.print');
 
 Route::get('/tabungan', [SavingController::class, 'index'])->name('tabungan');
 Route::get('/infotabungan/show/{id}', [infoSavingController::class, 'index'])->name('tabungan.show');

@@ -117,4 +117,62 @@ class InfoCIFController extends Controller
             return redirect()->route('cif');
         }
     }
+
+    public function printCIF(Request $request, $id){
+        $token = $request->session()->get('token');
+            $bank = getDataBank($token);
+            $profile = getProfile($token);
+            $newdata = getCifSearch($token, $id);
+            $dataspesifik = getSpecificCIF($token, $id);
+            list($datainfo, $dataaddress, $dataoccupation, $dataspouse, $dataid, $dataPhoto) = getCifID($token,$id);
+            $type = getIdentityType($token);
+            $city = getRefCity($token);
+            $province = getRefProvince($token);
+            $national = getRefNationality($token);
+            $edu = getRefEducation($token);
+            $job = getRefOcupation($token);
+            $sector = getRefSector($token);
+            $gaji = getRefIncome($token);
+            $pengeluaran = getRefSpending($token);
+            $dari = getRefSourceFund($token);
+            $jabatan = getRefJobPosition($token);
+            $kawin = getRefMarital($token);
+            $residensial = getResidensialStatus($token);
+            $savingByID = getSavingByID($token, $id);
+            $saving = $savingByID->data;
+
+
+            // dd($dataspesifik);
+            // dd($dari);
+
+            return view(
+                'page.cif.printCIF',
+                compact(
+                    'saving',
+                    'dataspesifik',
+                    'dataPhoto',
+                    'residensial',
+                    'bank',
+                    'dataid',
+                    'profile',
+                    'newdata',
+                    'datainfo',
+                    'dataaddress',
+                    'dataoccupation',
+                    'dataspouse',
+                    'city',
+                    'type',
+                    'province',
+                    'national',
+                    'edu',
+                    'job',
+                    'sector',
+                    'gaji',
+                    'pengeluaran',
+                    'dari',
+                    'jabatan',
+                    'kawin',
+
+                ));
+    }
 }

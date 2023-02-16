@@ -37,6 +37,9 @@
                             <span class="text-gray-400 fw-semibold fs-6">Periksa Informasi Customer Anda Disini</span>
                         </h3>
                         <!--end::Title-->
+                        <div class="card-toolbar">
+                            <a href="/print/{{ $dataspesifik->id }}" class="btn btn-success text-light">Cetak Data CIF</a>
+                        </div>
                     </div>
                     <!--end::Header-->
                     <!--begin::Body-->
