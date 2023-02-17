@@ -91,7 +91,7 @@
         date_default_timezone_set('Asia/Jakarta');
     @endphp
     <div class="row d-flex flex-row align-items-center">
-        <div class="col-8 mt-5">
+        <div class="col-8 mt-2">
             <div class="d-flex flex-row bd-highlight mb-3">
                 <div class="p-2">
                     <img alt="Logo" src="{{ $bank->data->imageUrl }}" height="60px" width="auto" />
@@ -107,7 +107,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-auto mt-5" style="text-align: end">
+        <div class="col-auto mt-2" style="text-align: end">
             <div class="col ">
                 <span style="font-size: 20px;font-weight: 800;">Formulir Rekening</span>
             </div>
@@ -141,7 +141,7 @@
             </div>
         @endif
     </div>
-    <div class="mb-3" style="text-align:start; width:40%; background:#56cc5d; ">
+    <div style="text-align:start; width:40%; background:#56cc5d; ">
         <b style="font-size: 14px; color:white; padding-left: 10px;">DATA UMUM NASABAH PERORANGAN</b>
     </div>
     <table width=100% class="">
@@ -348,104 +348,115 @@
             </td>
         </tr>
         <tr>
-            <td class="text-start" width:40%>Nama Kantor </td>
-            <td class="text-center" width:20%> : </td>
-            <td colspan="4" class="text-start" width:10%>
-                {{ strtoupper($dataoccupation->companyName) }}
-            </td>
-        </tr>
-        <tr>
-            <td class="text-start" width:40%>Alamat Kantor </td>
-            <td class="text-center" width:20%> : </td>
-            <td colspan="4" class="text-start" width:10%>
-                {{ strtoupper($dataoccupation->companyAddress) }},
-                {{ strtoupper($dataoccupation->companySubDistrict) }},
-                {{ strtoupper($dataoccupation->companyDistrict) }},
-            </td>
-        </tr>
-        <tr>
-            <td class="text-start" width:40%>Nomor Telepon Kantor </td>
-            <td class="text-center" width:20%> : </td>
-            <td class="text-start" width:10%>
-                {{ $dataoccupation->companyPhoneNumber }}
-            </td>
-
-            <td class="text-start" width:40%>Nomor Fax Kantor </td>
-            <td class="text-center" width:20%> : </td>
-            <td class="text-start" width:10%>
-                {{-- {{ $dataspesifik->taxNumber }} --}} -
-            </td>
-        </tr>
-        <tr>
             <td class="text-start" width:40%>Nama Asli Ibu Kandung </td>
             <td class="text-center" width:20%> : </td>
             <td colspan="4" class="text-start" width:10%>
                 {{ $dataspesifik->motherMaidenName }}
             </td>
         </tr>
-        @if ($datainfo->maritalStatus == '1')
+        @if ($dataspesifik->maritalStatus == '1')
             <tr>
                 <td class="text-start" width:40%>Status Perkawinan </td>
                 <td class="text-center" width:20%> : </td>
-                <td class="text-start" width:10%>
-                    <input type="checkbox" checked>
-                    &nbsp;Menikah
-                </td>
-                <td class="text-start" width:10%>
-                    <input type="checkbox">
-                    &nbsp;Belum Menikah
-                </td>
-                <td colspan="2" class="text-start" width:10%>
-                    <input type="checkbox">
-                    &nbsp;_____________________________
+                <td colspan="4" class="text-start" width:10%>
+                    <div class="d-flex flex-row align-items-center">
+                        @foreach ($kawin as $list)
+                            <div class="col-4">
+                                <input type="checkbox" <?php if ($dataspesifik->maritalStatus == $list->value) {
+                                    echo 'checked';
+                                } ?>>
+                                &nbsp;{{ strtoupper($list->label) }} &emsp;
+                            </div>
+                        @endforeach
+                    </div>
                 </td>
             </tr>
             <tr>
-                <td class="text-start" width:40%>Informasi Keluarga </td>
-                <td class="text-center" width:20%> : </td>
-                <td colspan="4" class="text-start" width:10%>Jumlah Tanggungan &nbsp;:&emsp;
-                    {{ $dataspouse->numberOfDependant }}</td>
+                <td colspan="5">
+                    <div style="text-align:start; width:40%; background:#56cc5d; ">
+                        <b style="font-size: 14px; color:white; padding-left: 10px;">DATA PASANGAN</b>
+                    </div>
+                </td>
             </tr>
-        @elseif ($datainfo->maritalStatus == '2')
             <tr>
-                <td class="text-start" width:40%>Status Perkawinan </td>
+                <td class="text-start" width:40%>Nama Pasangan </td>
                 <td class="text-center" width:20%> : </td>
                 <td class="text-start" width:10%>
-                    <input type="checkbox">
-                    &nbsp;Menikah
+                    {{ $dataspouse->spouseName }}
                 </td>
+
+                <td class="text-start" width:40%>Jumlah Tanggungan </td>
+                <td class="text-center" width:20%> : </td>
                 <td class="text-start" width:10%>
-                    <input type="checkbox" checked>
-                    &nbsp;Belum Menikah
+                    {{ $dataspouse->numberOfDependant }}
                 </td>
-                <td colspan="2" class="text-start" width:10%>
-                    <input type="checkbox">
-                    &nbsp;_____________________________
+            </tr>
+            <tr>
+                <td class="text-start" width:40%>Identitas Pasangan</td>
+                <td class="text-center" width:20%> : </td>
+                <td colspan="4" class="text-start" width:10%>
+                    <div class="d-flex flex-row align-items-center">
+                        @foreach ($type->data as $list)
+                            <div class="col-2">
+                                <input type="checkbox" <?php if ($dataspouse->spouseIdentityType == $list->value) {
+                                    echo 'checked';
+                                } ?>>
+                                &nbsp;{{ strtoupper($list->label) }} &emsp;
+                            </div>
+                        @endforeach
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-start" width:40%>Identitas </td>
+                <td class="text-center" width:20%> : </td>
+                <td class="text-start" width:10%>
+                    {{ $dataspouse->spouseIdentityNumber }}
+                </td>
+
+                <td class="text-start" width:40%>Berlaku s/d </td>
+                <td class="text-center" width:20%> : </td>
+                <td class="text-start" width:10%>
+                    {{ date('d - m - Y', strtotime(substr($dataspouse->spouseIdentityExpiredDate, 0, 10))) }}
+                </td>
+            </tr>
+            <tr>
+                <td class="text-start" width:40%>Tempat Lahir Pasangan </td>
+                <td class="text-center" width:20%> : </td>
+                <td class="text-start" width:10%>
+                    {{ $dataspouse->spousePlaceOfBirth }}
+                </td>
+
+                <td class="text-start" width:40%>Tanggal Lahir Pasangan </td>
+                <td class="text-center" width:20%> : </td>
+                <td class="text-start" width:10%>
+                    {{ date('d - m - Y', strtotime(substr($dataspouse->spouseDateOfBirth, 0, 10))) }}
                 </td>
             </tr>
         @else
             <tr>
                 <td class="text-start" width:40%>Status Perkawinan </td>
                 <td class="text-center" width:20%> : </td>
-                <td class="text-start" width:10%>
-                    <input type="checkbox">
-                    &nbsp;Menikah
-                </td>
-                <td class="text-start" width:10%>
-                    <input type="checkbox">
-                    &nbsp;Belum Menikah
-                </td>
-                <td colspan="2" class="text-start" width:10%>
-                    <input type="checkbox" checked>
-                    &nbsp;_____________________________
+                <td colspan="4" class="text-start" width:10%>
+                    <div class="d-flex flex-row align-items-center">
+                        @foreach ($kawin as $list)
+                            <div class="col-4">
+                                <input type="checkbox" <?php if ($dataspesifik->maritalStatus == $list->value) {
+                                    echo 'checked';
+                                } ?>>
+                                &nbsp;{{ strtoupper($list->label) }} &emsp;
+                            </div>
+                        @endforeach
+                    </div>
                 </td>
             </tr>
         @endif
 
 
 
+
     </table>
-    <div class="mb-3 mt-3" style="text-align:start; width:80%; background:#56cc5d; ">
+    <div style="text-align:start; width:80%; background:#56cc5d; ">
         <b style="font-size: 14px; color:white; padding-left: 10px;">KETERANGAN SUMBER DANA / PENGHASILAN DAN
             PENGGUNAAN</b>
     </div>
@@ -463,21 +474,39 @@
             </td>
         </tr>
         <tr>
-            <td class="text-start" width:40%>Penghasilan Kotor Perbulan </td>
+            <td class="text-start" width:40%>Bidang Usaha </td>
             <td class="text-center" width:20%> : </td>
             <td colspan="4" class="text-start" width:10%>
-                <div class="row">
-                    @foreach ($gaji as $list)
-                        <div class="col-4">
-                            <input type="checkbox" <?php if ($dataoccupation->monthlyIncome == $list->value) {
-                                echo 'checked';
-                            } ?>>
-                            &nbsp;{{ strtoupper($list->label) }} &emsp;
-                        </div>
-                    @endforeach
-                </div>
+                @foreach ($sector as $list)
+                    @if ($dataoccupation->sectorOfIndustry == $list->value)
+                        {{ strtoupper($list->label) }}
+                    @endif
+                @endforeach
             </td>
         </tr>
+
+        <tr>
+            <td class="text-start" width:40%>Penghasilan Perbulan </td>
+            <td class="text-center" width:20%> : </td>
+            <td class="text-start" width:10%>
+                @foreach ($gaji as $list)
+                    @if ($dataoccupation->monthlyIncome == $list->value)
+                        &nbsp;{{ strtoupper($list->label) }} &emsp;
+                    @endif
+                @endforeach
+            </td>
+
+            <td class="text-start" width:40%>Pengeluaran Perbulan </td>
+            <td class="text-center" width:20%> : </td>
+            <td class="text-start" width:10%>
+                @foreach ($pengeluaran as $list)
+                    @if ($dataoccupation->monthlySpending == $list->value)
+                        &nbsp;{{ strtoupper($list->label) }} &emsp;
+                    @endif
+                @endforeach
+            </td>
+        </tr>
+
         <tr>
             <td class="text-start" width:40%>Sumber Dana </td>
             <td class="text-center" width:20%> : </td>
@@ -492,6 +521,47 @@
                         </div>
                     @endforeach
                 </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-start" width:40%>Nama Kantor </td>
+            <td class="text-center" width:20%> : </td>
+            <td colspan="4" class="text-start" width:10%>
+                {{ strtoupper($dataoccupation->companyName) }}
+            </td>
+        </tr>
+        <tr>
+            <td class="text-start" width:40%>Alamat Kantor </td>
+            <td class="text-center" width:20%> : </td>
+            <td colspan="4" class="text-start" width:10%>
+                {{ strtoupper($dataoccupation->companyAddress) }},
+                {{ strtoupper($dataoccupation->companySubDistrict) }},
+                {{ strtoupper($dataoccupation->companyDistrict) }},
+                @foreach ($city as $list)
+                    @if ($dataoccupation->companyCity == $list->value)
+                        {{ strtoupper($list->label) }},
+                    @endif
+                @endforeach
+                @foreach ($province as $list)
+                    @if ($dataoccupation->companyProvince == $list->value)
+                        {{ strtoupper($list->label) }},
+                    @endif
+                @endforeach
+                {{ strtoupper($dataoccupation->companyZipCode) }}
+            </td>
+        </tr>
+
+        <tr>
+            <td class="text-start" width:40%>Nomor Telepon Kantor </td>
+            <td class="text-center" width:20%> : </td>
+            <td class="text-start" width:10%>
+                {{ $dataoccupation->companyPhoneNumber }}
+            </td>
+
+            <td class="text-start" width:40%>Nomor Fax Kantor </td>
+            <td class="text-center" width:20%> : </td>
+            <td class="text-start" width:10%>
+                {{-- {{ $dataspesifik->taxNumber }} --}} -
             </td>
         </tr>
     </table>
