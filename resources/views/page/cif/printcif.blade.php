@@ -92,8 +92,20 @@
     @endphp
     <div class="row d-flex flex-row align-items-center">
         <div class="col-8 mt-5">
-            <img alt="Logo" src="{{ asset('assets/media/tabersa/logohorizontal.png') }}" height="auto"
-                width="300px" />
+            <div class="d-flex flex-row bd-highlight mb-3">
+                <div class="p-2">
+                    <img alt="Logo" src="{{ $bank->data->imageUrl }}" height="60px" width="auto" />
+                </div>
+                <div class="p-2 align-self-center">
+                    <div class="col ">
+                        <span style="font-size: 18px;font-weight: 700;">{{ $bank->data->bankName }}</span>
+                    </div>
+                    <div class="col ">
+                        <span style="font-size: 13px;">
+                            {{ $bank->data->address }},{{ $bank->data->subDistrict }},{{ $bank->data->district }}</span>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-auto mt-5" style="text-align: end">
             <div class="col ">
@@ -104,7 +116,7 @@
             </div>
         </div>
     </div>
-    <div class="row d-flex flex-row align-items-center mt-5 fs-4" id="bordercontainer">
+    <div class="row d-flex flex-row align-items-center fs-4" id="bordercontainer">
         <div class="col-8 py-3">
             Rekening di Bank {{ $bank->data->bankName }}
         </div>
@@ -488,47 +500,56 @@
     </div>
     <table width=100% class="">
         <tr>
-            <td colspan="6" class="text-start"  style="font-size: 9px">
+            <td colspan="6" class="text-start" style="font-size: 9px">
                 Dengan menandatangani aplikasi ini Saya/Kami menyatakan bahwa :
             </td>
         </tr>
         <tr>
-            <td colspan="6" class="text-start"  style="font-size: 9px">
+            <td colspan="6" class="text-start" style="font-size: 9px">
                 - semua informasi dalam formulir ini adalah lengkap dan benar. <br>
-                - mengerti, menyetujui dan mentaati aturan Ketentuan Umum Produk Bank {{ $bank->data->bankName }}, dan ketentuan lainnya yang berlaku di Bank {{ $bank->data->bankName }} berikut perubahannya<br>
-                - dokumen - dokumen yang Saya/Kami lampirkan adalah benar dan masih berlaku. Bilamana kelak terdapat perubahan, maka segera akan Saya/Kami lampirkan perubahannya. <br>
-            </td>            
+                - mengerti, menyetujui dan mentaati aturan Ketentuan Umum Produk Bank {{ $bank->data->bankName }}, dan
+                ketentuan lainnya yang berlaku di Bank {{ $bank->data->bankName }} berikut perubahannya<br>
+                - dokumen - dokumen yang Saya/Kami lampirkan adalah benar dan masih berlaku. Bilamana kelak terdapat
+                perubahan, maka segera akan Saya/Kami lampirkan perubahannya. <br>
+            </td>
         </tr>
         <tr>
             <td colspan="3">&nbsp;</td>
         </tr>
         <tr>
-            <td width="70%">
+            <td width="60%">
                 <table class="table-bordered" style="margin-left: 20px">
                     <tr>
-                        <td colspan="3" class="text-center" style="background:#56cc5d;color:white; ">DIISI OLEH BANK</td>
+                        <td colspan="3" class="text-center" style="background:#56cc5d;color:white; ">DIISI OLEH
+                            BANK</td>
                     </tr>
                     <tr>
-                        <td class="text-center" width="80px">Dibuat</td>
-                        <td class="text-center" width="80px">Diperiksa</td>
-                        <td class="text-center" width="80px">Disetujui</td>
+                        <td class="text-center" width="100px">Dibuat</td>
+                        <td class="text-center" width="100px">Diperiksa</td>
+                        <td class="text-center" width="100px">Disetujui</td>
                     </tr>
                     <tr>
-                        <td class="text-center" width="80px" height="60px"></td>
-                        <td class="text-center" width="80px" height="60px"></td>
-                        <td class="text-center" width="80px" height="60px"></td>
+                        <td class="text-center" width="100px" height="60px"></td>
+                        <td class="text-center" width="100px" height="60px"></td>
+                        <td class="text-center" width="100px" height="60px"></td>
                     </tr>
                 </table>
             </td>
             <td class="text-center">
                 <table class="">
                     <tr>
-                        <td colspan="3" class="text-center">Batam,________________,______</td>
+                        <td colspan="3" class="text-center">
+                            @foreach ($city as $list)
+                                @if ($dataaddress->identityCity == $list->value)
+                                    {{ $list->label }},{{ date('d m Y') }}
+                                @endif
+                            @endforeach
+                        </td>
                     </tr>
                     <tr height="60px">
                     </tr>
                     <tr>
-                        <td class="text-center" colspan="3" width="60px" >
+                        <td class="text-center" colspan="3" width="60px">
                             ________________________
                         </td>
                     </tr>

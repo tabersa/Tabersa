@@ -38,7 +38,7 @@
                         </h3>
                         <!--end::Title-->
                         <div class="card-toolbar">
-                            <a href="/print/{{ $dataspesifik->id }}" class="btn btn-success text-light">Cetak Data CIF</a>
+                            <a target="_blank" href="/print/{{ $dataspesifik->id }}" class="btn btn-success text-light">Cetak Data CIF</a>
                         </div>
                     </div>
                     <!--end::Header-->
