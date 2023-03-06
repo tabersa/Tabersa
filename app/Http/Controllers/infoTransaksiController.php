@@ -37,7 +37,7 @@ class infoTransaksiController extends Controller
             Alert::error('Error', 'Periksa Kembali Data');
             return redirect()->route('transaksi');
         }
-        curl_close($curl);
+        // curl_close($curl);
         // else if ($httpcode == 406) {
         //     Alert::success('Selamat', 'Data Telah di Autorisasi');
         //     return redirect()->route('transaksi');

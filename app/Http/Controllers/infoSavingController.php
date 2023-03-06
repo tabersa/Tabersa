@@ -27,10 +27,11 @@ class infoSavingController extends Controller
                 ////////////////
                 if ($datainfo->accountNumber != null) {
                     $curl = curl_init();
+                    $api = config('properties.api');
                     curl_setopt_array(
                         $curl,
                         array(
-                            CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/transaction/history/' . $datainfo->accountNumber,
+                            CURLOPT_URL => $api.'v1/transaction/history/' . $datainfo->accountNumber,
                             CURLOPT_RETURNTRANSFER => true,
                             CURLOPT_ENCODING => '',
                             CURLOPT_MAXREDIRS => 10,
@@ -47,6 +48,7 @@ class infoSavingController extends Controller
                     $datatransaksi = curl_exec($curl);
                     $transaksi = json_decode($datatransaksi);
                     $trs = $transaksi->data;
+                    // dd($transaksi);
 
                     curl_close($curl);
 
@@ -56,7 +58,7 @@ class infoSavingController extends Controller
                     curl_setopt_array(
                         $curl,
                         array(
-                            CURLOPT_URL => 'http://147.139.130.151:8060/api/v1/reference',
+                            CURLOPT_URL => $api.'v1/reference',
                             CURLOPT_RETURNTRANSFER => true,
                             CURLOPT_ENCODING => '',
                             CURLOPT_MAXREDIRS => 10,
@@ -78,7 +80,7 @@ class infoSavingController extends Controller
                     $response = curl_exec($curl);
                     $dataakun = json_decode($response);
                     // dd($cif);
-                    return view('page.tabungan.infotabungan', compact('bank', 'profile', 'datainfo', 'datacif', 'dataproduct', 'trs', 'dataakun'));
+                        return view('page.tabungan.infotabungan', compact('bank', 'profile','trs', 'datainfo', 'datacif', 'dataproduct', 'dataakun'));
                 } else {
                     // Alert::error('Account Number '.$datacif->fullName.' Kosong', 'Mohon Autorisasi Dahulu');
                     $datatipe = getSavingAccountType($token);

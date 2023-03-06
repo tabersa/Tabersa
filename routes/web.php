@@ -14,6 +14,7 @@ use App\Http\Controllers\infoTransaksiController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\DownloadController;
+use App\Http\Controllers\TabunganSiswaController;
 
 
 /*
@@ -37,6 +38,10 @@ Route::get('/back', [LoginController::class, 'back'])->name('back');
 Route::get('/out', [LoginController::class, 'out'])->name('out');
 // 
 Route::get('/dashboard', [DashboardController::class, 'Profile'])->name('dashboard');
+
+Route::get('/tabungansiswa', [TabunganSiswaController::class, 'index'])->name('tabungansiswa');
+Route::post('/gettabungansiswa', [TabunganSiswaController::class, 'search'])->name('gettabungansiswa');
+
 
 Route::get('/cif', [CIFController::class, 'index'])->name('cif');
 Route::get('/infocif/cif/{id}', [InfoCIFController::class, 'index'])->name('cif.cif');
