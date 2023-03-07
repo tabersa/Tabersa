@@ -41,6 +41,8 @@ Route::get('/dashboard', [DashboardController::class, 'Profile'])->name('dashboa
 
 Route::get('/tabungansiswa', [TabunganSiswaController::class, 'index'])->name('tabungansiswa');
 Route::post('/gettabungansiswa', [TabunganSiswaController::class, 'search'])->name('gettabungansiswa');
+Route::post('/storetabungansiswa', [TabunganSiswaController::class, 'store'])->name('storetabungansiswa');
+
 
 
 Route::get('/cif', [CIFController::class, 'index'])->name('cif');

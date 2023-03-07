@@ -10,13 +10,14 @@ use RealRashid\SweetAlert\Facades\Alert;
 require 'API.php';
 class TabunganSiswaController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         if ($request->session()->exists('token')) {
             $token = Session::get('token');
             $profile = getProfile($token);
             $bank = getDataBank($token);
 
-            return view('page.tabungansiswa',compact('profile', 'bank',));
+            return view('page.tabungansiswa', compact('profile', 'bank', ));
         } else {
             Alert::error('Error Title', 'Error Message')->width('1000px');
             $request->session()->forget('token');
@@ -26,18 +27,42 @@ class TabunganSiswaController extends Controller
 
     }
 
-    public function search(Request $request){
+    public function search(Request $request)
+    {
         $token = Session::get('token');
-        
+
         $profile = getProfile($token);
         $bank = getDataBank($token);
         $number = $request->number;
 
         $saving = getSavingID($token, $number);
         $datainfo = $saving->data;
+        $cif = getCifID($token, $datainfo->cifId);
 
-        // dd($datainfo);
 
-        return view('page.formtabungansiswa', compact('saving','bank','profile'));
+        // dd($saving);
+        // dd(guidv4(openssl_random_pseudo_bytes(16)));
+
+        return view('page.formtabungansiswa', compact('saving', 'bank', 'profile'));
+    }
+
+    public function store(Request $request)
+    {
+        $token = Session::get('token');
+
+        $profile = getProfile($token);
+        $bank = getDataBank($token);
+        $number = $request->id;
+        $saving = getSavingID($token, $number);
+
+        $add = addTransaksi($request);
+
+        // dd($add);
+        if($add->succeeded == true){
+            Alert::success('Berhasil!', 'Transaksi Berhasil Ditambahkan');
+            return view('page.tabungansiswa',compact('saving', 'bank', 'profile'));
+        } else {
+            return redirect()->back();
+        }
     }
 }

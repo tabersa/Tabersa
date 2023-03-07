@@ -48,7 +48,7 @@
                                 </span>
                                 <!--end::Svg Icon-->
                             </div>
-                            <form action="#" method="post">
+                            <form action="{{ route('storetabungansiswa') }}" method="post">
                                 @csrf
                                 @method('post')
 

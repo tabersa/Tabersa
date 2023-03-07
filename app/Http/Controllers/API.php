@@ -15,7 +15,8 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 //////////////////////////////////////////////////////////////////////////////////////////////// ////////////////////////////////////////////////////////////////////////////////////////////////////
 // DATA TOKEN
-function getSidebar(){
+function getSidebar()
+{
     $sidebar = json_decode(file_get_contents(public_path() . "/assets/menu.json"), true);
     return $sidebar;
 }
@@ -428,6 +429,111 @@ function getSavingByID($token, $id)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////// ////////////////////////////////////////////////////////////////////////////////////////////////////
 // DATA TRANSAKSI
+function guidv4($data)
+{
+    assert(strlen($data) == 16);
+
+    $data[6] = chr(ord($data[6]) & 0x0f | 0x40); // set version to 0100
+    $data[8] = chr(ord($data[8]) & 0x3f | 0x80); // set bits 6-7 to 10
+
+    return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+}
+
+function generateRandomString($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[random_int(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+
+function addTransaksi($request)
+{
+    $token = $request->session()->get('token');
+    $api = config('properties.api');
+
+    $id = $request->id;
+    $saving = getSavingID($token, $id);
+    $nama = $request->nama;
+    $cifid = $saving->data->cifId;
+    $deskripsi = $request->keterangan;
+    $nominal = doubleval($request->nominal);
+    $rekening = $saving->data->accountNumber;
+
+    $body = array(
+        $id = $request->id,
+        $saving = getSavingID($token, $id),
+        $nama = $request->nama,
+        $cifid = $saving->data->cifId,
+        $deskripsi = $request->keterangan,
+        $nominal = doubleval($request->nominal),
+        $rekening = $saving->data->accountNumber,
+    );
+
+    $curl = curl_init();
+    curl_setopt_array(
+        $curl,
+        array(
+            CURLOPT_URL => $api . 'v1/transaction',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+                "id": "' . guidv4(openssl_random_pseudo_bytes(16)) . '",
+                "cifId": "' . $cifid . '",
+                "transactionDate": "' . date('Y-m-d').'T00:00:00' . '",
+                "transactionGroup": "10",
+                "invoiceNumber": "' . generateRandomString(10) . '",
+                "description": "' . $deskripsi . '",
+                "totalAmount": "' . $nominal . '",
+                "dc": "C",
+                "auth": "0",
+                "status": "0",
+                "transactionDetail": [
+                    {
+                        "transactionId": "' . guidv4(openssl_random_pseudo_bytes(16)) . '",
+                        "billerCode": "LCL_TO_LCL",
+                        "account": "CASH",
+                        "description": "Setoran Kolektif",
+                        "amount": "' . $nominal . '",
+                        "dc": "D",
+                        "transaction": {
+                            "value": "' . $nominal . '"
+                                        }
+                    },
+                    {
+                        "transactionId": "' . guidv4(openssl_random_pseudo_bytes(16)) . '",
+                        "billerCode": "LCL_TO_LCL",
+                        "account": "' . $rekening . '",
+                        "description": "' . $nama . '",
+                        "amount": "' . $nominal . '",
+                        "dc": "C",
+                        "transaction": {
+                            "value": "' . $nominal . '"
+                                        }
+                    }
+                    ]
+                }',
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json',
+                'Authorization: Bearer ' . $token,
+            ),
+        )
+    );
+    $tran = curl_exec($curl);
+    curl_close($curl);
+    
+    $transaksi = json_decode($tran);
+    // dd($transaksi);
+    return $transaksi;
+
+}
 
 function getTransaksi($token)
 {
@@ -559,13 +665,13 @@ function getTransaksiCif($token, $transaksi)
 function getTransaksiSearch($request)
 {
     $token = $request->session()->get('token');
-    $ts = strtotime($request->tahun." ".$request->bulan);
+    $ts = strtotime($request->tahun . " " . $request->bulan);
     $last = date('t', $ts);
     $body = array(
-        "accountNumber"=> $request->accountNumber,
-        "startDate"=> $request->tahun."-".$request->bulan."-01",
-        "endDate"=>  $request->tahun."-".$request->bulan."-".$last,
-        "transactionGroup"=>""
+        "accountNumber" => $request->accountNumber,
+        "startDate" => $request->tahun . "-" . $request->bulan . "-01",
+        "endDate" => $request->tahun . "-" . $request->bulan . "-" . $last,
+        "transactionGroup" => ""
     );
     $api = config('properties.api');
 
