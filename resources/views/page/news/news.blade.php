@@ -14,7 +14,13 @@
     <div id="kt_app_content_container" class="container-fluid">
         <ol class="breadcrumb breadcrumb-dot text-muted fs-6 fw-bold mb-10">
 
-            @section('toolbartitle', 'News')
+            {{-- @section('toolbartitle', 'News') --}}
+            @section('toolbartitle')
+                <span>
+                    <span  style="color: #54CC58">Setting</span>
+                    &emsp;/&emsp;News
+                </span>
+            @endsection
         </ol>
         <!--begin::Row-->
         <div class="row gy-0 gx-10">

@@ -53,6 +53,7 @@
                                 data-bs-target="#kt_modal_view_users">Cek QR Code</a>
                             <a href="#" class="btn btn-success er fs-6 px-8 py-4" data-bs-toggle="modal"
                                 data-bs-target="#kt_modal_scan">Scan QR Code</a>
+                            <a target="_blank" href="{{ route('testing') }}" class="btn btn-success er fs-6 px-8 py-4">Print card</a>
 
                             <div class="modal fade" id="kt_modal_view_users" tabindex="-1" aria-hidden="true">
                                 <!--begin::Modal dialog-->

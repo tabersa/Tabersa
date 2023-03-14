@@ -43,6 +43,7 @@ Route::get('/tabungansiswa', [TabunganSiswaController::class, 'index'])->name('t
 Route::post('/gettabungansiswa', [TabunganSiswaController::class, 'search'])->name('gettabungansiswa');
 Route::post('/storetabungansiswa', [TabunganSiswaController::class, 'store'])->name('storetabungansiswa');
 
+Route::get('/testing', [TabunganSiswaController::class, 'test'])->name('testing');
 
 
 Route::get('/cif', [CIFController::class, 'index'])->name('cif');
@@ -57,6 +58,7 @@ Route::get('/tabungan', [SavingController::class, 'index'])->name('tabungan');
 Route::get('/infotabungan/show/{id}', [infoSavingController::class, 'index'])->name('tabungan.show');
 Route::put('/infotabungan/autorisasi/{id}', [infoSavingController::class, 'autorisasi'])->name('autorisasi');
 Route::post('/infotabungan/search/{id}', [infoSavingController::class, 'search'])->name('search');
+Route::post('/printcard', [infoSavingController::class, 'printcard'])->name('card');
 
 Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi');
 Route::get('/infotransaksi/show/{id}', [infoTransaksiController::class, 'index'])->name('transaksi.show');

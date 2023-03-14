@@ -6,7 +6,7 @@
 @section('title', 'Tabersa | Mutasi')
 @section('toolbartitle')
     <span>
-        <a href="{{ url('/tabungan') }}" style="color: #54CC58">Tabungan</a>
+        <span href="{{ url('/tabungan') }}" style="color: #54CC58">Tabungan</span>
         &emsp;/&emsp;Mutasi
     </span>
 @endsection
@@ -147,12 +147,24 @@
                                     </div>
 
                                     <div class="p-6">
-                                        <div class="d-flex justify-content-start flex-column">
+                                        <div class="d-flex justify-content-center flex-column">
                                             <a href="#" class="btn btn-success fs-6 px-8 " data-bs-toggle="modal"
                                                 data-bs-target="#kt_modal_view_users">Rekening Koran</a>
-                                            {{-- <a href="#" class="btn btn-success fs-6 pt-1 px-8 " data-bs-toggle="modal"
-                                                data-bs-target="#kt_modal_qr">QR CODE</a>
                                             <a href="#" class="btn btn-success fs-6 pt-1 px-8 " data-bs-toggle="modal"
+                                                data-bs-target="#kt_modal_qr">QR CODE</a>
+                                            <form target="_blank" action="{{ route('card') }}" method="post">
+                                                @csrf
+                                                @method('post')
+                                                <input type="hidden" name="nama" value="{{ $datacif->fullName }}">
+                                                <input type="hidden" name="nomor" value="{{ $datainfo->accountNumber }}">
+                                                <input type="hidden" name="id" value="{{ $datainfo->id }}">
+                                                
+                                                <button type="submit" class="btn btn-success fs-6 pt-1 px-8 ">
+                                                    Print Card
+                                                </button>
+                                                </form>    
+                                            {{-- <a href="{{ route('card') }}" class="btn btn-success fs-6 pt-1 px-8 ">Print Card</a> --}}
+                                            {{-- <a href="#" class="btn btn-success fs-6 pt-1 px-8 " data-bs-toggle="modal"
                                                 data-bs-target="#kt_modal_scan">SCAN QR CODE</a> --}}
                                         </div>
                                     </div>
@@ -246,7 +258,7 @@
                                     </span>
                                     <!--end::Svg Icon-->
                                 </div>
-                                {{-- <div class="modal fade" id="kt_modal_qr" tabindex="-1" aria-hidden="true">
+                                <div class="modal fade" id="kt_modal_qr" tabindex="-1" aria-hidden="true">
                                     <!--begin::Modal dialog-->
                                     <div class="modal-dialog mw-650px">
                                         <!--begin::Modal content-->
@@ -278,7 +290,7 @@
                                             <!--begin::Modal body-->
                                             <div class="modal-body scroll-y mx-5 mx-xl-18 pt-0 pb-4">
                                                 <div class="text-center py-3">
-                                                    {!! QrCode::size(300)->generate($datainfo->accountNumber) !!}
+                                                    {!! QrCode::size(300)->generate($datainfo->id) !!}
                                                 </div>
                                             </div>
                                             <!--end::Modal body-->
@@ -332,7 +344,7 @@
                                         <!--end::Modal content-->
                                     </div>
                                     <!--end::Modal dialog-->
-                                </div> --}}
+                                </div>
                                 <div class="modal fade" id="kt_modal_view_users" tabindex="-1" aria-hidden="true">
                                     <!--begin::Modal dialog-->
                                     <div class="modal-dialog modal-dialog-centered mw-650px">

@@ -65,4 +65,8 @@ class TabunganSiswaController extends Controller
             return redirect()->back();
         }
     }
+
+    public function test(){
+        return view('page.test');
+    }
 }

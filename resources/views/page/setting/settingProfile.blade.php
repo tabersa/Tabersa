@@ -15,7 +15,7 @@
             <ol class="breadcrumb breadcrumb-dot text-muted fs-6 fw-bold mb-10">
             @section('toolbartitle')
                 <span>
-                    <a href="{{ url('/setting') }}" style="color: #54CC58">Setting</a>
+                    <span  style="color: #54CC58">Setting</span>
                     &emsp;/&emsp;Profile
                 </span>
             @endsection

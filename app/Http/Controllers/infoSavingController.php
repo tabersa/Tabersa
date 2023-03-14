@@ -18,6 +18,7 @@ class infoSavingController extends Controller
             $token = $request->session()->get('token');
             $profile = getProfile($token);
             $saving = getSavingID($token, $id);
+            // dd($saving);
             $bank = getDataBank($token);
             if ($saving->succeeded != false) {
                 $datainfo = $saving->data;
@@ -136,5 +137,14 @@ class infoSavingController extends Controller
         }
     }
 
+    public function printcard(Request $request){
+        $token = $request->session()->get('token');
+        $nama = $request->nama;
+        $nomor = $request->nomor;
+        $id = $request->id;
+        
+        $saving = getSavingID($token, $id);
 
+        return view('page.tabungan.cardtest', compact('saving','id'));
+    }
 }
