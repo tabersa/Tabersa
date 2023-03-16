@@ -161,6 +161,7 @@
                                             <!--begin::Modal header-->
                                             <div class="modal-header pb-0 border-0 ">
                                                 <!--begin::Close-->
+                                                <input type="hidden" name="status" value="1">
                                                 <h1 class="mb-3 text-start">Konfirmasi Transaksi</h1>
                                                 <div class="btn btn-sm btn-icon btn-active-color-primary right-0" data-bs-dismiss="modal">
                                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
@@ -201,6 +202,7 @@
                                             <div class="modal-header pb-0 border-0 ">
                                                 <!--begin::Close-->
                                                 <h1 class="mb-3 text-start">Konfirmasi</h1>
+                                                <input type="hidden" name="status" value="2">
                                                 <div class="btn btn-sm btn-icon btn-active-color-primary right-0" data-bs-dismiss="modal">
                                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                                                     <span class="svg-icon svg-icon-1">

@@ -12,7 +12,12 @@
 @endsection
 
 @section('content')
-
+    <style>
+        td {
+            height: 50px;
+            vertical-align: middle;
+        }
+    </style>
     <!--begin::Content wrapper-->
     <div id="kt_app_content" class="content d-flex flex-column flex-column-fluid">
         <!--begin::Content container-->
@@ -42,7 +47,78 @@
                         <!--begin::Body-->
                         @if ($datainfo->auth == 2 && $datainfo->status == 2)
                             <div class="card-body py-3">
-                                <div class="d-flex justify-content-between shadow-sm">
+                                <div class="table-responsive">
+                                    <table class="table table-borderless">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="symbol symbol-50px me-5">
+                                                            <span class="symbol-label bg-light">
+                                                                <img src="assets/media/svg/avatars/001-boy.svg"
+                                                                    class="h-75 align-self-end" alt="" />
+                                                                <img class="h-100 "
+                                                                    src="{{ Avatar::create($datacif->fullName)->setTheme('pastel')->setShape('square')->setBorder(2, '#FFF', 90) }}" />
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex justify-content-start flex-column">
+                                                        <a href="{{ url('infocif') }}"
+                                                            class="text-dark fw-bold  mb-1 fs-6">{{ $datacif->fullName }}</a>
+                                                        <span class="text-dark fw-semibold d-block fs-7">CIF ID
+                                                            {{ $datacif->cifNumber }}</span>
+                                                    </div>
+                                                    {{-- <div class="row">
+                                                        <!--begin:: Avatar -->
+                                                        <div class="col-4">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="symbol symbol-50px me-5">
+                                                                    <span class="symbol-label bg-light">
+                                                                        <img src="assets/media/svg/avatars/001-boy.svg"
+                                                                            class="h-75 align-self-end" alt="" />
+                                                                        <img class="h-100 "
+                                                                            src="{{ Avatar::create($datacif->fullName)->setTheme('pastel')->setShape('square')->setBorder(2, '#FFF', 90) }}" />
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Avatar-->
+                                                        <!--begin::User details-->
+                                                        <div class="col">
+                                                            <div class="d-flex justify-content-start flex-column">
+                                                                <a href="{{ url('infocif') }}"
+                                                                    class="text-dark fw-bold  mb-1 fs-6">{{ $datacif->fullName }}</a>
+                                                                <span class="text-dark fw-semibold d-block fs-7">CIF ID
+                                                                    {{ $datacif->cifNumber }}</span>
+                                                            </div>
+                                                        </div>
+                                                        <!--begin::User details-->
+                                                    </div> --}}
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex justify-content-start flex-column">
+                                                        <span
+                                                            class="text-dark fw-bold mb-1 fs-6">{{ $dataproduct->productName }}</span>
+                                                        @foreach ($dataakun->data as $akun)
+                                                            @if ($datainfo->savingAccountType == $akun->value)
+                                                                <span
+                                                                    class="text-dark fw-semibold d-block fs-7">{{ $akun->label }}</span>
+                                                            @endif
+                                                        @endforeach
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span class="fw-bold text-danger mb-1 fs-4">Tabungan Direject</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                                {{-- <div class="d-flex justify-content-between shadow-sm">
                                     <div class="p-6">
                                         <div class="row">
                                             <!--begin:: Avatar -->
@@ -85,12 +161,121 @@
                                     <div class="p-6">
                                         <span class="fw-bold text-danger mb-1 fs-4">Tabungan Direject</span>
                                     </div>
-                                </div>
+                                </div> --}}
+
+
                             </div>
                         @else
                             <!--begin::Card body-->
                             <div class="card-body py-3">
-                                <div class="d-flex justify-content-between shadow-sm">
+                                <div class="table-responsive">
+                                    <table class="table table-borderless">
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-end">
+                                                    <div class="symbol symbol-50px me-5">
+                                                        <span class="symbol-label bg-light">
+                                                            <img class="h-100 "
+                                                                src="{{ Avatar::create($datacif->fullName)->setTheme('pastel')->setShape('square')->setBorder(2, '#FFF', 90) }}" />
+                                                        </span>
+                                                    </div>
+                                                    {{-- <div class="d-flex align-items-end">
+                                                        
+                                                    </div> --}}
+                                                </td>
+                                                <td class="text-start">
+                                                    <div class="d-flex justify-content-start flex-column">
+                                                        <span
+                                                            class="text-dark fw-bold  mb-1 fs-6">{{ $datacif->fullName }}</span>
+                                                        <span class="text-dark fw-semibold d-block fs-7">CIF ID
+                                                            {{ $datacif->cifNumber }}</span>
+                                                    </div>
+                                                </td>
+                                                {{-- <td>
+                                                    <div class="row">
+                                                        <!--begin:: Avatar -->
+                                                        <div class="col-4">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="symbol symbol-50px me-5">
+                                                                    <span class="symbol-label bg-light">
+                                                                        <img class="h-100 "
+                                                                            src="{{ Avatar::create($datacif->fullName)->setTheme('pastel')->setShape('square')->setBorder(2, '#FFF', 90) }}" />
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Avatar-->
+                                                        <!--begin::User details-->
+                                                        <div class="col">
+                                                            <div class="d-flex justify-content-start flex-column">
+                                                                <span
+                                                                    class="text-dark fw-bold  mb-1 fs-6">{{ $datacif->fullName }}</span>
+                                                                <span class="text-dark fw-semibold d-block fs-7">CIF ID
+                                                                    {{ $datacif->cifNumber }}</span>
+                                                            </div>
+                                                        </div>
+                                                        <!--begin::User details-->
+                                                    </div>
+                                                </td> --}}
+                                                <td>
+                                                    <div class="d-flex justify-content-start flex-column">
+                                                        <span
+                                                            class="text-dark fw-bold mb-1 fs-6">{{ $datainfo->accountNumber }}</span>
+                                                        <span class="text-dark fw-bold d-block fs-7">VA
+                                                            {{ $datainfo->virtualAccountNumber }}</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex justify-content-start flex-column">
+                                                        <span
+                                                            class="text-dark fw-bold mb-1 fs-6">{{ $dataproduct->productName }}</span>
+                                                        @foreach ($dataakun->data as $akun)
+                                                            @if ($datainfo->savingAccountType == $akun->value)
+                                                                <span
+                                                                    class="text-dark fw-semibold d-block fs-7">{{ $akun->label }}</span>
+                                                            @endif
+                                                        @endforeach
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex justify-content-start flex-column">
+                                                        <span class="text-dark fw-bold mb-1 fs-6">Saldo
+                                                            Akhir</span>
+                                                        <span class="text-dark fw-semibold d-block fs-7">Rp.
+                                                            {{ number_format($datainfo->endBalance, 0, ',', ',') }}</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex justify-content-center flex-column">
+                                                        <a href="#" class="btn btn-success fs-6 px-8 "
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#kt_modal_view_users">Rekening Koran</a>
+                                                        <a href="#" class="btn btn-success fs-6 pt-1 px-8 "
+                                                            data-bs-toggle="modal" data-bs-target="#kt_modal_qr">QR CODE</a>
+                                                        <form target="_blank" action="{{ route('card') }}" method="post">
+                                                            @csrf
+                                                            @method('post')
+                                                            <input type="hidden" name="nama"
+                                                                value="{{ $datacif->fullName }}">
+                                                            <input type="hidden" name="nomor"
+                                                                value="{{ $datainfo->accountNumber }}">
+                                                            <input type="hidden" name="id"
+                                                                value="{{ $datainfo->id }}">
+
+                                                            <button type="submit" class="btn btn-success fs-6 pt-1 px-8 ">
+                                                                Print Card
+                                                            </button>
+                                                        </form>
+                                                        {{-- <a href="{{ route('card') }}" class="btn btn-success fs-6 pt-1 px-8 ">Print Card</a> --}}
+                                                        {{-- <a href="#" class="btn btn-success fs-6 pt-1 px-8 " data-bs-toggle="modal"
+                                                            data-bs-target="#kt_modal_scan">SCAN QR CODE</a> --}}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                {{-- <div class="d-flex justify-content-between shadow-sm">
                                     <div class="p-6">
                                         <div class="row">
                                             <!--begin:: Avatar -->
@@ -163,13 +348,10 @@
                                                     Print Card
                                                 </button>
                                                 </form>    
-                                            {{-- <a href="{{ route('card') }}" class="btn btn-success fs-6 pt-1 px-8 ">Print Card</a> --}}
-                                            {{-- <a href="#" class="btn btn-success fs-6 pt-1 px-8 " data-bs-toggle="modal"
-                                                data-bs-target="#kt_modal_scan">SCAN QR CODE</a> --}}
                                         </div>
                                     </div>
 
-                                </div>
+                                </div>  --}}
                                 <!--begin::Table-->
                                 <div class="table-responsive">
                                     <table

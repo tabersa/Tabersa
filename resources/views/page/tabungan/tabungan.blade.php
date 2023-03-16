@@ -67,10 +67,14 @@
                                             <!--end::Avatar-->
                                             <!--begin::User details-->
                                             <div class="d-flex justify-content-start flex-column">
-
+                                                @if($datasaving->status == "2")
+                                                <div class="d-flex justify-content-start flex-column">
+                                                    <span class="text-danger  fw-bold  text-start d-block fs-7">Tabungan Reject</span>
+                                                </div>
+                                                @else
                                                 @if ($datasaving->virtualAccountNumber == null && $datasaving->accountNumber == null)
                                                     <div class="d-flex justify-content-start flex-column">
-                                                        <span class="text-danger text-start d-block fs-7">Account is
+                                                        <span class="text-warning  fw-bold  text-start d-block fs-7">Account is
                                                             Pending</span>
                                                     </div>
                                                 @elseif ($datasaving->virtualAccountNumber == null)
@@ -86,7 +90,7 @@
                                                             {{ $datasaving->virtualAccountNumber }}</span>
                                                     </div>
                                                 @endif
-
+                                                    @endif
                                             </div>
                                             <!--begin::User details-->
                                         </td>

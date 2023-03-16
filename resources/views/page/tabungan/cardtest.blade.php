@@ -38,7 +38,7 @@
             border-color: #000000;
             /* box-shadow: rgba(0, 0, 0, 0) 0px 20px 25px -5px, rgba(0, 0, 0, 0.0) 0px 10px 10px -5px; */
             display: flex;
-            border-radius: 10px;
+            /* border-radius: 10px; */
         }
 
         .card2 {
@@ -49,7 +49,7 @@
             border-color: #000000;
             /* box-shadow: rgba(0, 0, 0, 0) 0px 20px 25px -5px, rgba(0, 0, 0, 0.0) 0px 10px 10px -5px; */
             display: flex;
-            border-radius: 10px;
+            /* border-radius: 10px; */
         }
 
         .img-holder {
@@ -137,14 +137,14 @@
             <table style="position: absolute;margin-left: 20px;margin-top: 120px;font-size: 14px" >
                 <tbody>
                     <tr>
-                        <td class=" text-dark text-start" >Nama</td>
-                        <td class=" text-dark text-center" >&emsp13; : &emsp13;</td>
-                        <td class=" text-dark text-start" >{{ $saving->data->cif->fullName }}</td>
+                        {{-- <td class=" text-dark text-start" >Nama</td>
+                        <td class=" text-dark text-center" >&emsp13; : &emsp13;</td> --}}
+                        <td class="fs-3 text-dark text-start" >{{ $saving->data->cif->fullName }}</td>
                     </tr>
                     <tr>
-                        <td class=" text-dark text-start" >Nomor Tabungan</td>
-                        <td class=" text-dark text-center" >&emsp13; : &emsp13;</td>
-                        <td class=" text-dark text-start" >{{ $saving->data->accountNumber }}</td>
+                        {{-- <td class=" text-dark text-start" >Nomor Tabungan</td>
+                        <td class=" text-dark text-center" >&emsp13; : &emsp13;</td> --}}
+                        <td class="fs-7 text-dark text-start" >{{ $saving->data->accountNumber }}</td>
                     </tr>
                 </tbody>
             </table>

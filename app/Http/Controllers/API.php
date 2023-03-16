@@ -359,11 +359,12 @@ function authSaving($request, $id)
     $token = $request->session()->get('token');
     if (isset($_POST['verif'])) {
         $auth = 1;
-        $status = 1;
+        $status = $request->status;
     } else {
         $auth = 2;
-        $status = 2;
+        $status = $request->status;
     }
+    // dd($request->status);
     $body = array(
         "branchId" => $request->branchId,
         "cifNumber" => $request->cifNumber,

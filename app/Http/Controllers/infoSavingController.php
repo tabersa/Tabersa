@@ -24,9 +24,10 @@ class infoSavingController extends Controller
                 $datainfo = $saving->data;
                 $datacif = $saving->data->cif;
                 $dataproduct = $saving->data->savingProduct;
-
+                // dd($datainfo);
                 ////////////////
-                if ($datainfo->accountNumber != null) {
+                if ($datainfo->status != "0") {
+                    if($datainfo->status == "1"){
                     $curl = curl_init();
                     $api = config('properties.api');
                     curl_setopt_array(
@@ -82,6 +83,10 @@ class infoSavingController extends Controller
                     $dataakun = json_decode($response);
                     // dd($cif);
                         return view('page.tabungan.infotabungan', compact('bank', 'profile','trs', 'datainfo', 'datacif', 'dataproduct', 'dataakun'));
+                    } else {
+                        Alert::error('Error', 'Data Tabungan Ini Sudah Ditolak');
+                        return redirect()->route('tabungan');
+                    }
                 } else {
                     // Alert::error('Account Number '.$datacif->fullName.' Kosong', 'Mohon Autorisasi Dahulu');
                     $datatipe = getSavingAccountType($token);
