@@ -198,6 +198,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
 
     ],
 
@@ -216,6 +217,7 @@ return [
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        'Charts' => ConsoleTVs\Charts\ChartsServiceProvider::class,
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 

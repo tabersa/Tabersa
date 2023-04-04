@@ -99,10 +99,10 @@
                                                 <!--end::Avatar-->
                                                 <!--begin::User details-->
                                                 <div class="d-flex justify-content-start flex-column">
-                                                    <a class="fw-bold text-dark text-hover-primary d-block fs-5"
-                                                        href="infotabungan/{{ $datasaving->id }}/show">
+                                                    <span class="fw-bold text-dark d-block fs-5"
+                                                        >
                                                         {{ $datasaving->accountNumber }} / {{ $datasaving->virtualAccountNumber }}
-                                                    </a>
+                                                    </span>
                                                 </div>
                                                 <!--begin::User details-->
                                             </td>

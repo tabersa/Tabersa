@@ -705,7 +705,7 @@ function getTransaksiSearch($request)
 
 function authTransaksi($token, $id)
 {
-    if (isset($_POST['verif'])) {
+    if (isset($_POST['verif'])==='terima') {
         $auth = 1;
         $status = 1;
     } else {

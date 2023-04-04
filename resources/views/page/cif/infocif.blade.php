@@ -87,8 +87,13 @@
                                     <!-- nama -->
                                     <div class="form-outline mb-4">
                                         <label class="form-label fw-bold" for="form6Example1">No. CIF</label>
+                                        @if ($datainfo->cifNumber === null)
                                         <input name="cifNumber" type="text" id="form6Example1" class="form-control"
-                                            value="{{ $datainfo->cifNumber }}" />
+                                        />
+                                        @else
+                                        <input name="cifNumber" type="text" id="form6Example1" class="form-control"
+                                        disabled  value="{{ $datainfo->cifNumber }}" />
+                                        @endif
                                     </div>
 
                                     <!-- Text input -->

@@ -249,7 +249,7 @@
                                                         <a href="#" class="btn btn-success fs-6 px-8 "
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#kt_modal_view_users">Rekening Koran</a>
-                                                        <a href="#" class="btn btn-success fs-6 pt-1 px-8 "
+                                                        {{-- <a href="#" class="btn btn-success fs-6 pt-1 px-8 "
                                                             data-bs-toggle="modal" data-bs-target="#kt_modal_qr">QR CODE</a>
                                                         <form target="_blank" action="{{ route('card') }}" method="post">
                                                             @csrf
@@ -264,12 +264,36 @@
                                                             <button type="submit" class="btn btn-success fs-6 pt-1 px-8 ">
                                                                 Print Card
                                                             </button>
-                                                        </form>
+                                                        </form> --}}
                                                         {{-- <a href="{{ route('card') }}" class="btn btn-success fs-6 pt-1 px-8 ">Print Card</a> --}}
                                                         {{-- <a href="#" class="btn btn-success fs-6 pt-1 px-8 " data-bs-toggle="modal"
                                                             data-bs-target="#kt_modal_scan">SCAN QR CODE</a> --}}
                                                     </div>
                                                 </td>
+                                                <td>
+                                                    <div class="d-flex justify-content-center flex-column">
+                                                        <a href="#" class="btn btn-success fs-6 px-8"
+                                                            data-bs-toggle="modal" data-bs-target="#kt_modal_qr">QR CODE</a>
+                                                    </div>
+                                                </td>
+                                                {{-- <td>
+                                                    <div class="d-flex justify-content-center flex-column">
+                                                        <form target="_blank" action="{{ route('card') }}" method="post">
+                                                            @csrf
+                                                            @method('post')
+                                                            <input type="hidden" name="nama"
+                                                                value="{{ $datacif->fullName }}">
+                                                            <input type="hidden" name="nomor"
+                                                                value="{{ $datainfo->accountNumber }}">
+                                                            <input type="hidden" name="id"
+                                                                value="{{ $datainfo->id }}">
+
+                                                            <button type="submit" class="btn btn-success fs-6 px-8 ">
+                                                                Print Card
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </td> --}}
                                             </tr>
                                         </tbody>
                                     </table>

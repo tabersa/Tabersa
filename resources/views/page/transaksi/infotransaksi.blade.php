@@ -384,7 +384,7 @@
                                             <button type="button"
                                                 class="btn btn-danger text-light w-40 ls-3 text-uppercase"
                                                 data-bs-dismiss="modal">Tidak</button>
-                                            <input type="submit" name="verif" value="Ya"
+                                            <input type="submit" name="verif" value="terima"
                                                 class="btn btn-success text-light w-40 ls-3 text-uppercase">
                                         </div>
                                     </div>
@@ -429,7 +429,7 @@
                                             <button type="button"
                                                 class="btn btn-danger text-light w-40 ls-3 text-uppercase"
                                                 data-bs-dismiss="modal">Tidak</button>
-                                            <input type="submit" name="verif" value="Ya"
+                                            <input type="submit" name="verif" value="tolak"
                                                 class="btn btn-success text-light w-40 ls-3 text-uppercase">
                                         </div>
                                     </div>
@@ -438,7 +438,23 @@
                                 <!--end::Modal dialog-->
                             </div>
                             </form>
-                        @else
+                        @elseif ($datainfo->status == 2 && $datainfo->auth == 2)
+                            <div class="row">
+                                <div class="col-md-6">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="button" class="btn btn-secondary w-100 ls-3 text-uppercase"
+                                        value="Kembali" onclick="history.back();">
+                                </div>
+                                {{-- <div class="col-md-2">
+                                    <a href="/cetakmutasi/{{ $datainfo->id }}" target="_blank"
+                                        class="btn btn-success w-100 ls-3 text-uppercase">Cetak Mutasi</a>
+                                </div> --}}
+                            </div>
+                            @else
                             <div class="row">
                                 <div class="col-md-6">
                                     &nbsp;
