@@ -206,7 +206,7 @@ function getCifID($token, $id)
 function authCIf($request, $id)
 {
     $token = $request->session()->get('token');
-    if (isset($_POST['verif'])) {
+    if (isset($_POST['verif']) === "verif") {
         $auth = 1;
         $status = 1;
     } else {
@@ -440,7 +440,8 @@ function guidv4($data)
     return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
 }
 
-function generateRandomString($length = 10) {
+function generateRandomString($length = 10)
+{
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
     $randomString = '';
@@ -488,7 +489,7 @@ function addTransaksi($request)
             CURLOPT_POSTFIELDS => '{
                 "id": "' . guidv4(openssl_random_pseudo_bytes(16)) . '",
                 "cifId": "' . $cifid . '",
-                "transactionDate": "' . date('Y-m-d').'T00:00:00' . '",
+                "transactionDate": "' . date('Y-m-d') . 'T00:00:00' . '",
                 "transactionGroup": "10",
                 "invoiceNumber": "' . generateRandomString(10) . '",
                 "description": "' . $deskripsi . '",
@@ -529,7 +530,7 @@ function addTransaksi($request)
     );
     $tran = curl_exec($curl);
     curl_close($curl);
-    
+
     $transaksi = json_decode($tran);
     // dd($transaksi);
     return $transaksi;
@@ -663,15 +664,22 @@ function getTransaksiCif($token, $transaksi)
     return $datacif;
 }
 
+function lastOfMonth($year, $month)
+{
+    return date("Y-m-d", strtotime('-1 second', strtotime('+1 month', strtotime($month . '/01/' . $year . ' 00:00:00'))));
+}
+
 function getTransaksiSearch($request)
 {
     $token = $request->session()->get('token');
     $ts = strtotime($request->tahun . " " . $request->bulan);
-    $last = date('t', $ts);
+    $last = lastOfMonth($request->tahun, $request->bulan);
+    // dd($last);
+    // $last = date('t', $ts);
     $body = array(
         "accountNumber" => $request->accountNumber,
         "startDate" => $request->tahun . "-" . $request->bulan . "-01",
-        "endDate" => $request->tahun . "-" . $request->bulan . "-" . $last,
+        "endDate" => $last,
         "transactionGroup" => ""
     );
     $api = config('properties.api');
@@ -697,6 +705,7 @@ function getTransaksiSearch($request)
     );
     $response = curl_exec($curl);
     $datasearch = json_decode($response);
+    // dd($datasearch);
     curl_close($curl);
     // dd($body);
     return $datasearch;
@@ -705,7 +714,7 @@ function getTransaksiSearch($request)
 
 function authTransaksi($token, $id)
 {
-    if (isset($_POST['verif'])==='terima') {
+    if (isset($_POST['verif']) === 'terima') {
         $auth = 1;
         $status = 1;
     } else {
@@ -1600,4 +1609,44 @@ function getDataPurpose($token)
     $datapurpose = json_decode($response);
     curl_close($curl);
     return $datapurpose;
+}
+
+function registUser($token)
+{
+    $api = config('properties.api');
+    $curl = curl_init();
+
+    curl_setopt_array(
+        $curl,
+        array(
+            CURLOPT_URL => $api . 'identity/register',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+  "firstName": "<string>",
+  "lastName": "<string>",
+  "email": "<email>",
+  "userName": "<string>",
+  "password": "<string>",
+  "confirmPassword": "<string>",
+  "phoneNumber": "<string>",
+  "userType": 0
+}',
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json',
+                'Authorization: Bearer ' . $token
+            ),
+        )
+    );
+
+    $response = curl_exec($curl);
+
+    curl_close($curl);
+    echo $response;
+
 }

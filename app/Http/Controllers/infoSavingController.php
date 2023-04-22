@@ -124,8 +124,10 @@ class infoSavingController extends Controller
 
     public function search(Request $request,$id)
     {
+        // dd($request->all());
         $token = $request->session()->get('token');
         $datasearch = getTransaksiSearch($request);
+        // dd($datasearch);
         $bank = getDataBank($token);
         $saving = getSavingID($token, $id);
         $datainfo = $saving->data;

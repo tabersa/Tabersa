@@ -3,8 +3,8 @@
 
 @extends('dashboard.layout.headhtml')
 
-@section('title', 'Tabersa | Transaksi')
-@section('toolbartitle', 'Transaksi')
+@section('title', 'Tabersa | User')
+@section('toolbartitle', 'User')
 
 @section('content')
 
@@ -26,8 +26,8 @@
                     <div class="card-header border-0 pt-5">
                         <!--begin::Title-->
                         <h3 class="card-title align-items-start flex-column text-uppercase">
-                            <span class="card-label fs-1 fw-bold text-gray-800 mb-4"><br>Transaksi</span>
-                            <span class="text-gray-400 fw-semibold fs-6">Periksa Histori Transaksi Anda Disini</span>
+                            <span class="card-label fs-1 fw-bold text-gray-800 mb-4"><br>User</span>
+                            <span class="text-gray-400 fw-semibold fs-6">Periksa Data User Anda Disini</span>
                         </h3>
                         <!--end::Title-->
 
@@ -55,83 +55,7 @@
                             <!--end::Table head-->
                             <!--begin::Table body-->
                             <tbody>
-                                @forelse($transaksi->data as $datatransaksi)
-                                    <tr class="table-row" data-href="infotransaksi/show/{{ $datatransaksi->id }}">
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="symbol symbol-50px me-3">
-                                                    <img class="h-100 "
-                                                        src="{{ Avatar::create($datatransaksi->cif->fullName)->setTheme('tabersa')->setShape('square')->toBase64() }}" />
-
-                                                </div>
-                                                <span class="fw-bold fs-6">
-                                                    {{ $datatransaksi->cif->fullName }}
-                                                </span>
-                                            </div>
-                                        </td>
-                                        <td class="text-start">
-                                            <span
-                                                class=" fs-6">{{ date('d F Y', strtotime(substr($datatransaksi->transactionDate, 0, 10))) }}</span>
-                                        </td>
-                                        <td class="text-start">
-                                            <span class=" fs-6">{{ $datatransaksi->invoiceNumber }}</span>
-                                        </td>
-                                        <td class="text-start">
-                                            <span class=" fs-6">{{ $datatransaksi->description }}</span>
-                                        </td>
-                                        <td class="text-end">
-                                            {{-- <div id="kt_table_widget_14_chart_1" class="h-50px mt-n8 pe-7" data-kt-chart-color="success"></div> --}}
-                                            <span class=" fs-6">Rp
-                                                {{ number_format($datatransaksi->totalAmount, 0, ',', ',') }}</span>
-                                        </td>
-                                        <td class="text-center">
-
-                                            @if ($datatransaksi->status === 0)
-                                                <a href="#" class="badge badge-warning">
-                                                    <span class="text-hover-info fw-bold">
-                                                        Pending
-                                                    </span>
-                                                </a>
-                                            @elseif ($datatransaksi->status === 1)
-                                                <a href="#" class="badge badge-success">
-                                                    <span class="text-hover-info fw-bold"7BFEF">
-                                                        Approved
-                                                    </span>
-                                                </a>
-                                            @elseif ($datatransaksi->status === 2)
-                                                <a href="#" class="badge badge-danger">
-                                                    <span class="text-hover-info fw-bold">
-                                                        Rejected
-                                                    </span>
-                                                </a>
-                                            @elseif ($datatransaksi->status === 3)
-                                                <a href="#" class="badge badge-info">
-                                                    <span class="text-hover-info fw-bold">
-                                                        Canceled by System
-                                                    </span>
-                                                </a>
-                                            @elseif ($datatransaksi->status === 4)
-                                                <a href="#" class="badge badge-info">
-                                                    <span class="text-hover-info fw-bold">
-                                                        Canceled by User
-                                                    </span>
-                                                </a>
-                                            @else
-                                                <a href="#" class="badge badge-danger">
-                                                    <span class="text-hover-info fw-bold">
-                                                        Failed
-                                                    </span>
-                                                </a>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @empty
-                                <tr>
-                                    <td colspan="6">
-                                        Data Kosong
-                                    </td>
-                                </tr>
-                                @endforelse
+                                
 
                             </tbody>
                             <!--end::Table body-->

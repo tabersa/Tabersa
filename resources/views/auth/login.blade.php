@@ -149,7 +149,7 @@ License: For each use you must have a valid license purchased only from above li
                                 <span class="fw-bold"> Username</span>
                                 <input id="username" type="text"
                                     class=" bg-transparent mt-4 form-control @error('username') is-invalid @enderror"
-                                    name="username" value="601687" required autocomplete="email"
+                                    name="username" required autocomplete="email"
                                     autofocus />
                                 <!--end::Email-->
                             </div>

@@ -1,16 +1,45 @@
 @php
-    $side = json_decode(file_get_contents(public_path() . '/assets/menu.json'), true);
+    // $side = json_decode(file_get_contents(public_path() . '/assets/menu.json'), true);
     
-    $datamenu = $side['data'][0]['menu'];
-    $menu = [];
-    $jumlah = count($datamenu);
-    $menuhitung = 0;
+    // $datamenu = $side['data'][0]['menu'];
+    // $menu = [];
+    // $jumlah = count($datamenu);
+    // $menuhitung = 0;
     
-    for ($i = 0; $i < $jumlah; $i++) {
-        $menu[] = $datamenu[$i]['name'];
-        // list($i) = $datamenu[$i]['name'];
-    }
-    // dd($datamenu[5]["hasChild"]);
+    // for ($i = 0; $i < $jumlah; $i++) {
+    //     $menu[] = $datamenu[$i]['name'];
+    //     // list($i) = $datamenu[$i]['name'];
+    // }
+    // // dd($datamenu[5]["hasChild"]);
+    
+    ///////////////////////////////////////////////
+    $api = config('properties.api');
+    $token = session()->get('token');
+    $curl = curl_init();
+    
+    curl_setopt_array($curl, [
+        CURLOPT_URL => $api . 'v1/appadmin/get-all-menu',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'GET',
+        CURLOPT_HTTPHEADER => [
+            'Authorization: Bearer ' . $token
+        ],
+    ]);
+    
+    $response = curl_exec($curl);
+    $menu = json_decode($response);
+    curl_close($curl);
+    // dd($menu->data);
+    // for ($i = 0; $i < $jumlah; $i++) {
+    //     $menu[] = $datamenu[$i]['name'];
+    //     list($i) = $datamenu[$i]['name'];
+    // }
+    
 @endphp
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -59,9 +88,9 @@
             <!--begin::Menu-->
             <div class="menu menu-column menu-rounded menu-sub-indention px-3" id="#kt_app_sidebar_menu"
                 data-kt-menu="true" data-kt-menu-expand="false">
-                @foreach ($datamenu as $key => $menu)
+                @foreach ($menu->data as $key => $menu)
                     <!--begin:Menu item-->
-                    @if ($menu['hasChild'] == 1)
+                    @if ($menu->hasChild == 1)
                         <!--begin:Menu item-->
                         <div data-kt-menu-trigger="click" class="menu-item menu-accordion my-4">
                             <!--begin:Menu link-->
@@ -69,26 +98,26 @@
                                 <span class="menu-icon">
                                     <!--begin::Svg Icon | path: icons/duotune/communication/com005.svg-->
                                     <span class="svg-icon svg-icon-2">
-                                        <i class="{{ $menu['icon'] }}"></i>
+                                        <i class="{{ $menu->icon }}"></i>
                                     </span>
                                     <!--end::Svg Icon-->
                                 </span>
-                                <span class="menu-title text-light fw-bold">{{ $menu['name'] }}</span>
+                                <span class="menu-title text-light fw-bold">{{ $menu->name }}</span>
                                 <span class="menu-arrow"></span>
                             </span>
                             <!--end:Menu link-->
                             <!--begin:Menu sub-->
                             <div class="menu-sub menu-sub-accordion">
-                                @foreach ($menu['subMenu'] as $key => $submenu)
+                                @foreach ($menu->subMenu as $key => $submenu)
                                     <!--begin:Menu item-->
                                     <div class="menu-item">
                                         <!--begin:Menu link-->
-                                        <a class="menu-link" href="{{ route($submenu['url']) }}">
+                                        <a class="menu-link" href="{{ route($submenu->url) }}">
                                             <span class="menu-bullet">
                                                 <span class="bullet bullet-dot"></span>
                                             </span>
                                             <span
-                                                class="menu-title text-light fw-semibold">{{ $submenu['name'] }}</span>
+                                                class="menu-title text-light fw-semibold">{{ $submenu->name}}</span>
                                         </a>
                                         <!--end:Menu link-->
                                     </div>
@@ -100,15 +129,15 @@
                     @else
                         <div class="menu-item menu-accordion my-4">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="{{ url($menu['url']) }}">
+                            <a class="menu-link" href="{{ url($menu->url) }}">
                                 <span class="menu-icon">
                                     <!--begin::Svg Icon | path: icons/duotune/communication/com005.svg-->
                                     <span class="svg-icon svg-icon-2">
-                                        <i class="{{ $menu['icon'] }}"></i>
+                                        <i class="{{ $menu->icon }}"></i>
                                     </span>
                                     <!--end::Svg Icon-->
                                 </span>
-                                <span class="menu-title text-light fw-bold">{{ $menu['name'] }}</span>
+                                <span class="menu-title text-light fw-bold">{{ $menu->name }}</span>
                                 {{-- <span class="menu-arrow"></span> --}}
                             </a>
                             <!--end:Menu link-->

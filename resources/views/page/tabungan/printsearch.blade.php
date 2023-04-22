@@ -96,8 +96,8 @@
             <img alt="Logo" src="{{ $bank->data->imageUrl }}" height="100px" width="auto" />
         </div>
         <div class="p-8 fw-bold fs-1">
-                {{ $bank->data->bankName }} <br>
-                {{ $bank->data->address }}
+            {{ $bank->data->bankName }} <br>
+            {{ $bank->data->address }}
         </div>
     </div>
     </div>
@@ -223,7 +223,6 @@
                             @endif
                         </tr>
                     @endforeach
-
                 @endforeach
 
 
@@ -302,13 +301,19 @@
     <!--end::Table-->
 
     <footer class="position-fixed bottom-0" style="right: 0;">
-        <div >
-        <?php echo date('l, d-m-Y ') ?> &nbsp; :  &nbsp; <?php echo date('H:i'); ?>
-            
+        <div>
+            <?php echo date('l, d-m-Y '); ?> &nbsp; : &nbsp; <?php echo date('H:i'); ?>
+
         </div>
     </footer>
 </body>
-
+<style>
+    @media print {
+        td {
+            break-inside: avoid;
+        }
+    }
+</style>
 <script>
     window.print();
     window.onafterprint = window.close;

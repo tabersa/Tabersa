@@ -27,6 +27,15 @@
                     "subMenu": []
                 },
                 {
+                    "id": "030000",
+                    "name": "Tabungan Siswa",
+                    "description": "Keterangan",
+                    "icon": "bi bi-qr-code text-light fs-1",
+					"url": "tabungansiswa",
+                    "hasChild": "0",
+                    "subMenu": []
+                }, 
+                {
                     "id": "040000",
                     "name": "Transaksi",
                     "description": "Keterangan",
@@ -60,14 +69,24 @@
                         },
 						{
                             "id": "060200",
+                            "name": "User",
+                            "description": "Keterangan",
+                            "icon": "bi bi-person-badge-fill text-light fs-1",
+							"url": "user",
+							"hasChild": "0",
+							"subMenu": []
+                        },
+						{
+                            "id": "060300",
                             "name": "Literasi & Edukasi",
                             "description": "Keterangan",
                             "icon": "bi bi-bookmarks-fill text-light fs-1",
 							"url": "news",
 							"hasChild": "0",
 							"subMenu": []
-                        },{
-                            "id": "060300",
+                        },
+                        {
+                            "id": "060400",
                             "name": "Tabungan",
                             "description": "Keterangan",
                             "icon": "bi bi-bookmarks-fill text-light fs-1",

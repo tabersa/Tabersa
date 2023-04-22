@@ -15,6 +15,8 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\TabunganSiswaController;
+use App\Http\Controllers\UserController;
+
 
 
 /*
@@ -83,7 +85,7 @@ Route::post('/news/add', [NewsController::class, 'add'])->name('news.add');
 
 Route::get('/downloadpdf', [DownloadController::class, 'getDownload'])->name('download');
 
-
+Route::get('/user', [UserController::class, 'index'])->name('user');
 
 
 // Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');

@@ -3,7 +3,7 @@
 
 @extends('dashboard.layout.headhtml')
 
-@section('title', 'Tabersa | Mutasi')
+@section('title', 'Tabersa | Mutasi Transaksi')
 @section('toolbartitle')
     <span>
         <a href="{{ url('/transaksi') }}" style="color: #54CC58">Transaksi</a>
@@ -73,8 +73,9 @@
                                                 </td>
                                                 <td>
                                                     <div class="d-flex justify-content-start flex-column">
-                                                        <span class="text-dark fw-bold text-hover-primary mb-1 fs-6">Nomor
-                                                            Tiket</span>
+                                                        <span class="text-dark fw-bold text-hover-primary mb-1 fs-6">
+                                                            Nomor Tagihan
+                                                        </span>
                                                         <span
                                                             class="text-dark fw-semibold d-block fs-7">{{ $datainfo->invoiceNumber }}</span>
                                                     </div>
@@ -101,11 +102,18 @@
                                                     <span
                                                         class="text-dark fw-semibold d-block fs-7">{{ date('d F Y', strtotime(substr($datainfo->transactionDate, 0, 10))) }}</span>
                                                 </td>
-                                                <td class="text-end">
-                                                    <a href="#" class="btn btn-success er fs-6 px-8 py-4"
-                                                        data-bs-toggle="modal" data-bs-target="#kt_modal_view_users">Bukti
-                                                        Transfer</a>
-                                                </td>
+                                                @if ($datainfo->status === 2)
+                                                    <td class="text-end">
+                                                        <span class="badge badge-danger text-light">Transaksi Ditolak</span>
+                                                    </td>
+                                                @else
+                                                    <td class="text-end">
+                                                        <a href="#" class="btn btn-success er fs-6 px-8 py-4"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#kt_modal_view_users">Bukti
+                                                            Transfer</a>
+                                                    </td>
+                                                @endif
                                             </tr>
                                         </tbody>
                                     </table>
@@ -454,7 +462,7 @@
                                         class="btn btn-success w-100 ls-3 text-uppercase">Cetak Mutasi</a>
                                 </div> --}}
                             </div>
-                            @else
+                        @else
                             <div class="row">
                                 <div class="col-md-6">
                                     &nbsp;

@@ -3,7 +3,7 @@
 
 @extends('dashboard.layout.headhtml')
 
-@section('title', 'Tabersa | Customer Information Page')
+@section('title', 'Tabersa | CIF Detail')
 
 
 
@@ -87,13 +87,13 @@
                                     <!-- nama -->
                                     <div class="form-outline mb-4">
                                         <label class="form-label fw-bold" for="form6Example1">No. CIF</label>
-                                        @if ($datainfo->cifNumber === null)
+                                        {{-- @if ($datainfo->cifNumber === null) --}}
                                         <input name="cifNumber" type="text" id="form6Example1" class="form-control"
                                         />
-                                        @else
+                                        {{-- @else
                                         <input name="cifNumber" type="text" id="form6Example1" class="form-control"
-                                        disabled  value="{{ $datainfo->cifNumber }}" />
-                                        @endif
+                                        disabled value="{{ $datainfo->cifNumber }}" />
+                                        @endif --}}
                                     </div>
 
                                     <!-- Text input -->
@@ -1021,7 +1021,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger text-light w-40 ls-3 text-uppercase"
                                 data-bs-dismiss="modal">Tidak</button>
-                            <input type="submit" name="verif" value="Ya"
+                            <input type="submit" name="verif" value="tolak"
                                 class="btn btn-success text-light w-40 ls-3 text-uppercase">
                         </div>
                     </div>

@@ -3,7 +3,7 @@
 
 @extends('dashboard.layout.headhtml')
 
-@section('title', 'Tabersa | Customer Information Page')
+@section('title', 'Tabersa | CIF')
 
 
 @section('content')
@@ -74,13 +74,19 @@
                                                 </div>
                                                 <!--end::Avatar-->
                                                 <!--begin::User details-->
-                                                @if ($datacif->cifNumber == null)
-                                                    <div class="d-flex justify-content-start flex-column">
-                                                        <span
-                                                            class="text-dark text-start fw-bold mb-1 fs-6">{{ $datacif->fullName }}</span>
-                                                        <span class="text-dark text-start fw-semibold d-block fs-7">CIF is
-                                                            Null</span>
-                                                    </div>
+                                                @if ($datacif->status === 2)
+                                                <div class="d-flex justify-content-start flex-column">
+                                                    <span
+                                                        class="text-dark text-start fw-bold mb-1 fs-6">{{ $datacif->fullName }}</span>
+                                                    <span class="text-danger text-start fw-semibold d-block fs-7">DATA CIF DITOLAK</span>
+                                                </div>
+                                                @elseif ($datacif->cifNumber == null)
+                                                <div class="d-flex justify-content-start flex-column">
+                                                    <span
+                                                        class="text-dark text-start fw-bold mb-1 fs-6">{{ $datacif->fullName }}</span>
+                                                    <span class="text-dark text-start fw-semibold d-block fs-7">CIF is
+                                                        Null</span>
+                                                </div>
                                                 @else
                                                     <div class="d-flex justify-content-start flex-column">
                                                         <span
