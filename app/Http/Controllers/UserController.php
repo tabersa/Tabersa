@@ -17,7 +17,23 @@ class UserController extends Controller
         $profile = getProfile($token);
         $transaksi = getTransaksi($token);
         $bank = getDataBank($token);
-        return view('page.user.user', compact('bank', 'profile'));
+        $menu = getAllMenu();
+        $datamenu = $menu->data;
+        return view('page.user.user', compact('bank', 'profile','datamenu'));
+
     }
 
+    public function register(Request $request){
+        $token = $request->session()->get('token');
+        $regis = registUser($request,$token);
+        // dd($request->all());
+        if($regis->succeeded == "true"){
+            Alert::success('Selamat', 'Data User Berhasil Disimpan');
+            return redirect()->route('user');
+        }
+        else{
+            Alert::error('Error', 'Periksa Kembali Data Anda');
+            return redirect()->route('user');
+        }
+    }
 }

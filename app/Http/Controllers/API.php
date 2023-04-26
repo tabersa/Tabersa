@@ -43,7 +43,7 @@ function getTokenData(Request $request)
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => json_encode($body),
             CURLOPT_HTTPHEADER => array(
-                'tenant:' . $request->tenant,
+                'tenant: root',
                 'Content-Type: application/json',
                 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjExNDFhMTg4LTVhMDktMzExYi1iYmEyLTRhZDgzMTU2MDk1OCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImJwcmRlbW9AdGFiZXJzYS5pZCIsImZ1bGxOYW1lIjoiQlBSIFNBSEFCQVQgQU5BSyBORUdFUkkgIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkJQUiBTQUhBQkFUIEFOQUsgTkVHRVJJIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvc3VybmFtZSI6IiIsImlwQWRkcmVzcyI6IjE4MC4yNTIuMTcxLjIxIiwidGVuYW50IjoiNjAxNjg3IiwiZXhwIjoxNjcxNTQ5MzY5fQ._BXDryhH8yzofNhsSpcYw0Oyuo1KzzuQ8k7BcKgdFxg'
             ),
@@ -1611,7 +1611,7 @@ function getDataPurpose($token)
     return $datapurpose;
 }
 
-function registUser($token)
+function registUser(Request $request, $token)
 {
     $api = config('properties.api');
     $curl = curl_init();
@@ -1628,15 +1628,15 @@ function registUser($token)
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => '{
-  "firstName": "<string>",
-  "lastName": "<string>",
-  "email": "<email>",
-  "userName": "<string>",
-  "password": "<string>",
-  "confirmPassword": "<string>",
-  "phoneNumber": "<string>",
-  "userType": 0
-}',
+                "firstName": "' . $request->firstname . '",
+                "lastName": "' . $request->lastname . '",
+                "email": "' . $request->email . '",
+                "userName": "' . $request->username . '",
+                "password": "' . $request->password . '",
+                "confirmPassword": "' . $request->confirmpasword . '",
+                "phoneNumber": "' . $request->phonenumber . '",
+                "userType": "' . $request->usertype . '"
+            }',
             CURLOPT_HTTPHEADER => array(
                 'Content-Type: application/json',
                 'Authorization: Bearer ' . $token
@@ -1645,8 +1645,34 @@ function registUser($token)
     );
 
     $response = curl_exec($curl);
-
+    $dataregis = json_decode($response);
+    // dd($dataregis);
     curl_close($curl);
-    echo $response;
+    return $dataregis;
 
+}
+
+function getAllMenu(){
+    $api = config('properties.api');
+    $token = session()->get('token');
+    $curl = curl_init();
+    
+    curl_setopt_array($curl, [
+        CURLOPT_URL => $api . 'v1/appadmin/get-all-menu',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'GET',
+        CURLOPT_HTTPHEADER => [
+            'Authorization: Bearer ' . $token
+        ],
+    ]);
+    
+    $response = curl_exec($curl);
+    $menu = json_decode($response);
+    curl_close($curl);
+    return $menu;
 }

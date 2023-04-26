@@ -86,6 +86,8 @@ Route::post('/news/add', [NewsController::class, 'add'])->name('news.add');
 Route::get('/downloadpdf', [DownloadController::class, 'getDownload'])->name('download');
 
 Route::get('/user', [UserController::class, 'index'])->name('user');
+Route::post('/user/register', [UserController::class, 'register'])->name('user.register');
+
 
 
 // Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');

@@ -49,7 +49,6 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validate($request, [
-            'tenant' => 'required',
             'username' => 'required',
             'password' => 'required',
         ]);
@@ -60,7 +59,7 @@ class LoginController extends Controller
                 $refresh = RefreshToken($data->data->token, $data->data->refreshToken);
                 $token = $data->data->token;
                 Session::put('token', $token);
-                Session::put('tenant', $request->tenant);
+                // Session::put('tenant', $request->tenant);
                 Alert::success('Selamat', 'Anda Berhasil Login');
                 return redirect()->route('dashboard');
             } else {

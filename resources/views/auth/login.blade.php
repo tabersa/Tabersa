@@ -136,14 +136,14 @@ License: For each use you must have a valid license purchased only from above li
                                     class="form-control bg-transparent mt-4" />
                                 <!--end::Email-->
                             </div> --}}
-                            <div class="fv-row mb-3">
+                            {{-- <div class="fv-row mb-3">
                                 <!--begin::Email-->
                                 <span class="fw-bold"> Tenant</span>
                                 <input id="tenant" type="text"
                                     class=" bg-transparent mt-4 form-control @error('tenant') is-invalid @enderror"
                                     name="tenant" value="{{ old('tenant') }}" required autofocus />
                                 <!--end::Email-->
-                            </div>
+                            </div> --}}
                             <div class="fv-row mb-3">
                                 <!--begin::Email-->
                                 <span class="fw-bold"> Username</span>

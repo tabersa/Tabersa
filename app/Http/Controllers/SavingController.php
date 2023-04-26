@@ -24,7 +24,7 @@ class SavingController extends Controller
                 return view('page.tabungan.tabungan', compact('savingType','bank','profile', 'datainfo'));
             }
         } else {
-            Alert::error('Error Title', 'Error Message')->width('1000px');
+            Alert::error('Error Title', 'Error Message');
             return redirect()->route('/');
         }
     }

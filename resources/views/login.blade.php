@@ -98,14 +98,14 @@ License: For each use you must have a valid license purchased only from above li
                             id="kt_sign_in_form">
                             @csrf
                             <!--begin::Heading-->
-                            <div class="text-center mb-11">
+                            <div class="text-center mb-lg-20">
                                 <!--begin::Title-->
                                 <img src="{{ asset('assets/media/tabersa/logohorizontal.png') }}" alt=""
                                     height="90" width="auto">
                                 <!--end::Title-->
                             </div>
                             
-                            <div class="form-floating mb-7">
+                            {{-- <div class="form-floating mb-7">
                                 <!--begin::Email-->
                                 
                                 <input id="floatingInput" type="text"
@@ -115,7 +115,7 @@ License: For each use you must have a valid license purchased only from above li
                                     />
                                     <label for="floatingInput"> Tenant</label>
                                 <!--end::Email-->
-                            </div>
+                            </div> --}}
                             <div class="form-floating mb-7">
                                 <!--begin::Email-->
                                 
