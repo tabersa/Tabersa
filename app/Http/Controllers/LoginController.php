@@ -59,6 +59,7 @@ class LoginController extends Controller
                 $refresh = RefreshToken($data->data->token, $data->data->refreshToken);
                 $token = $data->data->token;
                 Session::put('token', $token);
+                Session::put('userId', $data->data->userId);              
                 // Session::put('tenant', $request->tenant);
                 Alert::success('Selamat', 'Anda Berhasil Login');
                 return redirect()->route('dashboard');

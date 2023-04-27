@@ -1652,11 +1652,12 @@ function registUser(Request $request, $token)
 
 }
 
-function getAllMenu(){
+function getAllMenu()
+{
     $api = config('properties.api');
     $token = session()->get('token');
     $curl = curl_init();
-    
+
     curl_setopt_array($curl, [
         CURLOPT_URL => $api . 'v1/appadmin/get-all-menu',
         CURLOPT_RETURNTRANSFER => true,
@@ -1670,9 +1671,146 @@ function getAllMenu(){
             'Authorization: Bearer ' . $token
         ],
     ]);
-    
+
     $response = curl_exec($curl);
     $menu = json_decode($response);
     curl_close($curl);
     return $menu;
+}
+
+function getUser()
+{
+
+    $api = config('properties.api');
+    $token = session()->get('token');
+    $curl = curl_init();
+
+    curl_setopt_array(
+        $curl,
+        array(
+            CURLOPT_URL => $api . 'users',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => [
+                'Authorization: Bearer ' . $token
+            ],
+        )
+    );
+
+    $response = curl_exec($curl);
+    $datauser = json_decode($response);
+    curl_close($curl);
+    return $datauser;
+
+}
+
+function createMenuUser($id, $menu)
+{
+    $curl = curl_init();
+
+    $api = config('properties.api');
+    $token = session()->get('token');
+
+    curl_setopt_array(
+        $curl,
+        array(
+            CURLOPT_URL => $api . 'v1/appadmin/create-user-menu',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+            "userId": "' . $id . '",
+            "menuId": [
+                ' . $menu . '
+            ]
+                }',
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json',
+                'Authorization: Bearer ' . $token
+            ),
+        )
+    );
+
+    $response = curl_exec($curl);
+    $createMenu = json_decode($response);
+    curl_close($curl);
+    return $createMenu;
+
+}
+
+function getUserMenu()
+{
+
+    $api = config('properties.api');
+    $token = session()->get('token');
+    $userId = session()->get('userId');
+    $curl = curl_init();
+
+    curl_setopt_array(
+        $curl,
+        array(
+            CURLOPT_URL => $api . 'v1/appadmin/get-all-menu/',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'userId: ' . $userId,
+                'Authorization: Bearer ' . $token
+            ),
+        )
+    );
+
+    $response = curl_exec($curl);
+    $usermenu = json_decode($response);
+    curl_close($curl);
+    return $usermenu;
+
+}
+
+function changeActive($request)
+{
+    
+    $api = config('properties.api');
+    $token = session()->get('token');
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => $api . 'identity/set-active-status',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'PUT',
+        CURLOPT_POSTFIELDS => '{
+  "userId": "'.$request->user.'",
+  "isActive": '.$request->status.'
+}',
+        CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $token
+        ),
+    )
+    );
+
+    $response = curl_exec($curl);
+    $status = json_decode($response);
+
+    curl_close($curl);
+    return $status;
+
 }

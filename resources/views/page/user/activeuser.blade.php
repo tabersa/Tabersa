@@ -3,38 +3,10 @@
 
 @extends('dashboard.layout.headhtml')
 
-@section('title', 'Tabersa | User')
-@section('toolbartitle', 'User')
+@section('title', 'Tabersa | Active User')
+@section('toolbartitle', 'Ubah Status User')
 
 @section('content')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript">
-        function selects() {
-            var ele = document.getElementsByName('dataid[]');
-            var elesub = document.getElementsByName('datasubmenu[]');
-            for (var i = 0; i < ele.length; i++) {
-                if (ele[i].type == 'checkbox')
-                    ele[i].checked = true;
-            }
-            for (var i = 0; i < elesub.length; i++) {
-                if (elesub[i].type == 'checkbox')
-                    elesub[i].checked = true;
-            }
-        }
-
-        function deSelect() {
-            var ele = document.getElementsByName('dataid[]');
-            var elesub = document.getElementsByName('datasubmenu[]');
-            for (var i = 0; i < ele.length; i++) {
-                if (ele[i].type == 'checkbox')
-                    ele[i].checked = false;
-            }
-            for (var i = 0; i < elesub.length; i++) {
-                if (elesub[i].type == 'checkbox')
-                    elesub[i].checked = false;
-            }
-        }
-    </script>
     <!--begin::Content wrapper-->
     <div id="kt_app_content" class="content d-flex flex-column flex-column-fluid">
         <!--begin::Content container-->
@@ -54,7 +26,7 @@
                             <!--begin::Title-->
                             <h3 class="card-title align-items-start flex-column text-uppercase">
                                 <span class="card-label fs-1 fw-bold text-gray-800 mb-4"><br>User</span>
-                                <span class="text-gray-400 fw-semibold fs-6">Tambahkan Data User</span>
+                                <span class="text-gray-400 fw-semibold fs-6">Ubah Status User</span>
                             </h3>
                             <!--end::Title-->
 
@@ -66,142 +38,45 @@
                             class="nav nav-fill nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
                             <!--begin::Nav item-->
                             <li class="nav-item ">
-                                <a class="nav-link text-active-primary py-5 me-6  active"
+                                <a class="nav-link text-active-primary py-5 me-6 "
                                     href="{{ route('user') }}">Tambah Data</a>
                             </li>
                             <!--end::Nav item-->
                             <!--begin::Nav item-->
                             <li class="nav-item">
-                                <a class="nav-link text-active-primary py-5 me-6"
+                                <a class="nav-link text-active-primary py-5 me-6  active"
                                     href="{{ route('user.showactive') }}">Ubah Status</a>
                             </li>
                             <!--end::Nav item-->
                         </ul>
                             <!--begin::Table-->
                             <div class="my-8"></div>
-                            <form method="POST" action="{{ route('user.register') }}">
+                            <form method="POST" action="{{ route('user.changeactive') }}">
                                 {{ csrf_field() }}
-                                {{ method_field('POST') }}
+                                {{ method_field('PUT') }}
                                 <div class="row">
                                     <div class="col">
-                                        <div class="fs-5 fw-bold form-label mb-3">Data User</div>
-                                        <div class="form-group row mb-4 text-start">
-                                            <label class="col-sm-2 col-form-label" for="form6Example1">Firstname</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="firstname" id="form6Example1"
-                                                    class="form-control" value="" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-4 text-start">
-                                            <label class="col-sm-2 col-form-label" for="form6Example1">Lastname</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="lastname" id="form6Example1"
-                                                    class="form-control" value="" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-4 text-start">
-                                            <label class="col-sm-2 col-form-label" for="form6Example1">Email</label>
-                                            <div class="col-sm-10">
-                                                <input type="email" name="email" id="form6Example1" class="form-control"
-                                                    value="" />
-                                            </div>
-                                        </div>
+                                        <div class="fs-5 fw-bold form-label mb-3">Ubah Status User</div>
                                         <div class="form-group row mb-4 text-start">
                                             <label class="col-sm-2 col-form-label" for="form6Example1">Username</label>
                                             <div class="col-sm-10">
-                                                <input type="text" name="username" id="form6Example1"
-                                                    class="form-control" value="" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-4 text-start">
-                                            <label class="col-sm-2 col-form-label" for="form6Example1">Password</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="password" id="form6Example1"
-                                                    class="form-control" value="" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-4 text-start">
-                                            <label class="col-sm-2 col-form-label" for="form6Example1">Confirm
-                                                Password</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="confirmpasword" id="form6Example1"
-                                                    class="form-control" value="" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-4 text-start">
-                                            <label class="col-sm-2 col-form-label" for="form6Example1">Phone Number</label>
-                                            <div class="col-sm-10">
-                                                <input type="number" name="phonenumber" id="form6Example1"
-                                                    class="form-control" value="" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-4 text-start">
-                                            <label class="col-sm-2 col-form-label" for="form6Example1">User Type</label>
-                                            <div class="col-sm-10">
-                                                <select name="usertype" class="form-select"
+                                                <select name="user" class="form-select"
                                                     aria-label="Default select example">
-                                                    <option value="1" selected>Mobile</option>
-                                                    <option class="select-all" value="2">Admin</option>
-                                                    <option value="3">Guru</option>
+                                                    @foreach ($user as $user)
+                                                    <option value="{{ $user->id }}" >{{ $user->firstName }} {{ $user->lastName }} - {{ $user->userName }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="my-8 divider"></div>
-                                        <div class="fs-5 fw-bold form-label mb-3">Data Menu</div>
-                                        <div class="table-responsive">
-                                            <table class="table table-borderless">
-                                                <tbody>
-                                                    @foreach ($datamenu as $menu)
-                                                        <tr>
-                                                            <td class="text-center">
-                                                                <input class="form-check-input checkboxlistitem"
-                                                                    type="checkbox" id="data" name="dataid[]"
-                                                                    value="{{ $menu->id }}" />
-                                                                <input type="hidden" name="dataname[]"
-                                                                    value="{{ $menu->name }}">
-                                                                <input type="hidden" name="dataicon[]"
-                                                                    value="{{ $menu->icon }}">
-                                                                <input type="hidden" name="dataurl[]"
-                                                                    value="{{ $menu->url }}">
-
-                                                            </td>
-                                                            <td class="text-start">
-                                                                <label class="text-start"
-                                                                    for="form6Example1">{{ $menu->id }} -
-                                                                    {{ $menu->name }}</label>
-                                                            </td>
-                                                            @if ($menu->hasChild == '1')
-                                                                @foreach ($menu->subMenu as $submenu)
-                                                        <tr>
-                                                            <td class="text-center">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    id="data" name="datasubmenu[]"
-                                                                    value="{{ $submenu->id }}" />
-                                                            </td>
-                                                            <td class="text-start">
-                                                                <label class="text-start" for="form6Example1"
-                                                                    style="text-indent: 5em; ">{{ $submenu->id }} -
-                                                                    {{ $submenu->name }}</label>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                    @endif
-                                                    </tr>
-                                                    @endforeach
-                                                    <tr>
-                                                        <td class="text-center">
-                                                            <input type="button"
-                                                                class="btn btn-secondary btn-active-primary"
-                                                                onclick='selects()' value="Select All" />
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <input type="button"
-                                                                class="btn btn-secondary btn-active-primary"
-                                                                onclick='deSelect()' value="Deselect All" />
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                        <div class="form-group row mb-4 text-start">
+                                            <label class="col-sm-2 col-form-label" for="form6Example1">Status</label>
+                                            <div class="col-sm-10">
+                                                <select name="status" class="form-select"
+                                                    aria-label="Default select example">
+                                                    <option value="true" selected>Active</option>
+                                                    <option value="false">Non Active</option>
+                                                </select>
+                                            </div>
                                         </div>
 
                                         <div id="kt_scrolltop" class="scrolltop mb-10" data-kt-scrolltop="true">
@@ -246,7 +121,7 @@
                                     <!--begin::Modal header-->
                                     <div class="modal-header pb-0 border-0 ">
                                         <!--begin::Close-->
-                                        <h1 class="mb-3 text-start">Konfirmasi Simpan Data</h1>
+                                        <h1 class="mb-3 text-start">Konfirmasi Rubah Data</h1>
                                         <div class="btn btn-sm btn-icon btn-active-color-primary right-0"
                                             data-bs-dismiss="modal">
                                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
@@ -268,7 +143,7 @@
                                     <!--begin::Modal header-->
                                     <!--begin::Modal body-->
                                     <div class="modal-body fs-4">
-                                        Simpan Data ?
+                                        Ubah Data ?
                                     </div>
                                     <!--end::Modal body-->
                                     <div class="modal-footer">

@@ -87,6 +87,9 @@ Route::get('/downloadpdf', [DownloadController::class, 'getDownload'])->name('do
 
 Route::get('/user', [UserController::class, 'index'])->name('user');
 Route::post('/user/register', [UserController::class, 'register'])->name('user.register');
+Route::get('/user/showactive', [UserController::class, 'showactive'])->name('user.showactive');
+Route::put('/user/changeactive', [UserController::class, 'changeactive'])->name('user.changeactive');
+
 
 
 
