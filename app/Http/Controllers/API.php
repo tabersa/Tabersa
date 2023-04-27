@@ -206,7 +206,7 @@ function getCifID($token, $id)
 function authCIf($request, $id)
 {
     $token = $request->session()->get('token');
-    if (isset($_POST['verif']) === "verif") {
+    if ($request->verif === "verif") {
         $auth = 1;
         $status = 1;
     } else {
@@ -357,12 +357,12 @@ function getSavingID($token, $id)
 function authSaving($request, $id)
 {
     $token = $request->session()->get('token');
-    if (isset($_POST['verif'])) {
+    if ($request->verif === "Ya") {
         $auth = 1;
-        $status = $request->status;
+        $status = 1;
     } else {
         $auth = 2;
-        $status = $request->status;
+        $status = 2;
     }
     // dd($request->status);
     $body = array(
@@ -489,36 +489,36 @@ function addTransaksi($request)
             CURLOPT_POSTFIELDS => '{
                 "id": "' . guidv4(openssl_random_pseudo_bytes(16)) . '",
                 "cifId": "' . $cifid . '",
-                "transactionDate": "' . date('Y-m-d') . 'T00:00:00' . '",
+                "transactionDate": "' . date('Y-m-d') .'",
                 "transactionGroup": "10",
+                "billerCode": "LCL_TO_BPR",
+                "accountModule": 0,
+                "account": "00102010000003",
                 "invoiceNumber": "' . generateRandomString(10) . '",
                 "description": "' . $deskripsi . '",
                 "totalAmount": "' . $nominal . '",
-                "dc": "C",
+                "dc": "D",
                 "auth": "0",
                 "status": "0",
+                "imageUrl" : "url",
                 "transactionDetail": [
                     {
-                        "transactionId": "' . guidv4(openssl_random_pseudo_bytes(16)) . '",
-                        "billerCode": "LCL_TO_LCL",
-                        "account": "CASH",
-                        "description": "Setoran Kolektif",
+                        "accountModule": 0,
+                        "account": "",
+                        "accountName": "CASH",
+                        "description": "' . $deskripsi . '",
                         "amount": "' . $nominal . '",
                         "dc": "D",
-                        "transaction": {
-                            "value": "' . $nominal . '"
-                                        }
+                        "counterTenant": null
                     },
                     {
-                        "transactionId": "' . guidv4(openssl_random_pseudo_bytes(16)) . '",
-                        "billerCode": "LCL_TO_LCL",
+                        "accountModule": 2,
                         "account": "' . $rekening . '",
-                        "description": "' . $nama . '",
+                        "accountName": "' . $nama . '",
+                        "description": "' . $deskripsi . '",
                         "amount": "' . $nominal . '",
                         "dc": "C",
-                        "transaction": {
-                            "value": "' . $nominal . '"
-                                        }
+                        "counterTenant": "600002"
                     }
                     ]
                 }',
@@ -712,12 +712,12 @@ function getTransaksiSearch($request)
 }
 
 
-function authTransaksi($token, $id)
+function authTransaksi($request, $id)
 {
-    if (isset($_POST['verif']) === 'terima') {
+    if ($request->verif === 'terima') {
         $auth = 1;
         $status = 1;
-    } else {
+    } else if ($request->verif === 'tolak') {
         $auth = 2;
         $status = 2;
     }
@@ -727,6 +727,7 @@ function authTransaksi($token, $id)
         "status" => $status,
     );
     $api = config('properties.api');
+    $token = session()->get('token');
     $curl = curl_init();
     curl_setopt_array(
         $curl,

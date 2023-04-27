@@ -64,7 +64,7 @@ class LoginController extends Controller
                 Alert::success('Selamat', 'Anda Berhasil Login');
                 return redirect()->route('dashboard');
             } else {
-                Alert::error('Error', 'Username atau Kata Sandi Anda Salah');
+                Alert::error('Error', $data->messages);
                 return redirect()->route('back');
             }
     }

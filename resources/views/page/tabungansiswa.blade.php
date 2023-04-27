@@ -53,7 +53,8 @@
                                 data-bs-target="#kt_modal_view_users">Cek QR Code</a>
                             <a href="#" class="btn btn-success er fs-6 px-8 py-4" data-bs-toggle="modal"
                                 data-bs-target="#kt_modal_scan">Scan QR Code</a>
-                            <a target="_blank" href="{{ route('testing') }}" class="btn btn-success er fs-6 px-8 py-4">Print card</a>
+                            <a target="_blank" href="{{ route('testing') }}" class="btn btn-success er fs-6 px-8 py-4">Print
+                                card</a>
 
                             <div class="modal fade" id="kt_modal_view_users" tabindex="-1" aria-hidden="true">
                                 <!--begin::Modal dialog-->
@@ -134,10 +135,17 @@
                                                 <select class="form-control text-center" id="pilihKamera">
                                                 </select>
                                                 <br>
-                                                <form action="{{ route('gettabungansiswa') }}" method="post">
+                                                <form name="tabungansiswa" id="tabungansiswa"
+                                                    action="{{ route('gettabungansiswa') }}" method="post">
                                                     @csrf
                                                     @method('POST')
-                                                    <input class="form-control mb-3" name="number" type="text" id="hasilscan" style="text-align: center">
+                                                    <input class="form-control mb-3" name="number" type="password"
+                                                        id="hasilscan" style="text-align: center">
+                                                    <script type="text/javascript">
+                                                        $(document).ready(function() {
+                                                            $('#tabungansiswa').submit;
+                                                        });
+                                                    </script>
                                                     <button type="submit" class="btn btn-success btn-active-color-primary">Search</button>
                                                 </form>
                                             </div>

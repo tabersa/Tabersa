@@ -29,7 +29,7 @@ class infoTransaksiController extends Controller
     public function autorisasi(Request $request, $id)
     {
         $token = $request->session()->get('token');
-        list($new, $httpcode) = authTransaksi($token, $id);
+        list($new, $httpcode) = authTransaksi($request, $id);
         if ($new->succeeded === true) {
             Alert::success('Selamat', 'Data Telah di Autorisasi');
             return redirect()->route('transaksi');

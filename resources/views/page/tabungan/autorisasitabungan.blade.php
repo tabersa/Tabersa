@@ -226,7 +226,7 @@
                                             <!--end::Modal body-->
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-danger text-light w-40 ls-3 text-uppercase" data-bs-dismiss="modal">Tidak</button>
-                                                <input type="submit" name="verif" value="Ya" class="btn btn-success text-light w-40 ls-3 text-uppercase">
+                                                <input type="submit" name="verif" value="Tidak" class="btn btn-success text-light w-40 ls-3 text-uppercase">
                                             </div>
                                         </div>
                                         <!--end::Modal content-->
