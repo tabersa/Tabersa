@@ -140,7 +140,7 @@
                                                     @csrf
                                                     @method('POST')
                                                     <input class="form-control mb-3" name="number" type="password"
-                                                        id="hasilscan" style="text-align: center">
+                                                        id="hasilscan" style="text-align: center" required>
                                                     <script type="text/javascript">
                                                         $(document).ready(function() {
                                                             $('#tabungansiswa').submit;
